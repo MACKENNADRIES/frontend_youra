@@ -1,0 +1,15 @@
+.rak-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    background: #f9f9f9;
+}
+
+.rak-card h3 {
+    margin: 0 0 5px;
+}
+
+.rak-card p {
+    margin: 0;
+}
