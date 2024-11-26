@@ -1,14 +1,18 @@
-import { sampleRAKs } from "../RAKdata";
-import RAKCard from "../components/RAKCard";
+import useRAKs from "../hooks/use-raks";
+import RAKCard from "../components/RAKCard.jsx";
 
 function HomePage() {
+    const { raks, isLoading, error } = useRAKs();
+
+    if (isLoading) return <p>Loading RAKs...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
     return (
-    <div id="rak-list">
-        <h1>Random Acts of Kindness</h1>
-        {sampleRAKs.map((rak) => (
-        <RAKCard key={rak.id} rakData={rak} />
-        ))}
-    </div>
+        <div id="rak-list" className="rak-grid">
+            {raks.map((rakData) => (
+                <RAKCard key={rakData.id} rakData={rakData} />
+            ))}
+        </div>
     );
 }
 

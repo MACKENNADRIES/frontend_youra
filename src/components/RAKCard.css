@@ -1,15 +1,25 @@
 .rak-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 100%;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.rak-card:hover {
+    transform: scale(1.05);
+}
+
+.rak-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.rak-title {
     padding: 10px;
-    margin: 10px 0;
-    background: #f9f9f9;
-}
-
-.rak-card h3 {
-    margin: 0 0 5px;
-}
-
-.rak-card p {
-    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
 }
