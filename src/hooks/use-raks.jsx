@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
-import getRAKs from "../api/get-raks";
+import getRAK from "../api/get-rak";
 
-export default function useRAKs() {
-    const [raks, setRAKs] = useState([]);
+export default function useRAK(rakId) {
+    const [rak, setRak] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        getRAKs()
-            .then((data) => {
-                setRAKs(data);
-                setIsLoading(false);
+        getRAK(rakId)
+                .then((rak) => {
+            setRak(rak);
+            setIsLoading(false);
             })
-            .catch((err) => {
-                setError(err);
-                setIsLoading(false);
-            });
-    }, []);
+        .catch((error) => {
+            setError(error);
+            setIsLoading(false);
+    });
+}, [rakId]);
 
-    return { raks, isLoading, error };
+return { rak, isLoading, error };
 }
