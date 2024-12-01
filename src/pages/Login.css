@@ -1,142 +1,178 @@
-/* Ensure the page fills the viewport */
+/* Full viewport setup */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-}
-
-/* Login page background with radial gradient */
-.login-page {
-    position: relative;
-    min-height: 100vh; /* Ensure it fills the viewport */
+    width: 100%;
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Horizontally centers the box */
+    align-items: center; /* Vertically centers the box */
     background: radial-gradient(circle, #c500d6, #900b87, #490543, #0e000d);
-    color: #fff; /* Text color for readability */
-    overflow: hidden; /* Prevent scrollbars for background */
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    position: relative;
 }
 
-/* Canvas background */
+/* Background canvas for waves */
 #background-canvas {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Place behind the content */
-    pointer-events: none; /* Allow interaction through canvas */
+    z-index: 0; /* Behind all content */
+    pointer-events: none;
 }
 
-/* Glowing circle */
-.glowing-circle {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: radial-gradient(circle, #fff, #00ffcc, rgba(0, 0, 0, 0));
-    border-radius: 50%;
-    animation: move-circle 5s infinite linear, color-change 5s infinite linear;
+/* Centered login box with true wide layout */
+.login-box {
+    position: relative;
+    background: linear-gradient(145deg, rgba(42, 3, 32, 0.95), rgba(25, 2, 18, 0.95)); /* Sleek gradient */
+    border-radius: 20px; /* Rounded corners */
+    padding: 30px 40px; /* Balanced padding */
+    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3); /* Soft pink glow */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 2;
+    width: 40vw; /* This makes the box truly wide (70% of the viewport width) */
+    height: auto; /* Adapts to content height */
+    max-width: 1400px; /* Prevents it from being too wide on large screens */
+    box-sizing: border-box;
+    text-align: center;
+    animation: pink-glow 3s infinite; /* Pulsing glow animation */
 }
 
-/* Animate the glowing circle to move down */
-@keyframes move-circle {
+/* Pink glow animation */
+@keyframes pink-glow {
     0% {
-        top: 0%;
-    }
-    100% {
-        top: 95%;
-    }
-}
-
-/* Animate the color of the glowing circle */
-@keyframes color-change {
-    0% {
-        background: radial-gradient(circle, #ff00cc, rgba(0, 0, 0, 0));
+        box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
     }
     50% {
-        background: radial-gradient(circle, #00ffcc, rgba(0, 0, 0, 0));
+        box-shadow: 0 6px 25px rgba(255, 105, 180, 0.5);
     }
     100% {
-        background: radial-gradient(circle, #ffcc00, rgba(0, 0, 0, 0));
+        box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
     }
 }
 
-/* Position the logo above the login form */
+/* Logo container */
 .logo {
     position: relative;
-    width: 200px; /* Adjust the size of the logo container */
-    height: 200px; /* Base size for the stacked logos */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px; /* Space between the logo and the form */
+    width: 140px;
+    height: 140px;
+    margin-bottom: 30px;
 }
 
-/* Style individual logo images */
 .logo img {
-    position: absolute; /* Stack images on top of each other */
-    top: 50%; /* Center vertically in the logo container */
-    left: 50%; /* Center horizontally in the logo container */
-    transform: translate(-50%, -50%); /* Adjust for absolute positioning */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin-clockwise 20s linear infinite;
 }
 
-/* Specific sizes for each logo */
 .logo img.logo-stars {
-    width: 210%; /* Full size */
-    z-index: 3; /* Top layer */
+    width: 200%;
+    z-index: 3;
     animation: flash 3s infinite;
 }
 
 .logo img.logo-outer {
-    width: 80%; /* Slightly smaller */
-    z-index: 2; /* Middle layer */
+    width: 140%;
+    z-index: 2;
     animation: spin-counterclockwise 20s linear infinite;
 }
 
 .logo img.logo-inner {
-    width: 60%; /* Smallest */
-    z-index: 1; /* Bottom layer */
+    width: 100%;
+    z-index: 1;
     animation: spin-clockwise 20s linear infinite;
 }
 
-/* Keyframes for clockwise spin */
+/* Keyframes for logo animations */
 @keyframes spin-clockwise {
-    0% {
+    from {
         transform: translate(-50%, -50%) rotate(0deg);
     }
-    100% {
+    to {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
 
-/* Keyframes for counterclockwise spin */
 @keyframes spin-counterclockwise {
-    0% {
+    from {
         transform: translate(-50%, -50%) rotate(0deg);
     }
-    100% {
+    to {
         transform: translate(-50%, -50%) rotate(-360deg);
     }
 }
 
 @keyframes flash {
     0%, 100% {
-        opacity: 1; /* Fully visible */
+        opacity: 1;
     }
     50% {
-        opacity: 0.5; /* Dimmed */
+        opacity: 0.5;
     }
 }
 
-/* Auth form styling */
+/* Inputs and buttons */
 .auth-form {
-    position: relative;
-    z-index: 1;
-    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-    padding: 5%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 300px;
-    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.auth-form input {
+    width: 80%; /* Adapts proportionally to the wider box */
+    padding: 15px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f0a4e9;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.auth-form input:focus {
+    background-color: rgba(198, 139, 203, 0.2);
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+.auth-form button {
+    width: 60%; /* Matches the proportions of the wider box */
+    padding: 15px;
+    background: linear-gradient(145deg, #90057e, #b75f9f);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.auth-form button:hover {
+    background: linear-gradient(145deg, #490642, #ff69b4);
+    box-shadow: 0 2px 10px rgba(255, 105, 180, 0.5);
+}
+
+/* Heading with bold, sleek style */
+h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    color: #fff;
 }
