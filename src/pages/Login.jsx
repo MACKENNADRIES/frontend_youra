@@ -76,9 +76,9 @@ function LoginPage() {
 
             for (let i = 0; i < 3; i++) {
                 const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                gradient.addColorStop(0, `rgba(111, 0, 255, 0.12)`);
-                gradient.addColorStop(0.5, `rgba(255, 20, 147, 0.08)`);
-                gradient.addColorStop(1, `rgba(255, 182, 193, 0.05)`);
+                gradient.addColorStop(0, `rgba(222, 176, 255, 0.12)`);
+                gradient.addColorStop(0.5, `rgba(166, 118, 173, 0.5)`);
+                gradient.addColorStop(1, `rgba(122, 87, 173, 1)`);
 
                 ctx.fillStyle = gradient;
 
@@ -100,7 +100,7 @@ function LoginPage() {
             }
 
             const fourthWaveHeight = canvas.height * 0.5;
-            ctx.fillStyle = `rgba(31, 3, 27, 0.9)`;
+            ctx.fillStyle = `rgba(222, 176, 255, 0.9)`;
             ctx.beginPath();
             for (let x = 0; x <= canvas.width; x++) {
                 const y =
@@ -113,15 +113,31 @@ function LoginPage() {
             ctx.closePath();
             ctx.fill();
 
-            const fifthWaveHeight = canvas.height * 0.45;
-            ctx.fillStyle = `rgba(171, 52, 191, 0.5)`;
-            ctx.beginPath();
-            for (let x = 0; x <= canvas.width; x++) {
-                const y =
-                    fifthWaveHeight +
-                    80 * Math.sin(0.002 * x + time * 0.4);
-                ctx.lineTo(x, y);
-            }
+            // Draw the fifth wave with a radial gradient
+    const fifthWaveHeight = canvas.height * 0.45;
+
+    // Create a radial gradient
+    const gradient = ctx.createRadialGradient(
+        canvas.width / 2, // x0: center of gradient
+        canvas.height / 2, // y0: center of gradient
+        0, // r0: start radius
+        canvas.width / 2, // x1: center of gradient
+        canvas.height / 2, // y1: center of gradient
+        Math.min(canvas.width, canvas.height) // r1: end radius
+    );
+    gradient.addColorStop(0, '#deb0ff');
+    gradient.addColorStop(0.5, '#7a57ad');
+    gradient.addColorStop(0.8, '#2e276f');
+    gradient.addColorStop(1, '#0e000d');
+
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    for (let x = 0; x <= canvas.width; x++) {
+        const y =
+            fifthWaveHeight +
+            80 * Math.sin(0.002 * x + time * 0.4);
+        ctx.lineTo(x, y);
+    }
             ctx.lineTo(canvas.width, canvas.height);
             ctx.lineTo(0, canvas.height);
             ctx.closePath();
@@ -202,7 +218,7 @@ function LoginPage() {
                 />
                 <button type="submit">{isRegistering ? "Register" : "Login"}</button>
                 <button type="button" onClick={() => setIsRegistering(!isRegistering)}>
-                    {isRegistering ? "Back to Login" : "Switch to Register"}
+                    {isRegistering ? "Back to Login" : "Create Account"}
                 </button>
             </form>
         </div>
