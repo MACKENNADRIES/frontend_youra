@@ -1,0 +1,97 @@
+/* Ensure the page fills the viewport */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Login page background with radial gradient */
+.login-page {
+    position: relative;
+    min-height: 100vh; /* Ensure it fills the viewport */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #c500d6, #900b87, #490543, #0e000d);
+    color: #fff; /* Text color for readability */
+    overflow: hidden; /* Prevent scrollbars for background */
+}
+
+/* Position the logo above the login form */
+.logo {
+    position: relative;
+    width: 200px; /* Adjust the size of the logo container */
+    height: 200px; /* Base size for the stacked logos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Space between the logo and the form */
+}
+
+/* Style individual logo images */
+.logo img {
+    position: absolute; /* Stack images on top of each other */
+    top: 50%; /* Center vertically in the logo container */
+    left: 50%; /* Center horizontally in the logo container */
+    transform: translate(-50%, -50%); /* Adjust for absolute positioning */
+}
+
+/* Specific sizes for each logo */
+.logo img.logo-stars {
+    width: 210%; /* Full size */
+    z-index: 3; /* Top layer */
+    animation: flash 3s infinite;
+}
+
+.logo img.logo-outer {
+    width: 80%; /* Slightly smaller */
+    z-index: 2; /* Middle layer */
+    animation: spin-counterclockwise 20s linear infinite;
+}
+
+.logo img.logo-inner {
+    width: 60%; /* Smallest */
+    z-index: 1; /* Bottom layer */
+    animation: spin-clockwise 20s linear infinite;
+}
+
+/* Keyframes for clockwise spin */
+@keyframes spin-clockwise {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Keyframes for counterclockwise spin */
+@keyframes spin-counterclockwise {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+@keyframes flash {
+    0%, 100% {
+        opacity: 1; /* Fully visible */
+    }
+    50% {
+        opacity: 0.5; /* Dimmed */
+    }
+}
+/* Auth form styling */
+.auth-form {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+    padding: 5%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    text-align: center;
+}

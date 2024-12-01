@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import HomePage from "./pages/HomePage.jsx";
+import HomePage from "./pages/Login.jsx";
 import RAKDetailsPage from "./pages/RAKDetailsPage.jsx";
 import LeaderboardPage from "./pages/LeaderboardPage.jsx";
 import UserProfilePage from "./pages/UserProfilePage.jsx";
