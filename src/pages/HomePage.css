@@ -1,103 +1,71 @@
-/* General styles */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: 'Lato', sans-serif;
-    overflow: hidden;
-}
-
-.home-page {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-}
-
-/* Background canvas */
-#background-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Box container */
-.box-container {
+.homepage-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-    width: 80%;
-    max-width: 1200px;
-    z-index: 1;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns for larger screens */
+    grid-template-rows: auto;
+    gap: 20px;
+    width: 110vh;
+    height: 80vh;
 }
 
-/* Boxes */
-.box {
-    position: relative;
-    background: rgba(44, 17, 86, 0.8);
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    padding: 20px;
+.button {
+    position: relative; /* Make this the positioning reference for children */
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+    justify-content: center;
+    text-align: center;
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
-
-.box:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 30px rgba(255, 105, 180, 0.5);
+.compass {
+    position: absolute; /* Position relative to the button container */
+    bottom: 10%; /* Move the compass setup towards the bottom of the button */
+    left: 50%; /* Center horizontally within the button */
+    transform: translateX(-50%); /* Perfect centering horizontally */
+    width: 150px; /* Adjust size as needed */
+    height: 150px;
+    display: flex; /* Use flex to help align child elements */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
 }
 
-/* Box content */
-.box-content h3 {
-    color: #ffffff;
-    margin-bottom: 10px;
-    font-size: 24px;
-}
-
-.box-content img {
-    width: 80%;
+.compass-base {
+    width: 100%; /* Full size of the compass */
     height: auto;
-    animation: pulse 2s infinite;
+    position: relative;
 }
 
-/* Animation for images */
-@keyframes pulse {
+.compass-top {
+    width: 40%; /* Adjust size for better fit */
+    height: auto;
+    position: absolute;
+    top: 50%; /* Center vertically within the base */
+    left: 50%; /* Center horizontally within the base */
+    transform: translate(-30%, -50%); /* Slight adjustment to the right and down */
+    animation: swayCompass 2s ease-in-out infinite; /* Add sway animation */
+}
+
+@keyframes swayCompass {
     0%, 100% {
-        transform: scale(1);
+        transform: translate(-48%, -52%) rotate(-5deg); /* Tilt left */
     }
     50% {
-        transform: scale(1.1);
+        transform: translate(-48%, -52%) rotate(5deg); /* Tilt right */
     }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .box-container {
-        grid-template-columns: repeat(2, 1fr);
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .homepage-grid {
+        grid-template-columns: 1fr; /* Single column for mobile */
+        grid-auto-rows: auto; /* Automatic row sizing */
+    }
+
+    .button {
+        width: 100%; /* Make buttons span full width */
     }
 }
-
-@media (max-width: 480px) {
-    .box-container {
-        grid-template-columns: 1fr;
-    }
-
-    .box {
-        padding: 15px;
-    }
-}
-
-/* 
-animate compass so it looks like the compass thing is moving, lotus circles radiatin, heart lines glowing */

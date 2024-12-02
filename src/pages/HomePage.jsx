@@ -1,85 +1,68 @@
-import React, { useEffect } from "react";
-import "../styles.css"; // Updated styles for the home page
+import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 
-function HomePage() {
-    useEffect(() => {
-        const canvas = document.getElementById("background-canvas");
-        const ctx = canvas.getContext("2d");
+const HomePage = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let time = 0;
-
-        const drawFlowingWaves = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < 3; i++) {
-                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                gradient.addColorStop(0, `rgba(222, 176, 255, 0.05)`); // Lower opacity
-                gradient.addColorStop(0.5, `rgba(166, 118, 173, 0.3)`);
-                gradient.addColorStop(1, `rgba(122, 87, 173, 0.7)`);
-
-                ctx.fillStyle = gradient;
-
-                const amplitude = 80 + i * 20;
-                const frequency = 0.002 + i * 0.001;
-                const yOffset = canvas.height / 3 + i * 60;
-
-                ctx.beginPath();
-                for (let x = 0; x <= canvas.width; x++) {
-                    const y =
-                        yOffset +
-                        amplitude * Math.sin(frequency * x + time * (0.5 + i * 0.1));
-                    ctx.lineTo(x, y);
-                }
-                ctx.lineTo(canvas.width, canvas.height);
-                ctx.lineTo(0, canvas.height);
-                ctx.closePath();
-                ctx.fill();
-            }
-
-            time += 0.01;
-            requestAnimationFrame(drawFlowingWaves);
-        };
-
-        drawFlowingWaves();
-
-        const handleResize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
-    const navigateToPage = (page) => {
-        console.log(`Navigating to ${page}`); // Replace with actual navigation logic
+  // Update `isMobile` on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
     };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    return (
-        <div className="home-page">
-            {/* Background canvas */}
-            <canvas id="background-canvas"></canvas>
+  const [buttons] = useState([
+    {
+      id: 1,
+      label: "Start a RAK",
+      gridPosition: "2 / 1 / span 2 / span 2",
+      isCompass: true, // Indicate this is a compass item
+    },
+    { id: 2, label: "Claim a RAK", image: "/images/claim-rak.png", gridPosition: "2 / 3" },
+    { id: 3, label: "My Aura", image: "/images/my-aura.png", gridPosition: "2 / 4" },
+    { id: 4, label: "Pay It Forward", image: "/images/pay-forward.png", gridPosition: "3 / 3" },
+    { id: 5, label: "Leaderboard", image: "/images/leaderboard.png", gridPosition: "3 / 4" },
+    { id: 6, label: "Explore", image: "/images/explore.png", gridPosition: "4 / 1 / span 1 / span 4" },
+  ]);
 
-            {/* Box container */}
-            <div className="box-container">
-                {["Page 1", "Page 2", "Page 3", "Page 4", "Page 5"].map((page, index) => (
-                    <div key={index} className={`box box-${index + 1}`} onClick={() => navigateToPage(page)}>
-                        <div className="box-content">
-                            <h3>{page}</h3>
-                            <img src={`/path-to-animation-${index + 1}.gif`} alt={`${page} animation`} />
-                        </div>
-                    </div>
-                ))}
+  const handleClick = (e, id) => {
+    const ripple = document.createElement("div");
+    ripple.className = "animation";
+    e.target.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+
+    console.log(`Button ${id} clicked!`);
+  };
+
+  return (
+    <div className="homepage-grid">
+      {buttons.map((button) => (
+        <div
+          key={button.id}
+          className="button"
+          style={!isMobile ? { gridArea: button.gridPosition } : undefined}
+          onClick={(e) => handleClick(e, button.id)}
+        >
+          {button.isCompass ? (
+            <div className="compass">
+              <img src="src/assets/compass-base.png" alt="Compass Base" className="compass-base" />
+              <img src="src/assets/compass-top.png" alt="Compass Top" className="compass-top" />
             </div>
+          ) : (
+            <>
+              <img src={button.image} alt={button.label} />
+              <p>{button.label}</p>
+            </>
+          )}
         </div>
-    );
-}
+      ))}
+    </div>
+  );
+};
 
 export default HomePage;
