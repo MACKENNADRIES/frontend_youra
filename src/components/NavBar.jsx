@@ -1,16 +1,19 @@
-import { Link, Outlet } from "react-router-dom";
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 function Navbar() {
     return (
-    <div>
-        <nav>
-            <Link to="/">Home</Link>
-            <Link to="/leaderboard">Leaderboard</Link>
-            <Link to="/profile">Profile</Link>
-        </nav>
-        <Outlet />
-    </div>
-);
+        <div>
+            {/* Navbar content */}
+            <nav>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/rak/1">RAK Details</a></li>
+                </ul>
+            </nav>
+            <Outlet />
+        </div>
+    );
 }
 
 export default Navbar;
