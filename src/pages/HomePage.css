@@ -6,9 +6,9 @@
     width: 110vh;
     height: 80vh;
 }
-
+/* General button styles */
 .button {
-    position: relative; /* Make this the positioning reference for children */
+    position: relative; /* Make this the reference for the glow */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,9 +17,44 @@
     background-color: black;
     border-radius: 10px;
     padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(242, 177, 159, 0.6); /* Soft pink glow */ /* Default shadow */
     cursor: pointer;
+    overflow: visible; /* Allow the glow to extend beyond the button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
 }
+
+/* Persistent orange glow */
+.button::before {
+    content: "";
+    position: absolute;
+    top: -10px; /* Extend beyond the button */
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 15px; /* Match the button's rounded corners */
+    box-shadow: 0 4px 20px rgba(242, 177, 159, 0.6); /* Soft pink glow */
+    z-index: -1; /* Place behind the button */
+}
+
+/* Tracing outline on hover */
+.button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px; /* Match the button's rounded corners */
+    border: 2px solid transparent; /* Invisible border initially */
+    z-index: 1; /* Place above the button content */
+}
+
+.button:hover {
+    border-color: rgba(255, 165, 0, 0.9);
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.6); /* Add subtle orange glow */
+}
+
+
 .compass {
     position: absolute; /* Position relative to the button container */
     bottom: 10%; /* Move the compass setup towards the bottom of the button */
@@ -39,12 +74,12 @@
 }
 
 .compass-top {
-    width: 40%; /* Adjust size for better fit */
+    width: 30%; /* Adjust size for better fit */
     height: auto;
     position: absolute;
-    top: 50%; /* Center vertically within the base */
-    left: 50%; /* Center horizontally within the base */
-    transform: translate(-30%, -50%); /* Slight adjustment to the right and down */
+    top: 55%; /* Center vertically within the base */
+    left: 57%; /* Center horizontally within the base */
+    transform: translate(-50%, -50%); /* Perfect centering */
     animation: swayCompass 2s ease-in-out infinite; /* Add sway animation */
 }
 
@@ -57,15 +92,155 @@
     }
 }
 
+.lotus-container {
+    display: flex;
+    flex-direction: column; /* Stack lotus elements vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically within the container */
+    position: relative;
+    width: 100%;
+    height: 100%; /* Make container fill the button */
+    gap: 8px; /* Adjust spacing between lotus elements */
+}
 
-/* Media query for smaller screens */
+.lotus-top {
+    width: 60%; /* Full size of the compass */
+    height: auto;
+    position: relative;
+    top: 42%;
+    animation: float 3s ease-in-out infinite;
+}
+
+.lotus-bottom1 {
+    width: 50%; /* Adjust size as needed */
+    height: auto;
+    position: relative;
+    top: 34%;
+}
+.lotus-bottom2 {
+    width: 70%; /* Adjust size as needed */
+    height: auto;
+    position: relative;
+    top: 18%;
+}
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0); /* Start and end at the initial position */
+    }
+    50% {
+        transform: translateY(-2px); /* Move slightly upward */
+    }
+}
+
+.hands-container {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Stack hands-outer and hands-inner */
+    align-items: center; /* Center horizontally */
+    justify-content: flex-end; /* Align to the bottom of the button */
+    width: 100%;
+    height: 100%;
+    gap: 8px; /* Add spacing between hands */
+}
+
+/* Responsive scaling for hands */
+.hands-outer {
+    width: 70%; /* Adjust size as needed */
+    height: auto;
+    position: relative;
+    top: 40%;
+}
+.hands-inner {
+    width: 40%; /* Adjust size as needed */
+    height: auto;
+    position: relative;
+    top: -15%;
+    animation: grow-shrink 4s ease-in-out infinite;
+}
+
+@keyframes grow-shrink {
+    0%, 100% {
+        transform: scale(1); /* Normal size */
+    }
+    50% {
+        transform: scale(1.1); /* Grow to 20% larger */
+    }
+}
+
+/* Crown container for id: 4 */
+.crown-container {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Stack crown-top and crown-bottom vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: flex-end; /* Align to the bottom of the button */
+    width: 100%;
+    height: 100%;
+    gap: 8px; /* Space between crown elements */
+}
+
+/* Responsive scaling for crown elements */
+.crown-top {
+    width: 50%; /* Adjust size proportionately */
+    max-width: 100px; /* Maximum size for larger screens */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure content scales without distortion */
+    animation: twinkle 6s infinite ease-in-out; 
+}
+.crown-bottom {
+    width: 50%; /* Adjust size proportionately */
+    max-width: 100px; /* Maximum size for larger screens */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure content scales without distortion */
+}
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 1; /* Fully visible */
+        transform: scale(1); /* Normal size */
+    }
+    50% {
+        opacity: 0.6; /* Slightly dimmed */
+        transform: scale(1.1); /* Slightly larger */
+    }
+} 
+
+/* Profile container for id: 5 */
+.profile-container {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Stack profile-inner and profile-outer vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: flex-end; /* Align to the bottom of the button */
+    width: 100%;
+    height: 100%;
+    gap: 8px; /* Space between profile elements */
+}
+
+/* Responsive scaling for profile elements */
+.profile-outer {
+    width: 75%; /* Adjust size as needed */
+    height: auto;
+    position: relative;
+    top: 32%;
+    animation: grow-shrink 4s infinite ease-in-out; 
+}
+.profile-inner {
+    width: 30%; /* Adjust size as needed */
+    height: auto;
+    position: relative;
+    top: -20%;
+}
+@keyframes grow-shrink {
+    0%, 100% {
+        transform: scale(1); /* Normal size */
+    }
+    50% {
+        transform: scale(1.05); /* Grow to 120% of original size */
+    }
+}
 @media (max-width: 600px) {
     .homepage-grid {
         grid-template-columns: 1fr; /* Single column for mobile */
-        grid-auto-rows: auto; /* Automatic row sizing */
-    }
-
-    .button {
-        width: 100%; /* Make buttons span full width */
+        grid-auto-rows: auto;
     }
 }
