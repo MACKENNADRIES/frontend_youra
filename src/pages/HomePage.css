@@ -3,65 +3,67 @@
 
 .homepage-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns for larger screens */
+    grid-template-columns: repeat(4, 1fr); 
     grid-template-rows: auto;
     gap: 20px;
     width: 110vh;
     height: 80vh;
 }
-/* General button styles */
+
+/* This is for the big buttons - with imgs in it  */
 .button {
-    position: relative; /* Make this the reference for the glow */
+    position: relative; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: black;
+    background-color: rgb(29, 6, 44);
     border-radius: 10px;
     padding: 10px;
-    box-shadow: 0 2px 10px rgba(242, 177, 159, 0.6); /* Soft pink glow */ /* Default shadow */
+    box-shadow: 0 2px 10px rgba(242, 177, 159, 0.6); 
     cursor: pointer;
-    overflow: visible; /* Allow the glow to extend beyond the button */
-    transition: background-color 0.3s ease; /* Smooth transition for hover */
+    overflow: visible; 
+    /* could remove */
+    transition: background-color 0.3s ease; 
 }
 .button-heading {
-    position: absolute; /* Ensure it stays at the top of the button */
-    top: 10px; /* Adjust distance from the top edge */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Perfect horizontal centering */
-    font-size: 1.2rem; /* Adjust font size */
+    position: absolute;
+    top: 10px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    font-size: 1.2rem; 
     font-family: lato;
-    font-weight: bold; /* Make the text bold */
-    color: #e7a8f4; /* Light pink color to match the design */
-    text-align: center; /* Ensure the text is centered */
-    z-index: 10; /* Ensure it stays above other elements */
+    font-weight: bold; 
+    color: #e7a8f4; 
+    text-align: center; 
+    z-index: 10; 
 }
 .button-description {
-    margin-top: -45%; /* Space between the heading and the paragraph */
-    font-size: 1rem; /* Adjust font size */
-    font-family: 'Lato', Arial, sans-serif; /* Use Lato or fallback */
-    color: #ffffff; /* Adjust color to match your theme */
-    text-align: center; /* Center-align the text */
-    line-height: 1.5; /* Improve readability with line height */
+    margin-top: -45%; 
+    font-size: 1rem; 
+    font-family: 'Lato', Arial, sans-serif; 
+    color: #ffffff; 
+    text-align: center; 
+    line-height: 1.5; 
 }
 
 
 
-/* Persistent orange glow */
+
 .button::before {
     content: "";
     position: absolute;
-    top: -10px; /* Extend beyond the button */
+    top: -10px; 
     left: -10px;
     right: -10px;
     bottom: -10px;
-    border-radius: 15px; /* Match the button's rounded corners */
-    box-shadow: 0 4px 20px rgba(242, 177, 159, 0.6); /* Soft pink glow */
-    z-index: -1; /* Place behind the button */
+    border-radius: 15px; 
+    box-shadow: 0 4px 20px rgba(242, 177, 159, 0.6); 
+    z-index: -1; 
 }
 
-/* Tracing outline on hover */
+
 .button::after {
     content: "";
     position: absolute;
@@ -129,7 +131,7 @@
 }
 
 .lotus-top {
-    width: 60%; /* Full size of the compass */
+    width: 50%; /* Full size of the compass */
     height: auto;
     position: relative;
     top: 42%;
@@ -176,10 +178,10 @@
     top: 40%;
 }
 .hands-inner {
-    width: 40%; /* Adjust size as needed */
+    width: 35%; /* Adjust size as needed */
     height: auto;
     position: relative;
-    top: -15%;
+    top: -20%;
     animation: grow-shrink 4s ease-in-out infinite;
 }
 
@@ -263,7 +265,31 @@
         transform: scale(1.05); /* Grow to 120% of original size */
     }
 }
-
+/* Scope the styles specifically to id=6 */
+#button-6 .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    gap: 10px; /* Add spacing between images */
+    transform: translateY(10px); /* Optional: Adjust vertical position */
+  }
+  
+  #button-6 .logo-stars {
+    width: 300px; /* Adjust size for smaller stars */
+    height: 300px;
+  }
+  
+  #button-6 .logo-outer {
+    width: 110px; /* Adjust size for smaller outer ring */
+    height: 110px;
+  }
+  
+  #button-6 .logo-inner {
+    width: 80px; /* Adjust size for smaller inner ring */
+    height: 80px;
+  }
+  
 
 @media (max-width: 600px) {
     .homepage-grid {

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import CreateRAKPage from "./pages/CreateRAKPage.jsx";
 import Login from "./pages/Login.jsx";
 import RAKDetailsPage from "./pages/RAKDetailsPage.jsx";
 import LeaderboardPage from "./pages/LeaderboardPage.jsx";
@@ -18,6 +18,7 @@ const router = createBrowserRouter([
             { path: "/rak/:id", element: <RAKDetailsPage /> },
             { path: "/leaderboard", element: <LeaderboardPage /> },
             { path: "/profile", element: <UserProfilePage /> },
+            { path: "/create-rak", element: <CreateRAKPage /> }, 
         ],
     },
 ]);

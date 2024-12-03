@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useDrawWaves } from "../hooks/drawingWaves"; // Import the custom hook
 import "../styles.css"; // Ensure this includes your updated styles
 import "./Login.css";
 
 function LoginPage() {
     const navigate = useNavigate(); // Initialize navigation
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isRegistering, setIsRegistering] = useState(false);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
-        first_name: "",
-        last_name: "",
         password: "",
     });
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
     const url = `${import.meta.env.VITE_API_URL}/users/`;
+
+    // Use the wave animation hook
+    useDrawWaves("background-canvas");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,7 +29,7 @@ function LoginPage() {
         e.preventDefault();
         setError("");
         setSuccessMessage("");
-    
+
         if (formData.email === "user@example.com" && formData.password === "password123") {
             setSuccessMessage("Logged in successfully!");
             navigate("/home"); // Redirect to home page
@@ -36,7 +37,6 @@ function LoginPage() {
             setError("Invalid email or password.");
         }
     };
-    
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -55,7 +55,6 @@ function LoginPage() {
             if (response.ok) {
                 const data = await response.json();
                 setSuccessMessage(`User ${data.username} created successfully!`);
-                setIsLoggedIn(true);
                 navigate("/home"); // Redirect to HomePage after registration
             } else {
                 const errorData = await response.json();
@@ -66,118 +65,20 @@ function LoginPage() {
         }
     };
 
-    useEffect(() => {
-        const canvas = document.getElementById("background-canvas");
-        const ctx = canvas.getContext("2d");
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let time = 0;
-
-        const drawFlowingWaves = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Draw the first three waves
-            for (let i = 0; i < 3; i++) {
-                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                gradient.addColorStop(0, `rgba(222, 176, 255, 0.12)`);
-                gradient.addColorStop(0.5, `rgba(166, 118, 173, 0.5)`);
-                gradient.addColorStop(1, `rgba(122, 87, 173, 1)`);
-
-                ctx.fillStyle = gradient;
-
-                const amplitude = 100 + i * 20;
-                const frequency = 0.0025 + i * 0.001;
-                const yOffset = canvas.height / 3 + i * 70;
-
-                ctx.beginPath();
-                for (let x = 0; x <= canvas.width; x++) {
-                    const y =
-                        yOffset +
-                        amplitude * Math.sin(frequency * x + time * (0.5 + i * 0.1));
-                    ctx.lineTo(x, y);
-                }
-                ctx.lineTo(canvas.width, canvas.height);
-                ctx.lineTo(0, canvas.height);
-                ctx.closePath();
-                ctx.fill();
-            }
-
-            // Draw the fourth wave
-            const fourthWaveHeight = canvas.height * 0.5;
-            ctx.fillStyle = `rgba(222, 176, 255, 0.9)`;
-            ctx.beginPath();
-            for (let x = 0; x <= canvas.width; x++) {
-                const y =
-                    fourthWaveHeight +
-                    60 * Math.sin(0.003 * x + time * 0.3);
-                ctx.lineTo(x, y);
-            }
-            ctx.lineTo(canvas.width, canvas.height);
-            ctx.lineTo(0, canvas.height);
-            ctx.closePath();
-            ctx.fill();
-
-            const fifthWaveHeight = canvas.height * 0.45;
-            const radialGradient = ctx.createRadialGradient(
-                canvas.width / 2,
-                canvas.height / 2,
-                0,
-                canvas.width / 2,
-                canvas.height / 2,
-                Math.min(canvas.width, canvas.height)
-            );
-            
-            // Adjusting alpha values for transparency
-            radialGradient.addColorStop(0, "rgba(222, 176, 255, 0.2)"); // Light purple, 30% opaque
-            radialGradient.addColorStop(0.5, "rgba(122, 87, 173, 0.7)"); // Medium purple, 20% opaque
-            radialGradient.addColorStop(0.8, "rgba(46, 39, 111, 0.8)");  // Darker purple, 20% opaque
-            radialGradient.addColorStop(1, "rgba(14, 0, 13, 0.9)");      // Very dark purple, 10% opaque
-            
-            ctx.fillStyle = radialGradient;
-            ctx.beginPath();
-            for (let x = 0; x <= canvas.width; x++) {
-                const y =
-                    fifthWaveHeight +
-                    80 * Math.sin(0.002 * x + time * 0.4);
-                ctx.lineTo(x, y);
-            }
-            ctx.lineTo(canvas.width, canvas.height);
-            ctx.lineTo(0, canvas.height);
-            ctx.closePath();
-            ctx.fill();
-            
-
-            time += 0.01;
-            requestAnimationFrame(drawFlowingWaves);
-        };
-
-        drawFlowingWaves();
-
-        const handleResize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
     return (
         <div className="login-page">
+            {/* Background Canvas */}
             <canvas id="background-canvas"></canvas>
 
             <div className="login-box">
+                {/* Logo Section */}
                 <div className="logo">
                     <img src="src/assets/starslogo.png" alt="Logo Stars" className="logo-stars" />
                     <img src="src/assets/outerlogo.png" alt="Logo Outer Ring" className="logo-outer" />
                     <img src="src/assets/innerlogo.png" alt="Logo Inner Ring" className="logo-inner" />
                 </div>
 
+                {/* Authentication Form */}
                 <div className="auth-form">
                     <h2>YOURA</h2>
                     {error && <p className="error">{error}</p>}
@@ -222,4 +123,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
