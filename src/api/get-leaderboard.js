@@ -1,8 +1,8 @@
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL; 
 
-export const getRAKs = async () => {
+export const getLeaderboard = async () => {
   try {
-    const response = await fetch(`${API_URL}/rak/rak/all/`, {
+    const response = await fetch(`${API_URL}/leaderboard/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -14,9 +14,9 @@ export const getRAKs = async () => {
     }
 
     const data = await response.json();
-    return data;
+    return data; // Return the fetched data
   } catch (err) {
-    console.error("Error fetching RAKs:", err);
+    console.error("Error fetching leaderboard:", err);
     throw err;
   }
 };

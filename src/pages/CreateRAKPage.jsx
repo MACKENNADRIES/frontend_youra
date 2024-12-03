@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./CreateRAKPage.css";
 
 const CreateRAKPage = () => {
     const [formData, setFormData] = useState({

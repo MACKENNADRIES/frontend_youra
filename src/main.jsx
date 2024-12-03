@@ -8,6 +8,7 @@ import LeaderboardPage from "./pages/LeaderboardPage.jsx";
 import UserProfilePage from "./pages/UserProfilePage.jsx";
 import Navbar from "./components/NavBar.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import RAKList from "./pages/RAKList.jsx";
 
 const router = createBrowserRouter([
     {        path: "/",
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
             { path: "/leaderboard", element: <LeaderboardPage /> },
             { path: "/profile", element: <UserProfilePage /> },
             { path: "/create-rak", element: <CreateRAKPage /> }, 
+            { path: "/rak/all-raks", element: <RAKList /> },
         ],
     },
 ]);
