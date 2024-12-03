@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+
 .homepage-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 columns for larger screens */
@@ -22,6 +25,28 @@
     overflow: visible; /* Allow the glow to extend beyond the button */
     transition: background-color 0.3s ease; /* Smooth transition for hover */
 }
+.button-heading {
+    position: absolute; /* Ensure it stays at the top of the button */
+    top: 10px; /* Adjust distance from the top edge */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Perfect horizontal centering */
+    font-size: 1.2rem; /* Adjust font size */
+    font-family: lato;
+    font-weight: bold; /* Make the text bold */
+    color: #e7a8f4; /* Light pink color to match the design */
+    text-align: center; /* Ensure the text is centered */
+    z-index: 10; /* Ensure it stays above other elements */
+}
+.button-description {
+    margin-top: -45%; /* Space between the heading and the paragraph */
+    font-size: 1rem; /* Adjust font size */
+    font-family: 'Lato', Arial, sans-serif; /* Use Lato or fallback */
+    color: #ffffff; /* Adjust color to match your theme */
+    text-align: center; /* Center-align the text */
+    line-height: 1.5; /* Improve readability with line height */
+}
+
+
 
 /* Persistent orange glow */
 .button::before {
@@ -51,9 +76,9 @@
 
 .button:hover {
     border-color: rgba(255, 165, 0, 0.9);
-    box-shadow: 0 0 15px rgba(255, 165, 0, 0.6); /* Add subtle orange glow */
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);
+    text-decoration-color: #cf5c33; /* Light pink color to match the design */ /* Add subtle orange glow */
 }
-
 
 .compass {
     position: absolute; /* Position relative to the button container */
@@ -121,7 +146,7 @@
     width: 70%; /* Adjust size as needed */
     height: auto;
     position: relative;
-    top: 18%;
+    top: 16%;
 }
 @keyframes float {
     0%, 100% {
@@ -238,6 +263,8 @@
         transform: scale(1.05); /* Grow to 120% of original size */
     }
 }
+
+
 @media (max-width: 600px) {
     .homepage-grid {
         grid-template-columns: 1fr; /* Single column for mobile */
