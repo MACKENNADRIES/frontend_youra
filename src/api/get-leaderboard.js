@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const getLeaderboard = async () => {
   try {
-    const response = await fetch(`${API_URL}/leaderboard/`, {
+    const response = await fetch(`${API_URL}/rak/leaderboard/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

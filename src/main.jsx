@@ -17,10 +17,11 @@ const router = createBrowserRouter([
             { path: "/", element: <Login /> },
             { path: "/home", element: <HomePage /> },
             { path: "/rak/:id", element: <RAKDetailsPage /> },
-            { path: "/leaderboard", element: <LeaderboardPage /> },
+            { path: "/rak/leaderboard", element: <LeaderboardPage /> },
             { path: "/profile", element: <UserProfilePage /> },
             { path: "/create-rak", element: <CreateRAKPage /> }, 
-            { path: "/rak/all-raks", element: <RAKList /> },
+            { path: "/all", element: <RAKList /> },
+
         ],
     },
 ]);
