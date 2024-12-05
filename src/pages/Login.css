@@ -1,33 +1,32 @@
-/* Full viewport setup */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Horizontally centers the box */
-    align-items: center; /* Vertically centers the box */
-    background: radial-gradient(circle, #deb0ff, #7a57ad, #2e276f, #0e000d);
-    font-family: 'Lato', sans-serif;
-    overflow: hidden;
-    position: relative;
-}
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-/* Background canvas for waves */
-#background-canvas {
-    position: absolute;
+/* Fullscreen container */
+.login-page {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #deb0ff, #7a57ad, #2e276f, #0e000d);
+  }
+  
+  /* Pixel canvas styling */
+  pixel-canvas {
+    position: absolute; /* Make it a background element */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* Behind all content */
-    pointer-events: none;
-}
-
-/* Centered login box with true wide layout */
-.login-box {
+    z-index: 0; /* Place it behind the login box */
+    pointer-events: none; /* Prevent it from interfering with mouse events */
+  }
+  
+  /* Centered login box */
+  .login-box {
     position: relative;
-    background: #2c1156;
+    background: #0e000d;
     border-radius: 20px; /* Rounded corners */
     padding: 30px 40px; /* Balanced padding */
     box-shadow: 0 4px 20px rgba(242, 177, 159, 0.6); /* Soft pink glow */
@@ -36,62 +35,60 @@ html, body {
     justify-content: flex-start;
     align-items: center;
     z-index: 2;
-    width: 40vw; /* This makes the box truly wide (70% of the viewport width) */
-    height: auto; /* Adapts to content height */
-    max-width: 1400px; /* Prevents it from being too wide on large screens */
-    box-sizing: border-box;
+    width: 40vw; /* Wide box */
+    max-width: 400px;
     text-align: center;
     animation: pink-glow 3s infinite; /* Pulsing glow animation */
-}
-
-/* Pink glow animation */
-@keyframes pink-glow {
+  }
+  
+  /* Pink glow animation */
+  @keyframes pink-glow {
     0% {
-        box-shadow: 0 4px 20px rgba(215, 107, 49, 0.3);
+      box-shadow: 0 4px 20px rgba(215, 107, 49, 0.3);
     }
     50% {
-        box-shadow: 0 6px 25px rgba(215, 107, 49, 0.3);
+      box-shadow: 0 6px 25px rgba(215, 107, 49, 0.3);
     }
     100% {
-        box-shadow: 0 4px 20px rgba(215, 107, 49, 0.3);
+      box-shadow: 0 4px 20px rgba(215, 107, 49, 0.3);
     }
-}
-
-/* Logo container */
-.logo {
+  }
+  
+  /* Logo styling */
+  .logo {
     position: relative;
     width: 140px;
     height: 140px;
     margin-bottom: 20px;
-}
-
-.logo img {
+  }
+  
+  .logo img {
     position: absolute;
-    top: 60%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     animation: spin-clockwise 20s linear infinite;
-}
-
-.logo img.logo-stars {
-    width: 200%;
+  }
+  
+  .logo img.logo-stars {
+    width: 100%;
     z-index: 3;
     animation: flash 3s infinite;
-}
-
-.logo img.logo-outer {
-    width: 140%;
+  }
+  
+  .logo img.logo-outer {
+    width: 110%;
     z-index: 2;
     animation: spin-counterclockwise 20s linear infinite;
-}
-
-.logo img.logo-inner {
-    width: 100%;
+  }
+  
+  .logo img.logo-inner {
+    width: 70%;
     z-index: 1;
     animation: spin-clockwise 20s linear infinite;
-}
+  }
 
-/* Keyframes for logo animations */
+  /* Keyframes for logo animations */
 @keyframes spin-clockwise {
     from {
         transform: translate(-50%, -50%) rotate(0deg);
@@ -109,70 +106,106 @@ html, body {
         transform: translate(-50%, -50%) rotate(-360deg);
     }
 }
-
-@keyframes flash {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-}
-
-/* Inputs and buttons */
-.auth-form {
-    width: 100%;
+  
+  /* Inputs and buttons */
+  .auth-form input {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #f0cb9b;
-    margin-top: 20px;
-}
-
-.auth-form input {
-    width: 80%; /* Adapts proportionally to the wider box */
+    flex-direction: column; /* Arrange buttons vertically */
+    align-items: center; /* Center buttons horizontally */
+    gap: 20px; 
+    width: 90%;
     padding: 15px;
     margin: 12px 0;
     border: none;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #ea7e53;
-    font-size: 18px;
-    font-family: 'Lato', sans-serif;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.auth-form input:focus {
     background-color: rgba(198, 139, 203, 0.2);
     box-shadow: 0 0 5px rgba(194, 94, 31, 0.5);
+    color: #ea7e53;
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .auth-form h2 {
+    font-family: 'Press Start 2P', monospace;
+    color: #ec8af8; /* Pinkish-purple color */
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .auth-form input:focus {
+    background-color: rgba(198, 139, 203, 0.2);
+    box-shadow: 0 0 5px rgba(194, 94, 31, 0.5);
+  }
+  
+/* Adjusted Button Styling */
+.auth-form button {
+    position: relative;
+    display: block; /* Ensures each button is on its own line */
+    width: 100%; /* Uniform width for both buttons */
+    max-width: 300px; /* Optional: prevents buttons from being too wide */
+    margin: 30px auto; /* Adds vertical spacing and centers buttons */
+    padding: 10px 30px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-family: 'Press Start 2P', monospace;
+    background: #ecc1f6;
+    color: #202020;
+    border: 2px solid #dd57ff;
+    border-radius: 10px;
+    font-weight: 750;
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+    transform-style: preserve-3d;
 }
 
-.auth-form button {
-    width: 60%; /* Matches the proportions of the wider box */
-    padding: 15px;
-    background: #a65ab9;
-    border: none;
-    border-radius: 10px;
-    color: rgb(247, 214, 173);
-    font-size: 18px;
-    font-family: 'Lato', sans-serif;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: all 0.3s ease;
+/* Style adjustments for hover and active states */
+.auth-form button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ec87f7;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #e957ff, 0 0.625em 0 0 #f7b5f8;
+    transform: translate3d(0, 0.75em, -1em);
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
 }
 
 .auth-form button:hover {
-    background:#ef833b;
-    box-shadow: 0 2px 10px rgba(255, 105, 180, 0.5);
+    background: #f1adf8;
+    transform: translate(0, 0.25em);
 }
 
-/* Heading with bold, sleek style */
-h2 {
-    font-size: 32px;
-    margin-bottom: 30px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    color: #ec8af8;
+.auth-form button:hover::before {
+    box-shadow: 0 0 0 2px #ff57e9, 0 0.5em 0 0 #f8b5f5;
+    transform: translate3d(0, 0.5em, -1em);
 }
+
+.auth-form button:active {
+    background: #f8adf8;
+    transform: translate(0, 0.75em);
+}
+
+.auth-form button:active::before {
+    box-shadow: 0 0 0 2px #f157ff, 0 0 #f7b5f8;
+    transform: translate3d(0, 0, -1em);
+}
+  /* Error and success messages */
+  .auth-form .error {
+    color: rgb(161, 102, 62);
+    font-size: 14px;
+    font-family: 'Press Start 2P', monospace;
+  }
+  
+  .auth-form .success {
+    color: rgb(102, 0, 128);
+    font-size: 14px;
+    font-family: 'Press Start 2P', monospace;
+  }
+  
