@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import "../components/PixelCanvas"; // Import the PixelCanvas component
+import "../components/PixelCanvas";
 
 const LoginPage = () => {
-  const navigate = useNavigate(); // For navigation
+  const navigate = useNavigate();
   const [isRegistering, setIsRegistering] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -24,10 +24,9 @@ const LoginPage = () => {
     setError("");
     setSuccessMessage("");
 
-    // Simulate login validation
     if (formData.email === "user@example.com" && formData.password === "password123") {
       setSuccessMessage("Logged in successfully!");
-      navigate("/home"); // Redirect to home page
+      navigate("/home");
     } else {
       setError("Invalid email or password.");
     }
@@ -40,7 +39,7 @@ const LoginPage = () => {
 
     if (formData.username && formData.email && formData.password) {
       setSuccessMessage("Account created successfully!");
-      setIsRegistering(false); // Return to login view
+      setIsRegistering(false);
     } else {
       setError("Please fill in all fields.");
     }
@@ -48,14 +47,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      {/* Pixel Canvas as Background */}
-      <pixel-canvas
-        data-gap="20"
-        data-speed="15"
-        data-colors="#6a0dad, #ff4500, #ffd700, #87ceeb"
-      ></pixel-canvas>
-
-      {/* Login Box */}
       <div className="login-box">
         <div className="logo">
           <img src="src/assets/starslogo.png" alt="Logo Stars" className="logo-stars" />
@@ -100,6 +91,11 @@ const LoginPage = () => {
           </button>
         </div>
       </div>
+      <pixel-canvas
+        data-gap="20"
+        data-speed="15"
+        data-colors="#6a0dad, #ff4500, #ffd700, #87ceeb"
+      ></pixel-canvas>
     </div>
   );
 };

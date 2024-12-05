@@ -22,24 +22,37 @@ const HomePage = () => {
   ];
 
   return (
-    <main className="homepage">
-      {cards.map((card, index) => (
-        <button
-          key={index}
-          className="card"
-          style={{ "--active-color": pixelAnimationConfigs[index % pixelAnimationConfigs.length].colors.split(",")[0] }}
-          onClick={() => navigate(card.route)} // Navigate to the corresponding page
-        >
-          <pixel-canvas
-            data-gap={pixelAnimationConfigs[index % pixelAnimationConfigs.length].gap}
-            data-speed={pixelAnimationConfigs[index % pixelAnimationConfigs.length].speed}
-            data-colors={pixelAnimationConfigs[index % pixelAnimationConfigs.length].colors}
-          ></pixel-canvas>
-          <img src={card.image} alt={`${card.text} Icon`} className="card-image" />
-          <span className="card-text">{card.text}</span>
-        </button>
-      ))}
-    </main>
+    <div>
+      {/* Hero Section */}
+      <section className="hero-section">
+        <h1>Welcome to Youra</h1>
+        <p>
+          A glowing platform to inspire Random Acts of Kindness. Join the movement, track your aura, and
+          spread kindness one act at a time!
+        </p>
+        <button onClick={() => navigate("/discover")}>Get Started</button>
+      </section>
+
+      {/* Main Section with Cards */}
+      <main className="homepage">
+        {cards.map((card, index) => (
+          <button
+            key={index}
+            className="card"
+            style={{ "--active-color": pixelAnimationConfigs[index % pixelAnimationConfigs.length].colors.split(",")[0] }}
+            onClick={() => navigate(card.route)} // Navigate to the corresponding page
+          >
+            <pixel-canvas
+              data-gap={pixelAnimationConfigs[index % pixelAnimationConfigs.length].gap}
+              data-speed={pixelAnimationConfigs[index % pixelAnimationConfigs.length].speed}
+              data-colors={pixelAnimationConfigs[index % pixelAnimationConfigs.length].colors}
+            ></pixel-canvas>
+            <img src={card.image} alt={`${card.text} Icon`} className="card-image" />
+            <span className="card-text">{card.text}</span>
+          </button>
+        ))}
+      </main>
+    </div>
   );
 };
 

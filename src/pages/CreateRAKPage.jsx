@@ -57,70 +57,77 @@ const CreateRAKPage = () => {
     };
 
     return (
-        <div>
-            <h1>Create a Random Act of Kindness</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    placeholder="Title"
-                    onChange={handleChange}
-                    required
-                />
-                <textarea
-                    name="description"
-                    value={formData.description}
-                    placeholder="Description"
-                    onChange={handleChange}
-                    required
-                />
-                <select
-                    name="rak_type"
-                    value={formData.rak_type}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Select Type</option>
-                    <option value="offer">Offer</option>
-                    <option value="request">Request</option>
-                </select>
-                <input
-                    type="text"
-                    name="action"
-                    value={formData.action}
-                    placeholder="Action Required"
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="number"
-                    name="aura_points_value"
-                    value={formData.aura_points_value}
-                    placeholder="Aura Points Value"
-                    onChange={handleChange}
-                    min="1"
-                />
-                <label>
+        <div className="create-rak-page">
+            <div className="form-container">
+                <div className="rectangle">
+                    {Array.from({ length: 50 }, (_, i) => (
+                        <dot key={i}></dot>
+                    ))}
+                </div>
+                <div className="header-bar">Create a Random Act of Kindness</div>
+                <form className="create-rak-form" onSubmit={handleSubmit}>
                     <input
-                        type="checkbox"
-                        name="private"
-                        checked={formData.private}
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        placeholder="Title"
                         onChange={handleChange}
+                        required
                     />
-                    Private
-                </label>
-                <label>
+                    <textarea
+                        name="description"
+                        value={formData.description}
+                        placeholder="Description"
+                        onChange={handleChange}
+                        required
+                    />
+                    <select
+                        name="rak_type"
+                        value={formData.rak_type}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select Type</option>
+                        <option value="offer">Offer</option>
+                        <option value="request">Request</option>
+                    </select>
                     <input
-                        type="checkbox"
-                        name="anonymous_rak"
-                        checked={formData.anonymous_rak}
+                        type="text"
+                        name="action"
+                        value={formData.action}
+                        placeholder="Action Required"
                         onChange={handleChange}
+                        required
                     />
-                    Post Anonymously
-                </label>
-                <button type="submit">Create RAK</button>
-            </form>
+                    <input
+                        type="number"
+                        name="aura_points_value"
+                        value={formData.aura_points_value}
+                        placeholder="Aura Points Value"
+                        onChange={handleChange}
+                        min="1"
+                    />
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="private"
+                            checked={formData.private}
+                            onChange={handleChange}
+                        />
+                        Private
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="anonymous_rak"
+                            checked={formData.anonymous_rak}
+                            onChange={handleChange}
+                        />
+                        Post Anonymously
+                    </label>
+                    <button type="submit">Create RAK</button>
+                </form>
+            </div>
         </div>
     );
 };

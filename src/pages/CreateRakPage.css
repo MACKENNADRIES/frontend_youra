@@ -1,30 +1,94 @@
 /* General Page Styles */
-.create-rak-page {
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #000428, #004e92);
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: 2rem;
-    background-color: #f9f9f9; /* Light background */
+    align-items: center;
     min-height: 100vh;
-    font-family: 'Arial', sans-serif;
 }
 
-/* Page Title */
-.create-rak-page h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 1.5rem;
+.create-rak-page {
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+}
+
+.header-bar {
+    background: #2a0337;
+    color: #d98cf7;
+    padding: 1rem;
+    font-size: 1.2rem;
+    border-bottom: 4px solid #a600ff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
 }
 
 /* Form Styles */
-.create-rak-form {
+.form-container {
+    position: relative;
     width: 100%;
     max-width: 500px;
-    background: white;
+    margin: 0 auto;
+}
+
+.rectangle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Matches the width of the form */
+    height: 100%; /* Matches the height of the form */
+    display: grid;
+    grid-template-columns: repeat(20, 1fr); /* Adjust number of columns */
+    grid-template-rows: repeat(10, 1fr); /* Adjust number of rows */
+    grid-gap: 2px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.rectangle > dot {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 0.1em;
+    background: red;
+    opacity: 0; /* Start invisible */
+    animation: dotAnimation 5s ease-out infinite;
+}
+
+@keyframes dotAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-10em);
+    }
+    25%, 75% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(10em);
+    }
+}
+
+.rectangle dot:nth-of-type(2n) { animation-delay: 0.2s; }
+.rectangle dot:nth-of-type(3n) { animation-delay: 0.3s; }
+.rectangle dot:nth-of-type(4n) { animation-delay: 0.4s; }
+.rectangle dot:nth-of-type(5n) { animation-delay: 0.5s; }
+/* Continue similar delay settings for other dots */
+
+.create-rak-form {
+    position: relative;
+    z-index: 2; /* Ensures the form stays on top */
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgba(34, 34, 34, 0.8); /* Slight transparency for blending */
+    border: 4px solid #d400ff;
+    box-shadow: 0 0 8px #ff8000;
+    overflow: hidden; /* Ensures dots do not overflow outside the form */
 }
 
 .create-rak-form input,
@@ -35,42 +99,27 @@
     margin-bottom: 1rem;
     padding: 0.75rem;
     font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-.create-rak-form input:focus,
-.create-rak-form textarea:focus,
-.create-rak-form select:focus {
-    border-color: #007bff;
-}
-
-/* Textarea Styles */
-.create-rak-form textarea {
-    height: 100px;
-    resize: vertical;
-}
-
-/* Checkbox Styles */
-.create-rak-form label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: #555;
+    background: #333;
+    color: #fff;
+    border: 2px solid #ff9d00;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .create-rak-form button {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    position: relative;
+    display: block;
+    margin: 30px auto;
+    padding: 10px 30px;
+    background: #ecc1f6;
+    color: #202020;
+    border: 2px solid #dd57ff;
+    font-size: 16px;
+    font-family: 'Press Start 2P', monospace;
+    text-transform: uppercase;
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+    transform-style: preserve-3d;
 }
 
 .create-rak-form button:hover {
-    background-color: #0056b3;
+    background: #f1adf8;
 }
