@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateRakPage.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const CreateRAKPage = () => {
     const [formData, setFormData] = useState({
@@ -11,13 +13,37 @@ const CreateRAKPage = () => {
         aura_points_value: 10,
         private: false,
         anonymous_rak: false,
+        collaborators: [], // New field for collaborators
     });
 
+    const [collaboratorInput, setCollaboratorInput] = useState("");
     const [dotsState, setDotsState] = useState(""); // Default: dots visible and settling
     const navigate = useNavigate();
+    const formRef = useRef(null);
+    const [formBoxStyle, setFormBoxStyle] = useState({}); // Tracks form-box dimensions
 
-    // Trigger dots to hide after settling
     useEffect(() => {
+        // Dynamically adjust the box to match the form size and position
+        const updateBoxSize = () => {
+            if (formRef.current) {
+                const rect = formRef.current.getBoundingClientRect();
+                setFormBoxStyle({
+                    width: `${rect.width}px`,
+                    height: `${rect.height}px`,
+                    top: `${rect.top}px`,
+                    left: `${rect.left}px`,
+                    position: "absolute", // Ensures alignment
+                });
+            }
+        };
+
+        updateBoxSize(); // Initial size update
+        window.addEventListener("resize", updateBoxSize); // Update on resize
+        return () => window.removeEventListener("resize", updateBoxSize);
+    }, []);
+
+    useEffect(() => {
+        // Trigger dots to hide after settling
         const timeout = setTimeout(() => setDotsState("dots-hidden"), 2000); // Matches dotSettle duration
         return () => clearTimeout(timeout); // Cleanup timeout on unmount
     }, []);
@@ -30,13 +56,34 @@ const CreateRAKPage = () => {
         });
     };
 
+    const handleCollaboratorInputChange = (e) => {
+        setCollaboratorInput(e.target.value);
+    };
+
+    const handleAddCollaborator = () => {
+        if (collaboratorInput.trim() && !formData.collaborators.includes(collaboratorInput)) {
+            setFormData({
+                ...formData,
+                collaborators: [...formData.collaborators, collaboratorInput.trim()],
+            });
+            setCollaboratorInput("");
+        }
+    };
+
+    const handleRemoveCollaborator = (collaborator) => {
+        setFormData({
+            ...formData,
+            collaborators: formData.collaborators.filter((c) => c !== collaborator),
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             const token = localStorage.getItem("authToken");
 
-            const response = await fetch("http://localhost:8000/rak/", {
+            const response = await fetch(`${API_URL}/rak/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -71,15 +118,20 @@ const CreateRAKPage = () => {
 
     return (
         <div className="create-rak-page">
-            <div className="form-container">
+            {/* Independent Form Box */}
+            <div className="form-box" style={formBoxStyle}></div>
+
+            {/* Form Container */}
+            <div className="form-container" ref={formRef}>
                 {/* Dots Container */}
                 <div className={`rectangle ${dotsState}`}>
-                    {Array.from({ length: 220 }, (_, i) => (
+                    {Array.from({ length: 600 }, (_, i) => (
                         <span key={i} className="dot"></span>
                     ))}
                 </div>
 
                 <div className="header-bar">Create a Random Act of Kindness</div>
+
                 {/* Form */}
                 <form className="create-rak-form" onSubmit={handleSubmit}>
                     <input
@@ -141,6 +193,34 @@ const CreateRAKPage = () => {
                         />
                         Post Anonymously
                     </label>
+
+                    {/* Collaborators Section */}
+                    <div className="collaborators-section">
+                        <h3>Allow Collaborators</h3>
+                        <input
+                            type="text"
+                            value={collaboratorInput}
+                            placeholder="Add Collaborator (e.g., username)"
+                            onChange={handleCollaboratorInputChange}
+                        />
+                        <button type="button" onClick={handleAddCollaborator}>
+                            Add
+                        </button>
+                        <ul>
+                            {formData.collaborators.map((collaborator, index) => (
+                                <li key={index}>
+                                    {collaborator}{" "}
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveCollaborator(collaborator)}
+                                    >
+                                        Remove
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
                     <button type="submit">Create RAK</button>
                 </form>
             </div>

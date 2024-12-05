@@ -28,6 +28,20 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     margin-bottom: 2rem;
 }
+.form-box {
+    position: absolute; /* Allow precise positioning relative to the viewport or parent */
+    top: 50%; /* Move it to the middle of the viewport vertically */
+    left: 50%; /* Move it to the middle of the viewport horizontally */
+    transform: translate(-50%, -50%); /* Center it exactly by shifting half of its width and height */
+    width: 100%; /* Matches the width of the form-container */
+    max-width: 500px; /* Ensure it doesn’t stretch beyond the intended size */
+    height: auto; /* Matches the height dynamically */
+    border: 2px dashed rgba(255, 255, 255, 0.5); /* Dashed border for visibility */
+    z-index: 0; /* Ensure it appears behind the form-container */
+    pointer-events: none; /* Prevent interactions with the box */
+    box-sizing: border-box; /* Ensure padding/border doesn't affect dimensions */
+}
+
 
 /* Form Styles */
 .form-container {
@@ -35,6 +49,8 @@ body {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0);
+    
 }
 
 @keyframes formFadeIn {
@@ -52,27 +68,14 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* Matches the width of the form */
-    height: 100%; /* Matches the height of the form */
+    width: 100%;
+    height: 100%;
     display: grid;
-    grid-template-columns: repeat(20, 1fr); /* Adjust number of columns */
-    grid-template-rows: repeat(10, 1fr); /* Adjust number of rows */
-    grid-gap: 2px;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(30, 1fr);
     z-index: 1;
     pointer-events: none;
 }
-
-/* Individual dot styling */
-.rectangle > .dot {
-    width: 1.5em;
-    height: 1.5em;
-    border-radius: 0.1em;
-    background: red;
-    opacity: 1; /* Default state: visible */
-    animation: dotSettle 2s ease-out forwards; /* Initial animation */
-}
-
-/* Keyframe for dots settling */
 @keyframes dotSettle {
     0% {
         opacity: 0;
@@ -84,14 +87,18 @@ body {
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
-/* When dots are hidden */
 .rectangle.dots-hidden > .dot {
     opacity: 0;
-    animation: none; /* Disable animation */
+}
+
+.rectangle > .dot {
+    width: 1.5em;
+    height: 1.5em;
+    background: red;
+    animation: dotSettle 2s ease-out forwards;
 }
 
 /* When dots are falling off the screen */
@@ -114,16 +121,16 @@ body {
 
 /* Create staggered animations for dots */
 .rectangle .dot:nth-of-type(2n) { animation-delay: 0.2s; }
-.rectangle .dot:nth-of-type(3n) { animation-delay: 0.3s; }
-.rectangle .dot:nth-of-type(4n) { animation-delay: 0.4s; }
-.rectangle .dot:nth-of-type(5n) { animation-delay: 0.5s; }
+.rectangle .dot:nth-of-type(3n) { animation-delay: 0.4s; }
+.rectangle .dot:nth-of-type(4n) { animation-delay: 0.6s; }
+.rectangle .dot:nth-of-type(5n) { animation-delay: 0.8s; }
 
 /* Apply animation to the form */
 .create-rak-form {
     position: relative;
     z-index: 2; /* Ensures the form stays on top */
     padding: 2rem;
-    background: rgba(34, 34, 34, 0.8); /* Slight transparency for blending */
+    background: rgba(34, 34, 34, 0); /* Slight transparency for blending */
     border: 4px solid #d400ff;
     box-shadow: 0 0 8px #ff8000;
     overflow: hidden; /* Ensures dots do not overflow outside the form */
