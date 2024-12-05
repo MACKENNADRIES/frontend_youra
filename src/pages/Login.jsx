@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import "../components/PixelCanvas";
+const API_URL = import.meta.env.VITE_API_URL; 
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -19,31 +21,91 @@ const LoginPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccessMessage("");
-
-    if (formData.email === "user@example.com" && formData.password === "password123") {
-      setSuccessMessage("Logged in successfully!");
-      navigate("/home");
+    setSuccessMessage("");  
+    if (formData.username && formData.password) {
+      try {
+        const response = await fetch(`${API_URL}/token-auth/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: formData.username, // Ensure the username field is used
+            password: formData.password,
+          }),
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+  
+          // Update your auth state here
+          setAuthToken(data.token); // Save the token in a state (e.g., React Context or global state)
+          setUser({
+            userId: data.user_id,
+            username: data.username,
+          }); // Save user information if needed
+  
+          setSuccessMessage("Logged in successfully!");
+          navigate("/home"); // Redirect to home or dashboard
+        } else {
+          const errorData = await response.json();
+          setError(
+            errorData.non_field_errors
+              ? errorData.non_field_errors[0]
+              : "Invalid username or password."
+          );
+        }
+      } catch (error) {
+        setError("Network error: Unable to login. Please try again later.");
+        console.error("Login error:", error);
+      }
     } else {
-      setError("Invalid email or password.");
+      setError("Please enter both username and password.");
     }
   };
+  
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccessMessage("");
-
+    setSuccessMessage("");  
     if (formData.username && formData.email && formData.password) {
-      setSuccessMessage("Account created successfully!");
-      setIsRegistering(false);
+      try {
+        const response = await fetch(`${API_URL}/users/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+          }),
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          setSuccessMessage("Account created successfully!");
+          setIsRegistering(false);
+          console.log("User registered:", data); // Optional: Log the response
+        } else {
+          const errorData = await response.json();
+          setError(
+            errorData.detail || "An error occurred while creating the account."
+          );
+        }
+      } catch (error) {
+        setError("Network error: Unable to register. Please try again later.");
+        console.error("Registration error:", error);
+      }
     } else {
       setError("Please fill in all fields.");
     }
   };
+  
 
   return (
     <div className="login-page">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateRakPage.css";
 
@@ -13,7 +13,14 @@ const CreateRAKPage = () => {
         anonymous_rak: false,
     });
 
+    const [dotsState, setDotsState] = useState(""); // Default: dots visible and settling
     const navigate = useNavigate();
+
+    // Trigger dots to hide after settling
+    useEffect(() => {
+        const timeout = setTimeout(() => setDotsState("dots-hidden"), 2000); // Matches dotSettle duration
+        return () => clearTimeout(timeout); // Cleanup timeout on unmount
+    }, []);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -27,7 +34,7 @@ const CreateRAKPage = () => {
         e.preventDefault();
 
         try {
-            const token = localStorage.getItem("authToken"); // Replace with actual token retrieval logic
+            const token = localStorage.getItem("authToken");
 
             const response = await fetch("http://localhost:8000/rak/", {
                 method: "POST",
@@ -48,8 +55,14 @@ const CreateRAKPage = () => {
             const responseData = await response.json();
             console.log("RAK created successfully:", responseData);
 
-            // Redirect to home or another page after success
-            navigate("/home");
+            // Trigger dots falling animation
+            setDotsState("dots-falling");
+
+            // Reset dots to hidden after falling animation finishes
+            setTimeout(() => {
+                setDotsState("dots-hidden");
+                navigate("/home");
+            }, 3000); // Matches dotFallOff duration
         } catch (error) {
             console.error("Error submitting the form:", error);
             alert("An error occurred while creating the RAK.");
@@ -59,12 +72,15 @@ const CreateRAKPage = () => {
     return (
         <div className="create-rak-page">
             <div className="form-container">
-                <div className="rectangle">
-                    {Array.from({ length: 50 }, (_, i) => (
-                        <dot key={i}></dot>
+                {/* Dots Container */}
+                <div className={`rectangle ${dotsState}`}>
+                    {Array.from({ length: 220 }, (_, i) => (
+                        <span key={i} className="dot"></span>
                     ))}
                 </div>
+
                 <div className="header-bar">Create a Random Act of Kindness</div>
+                {/* Form */}
                 <form className="create-rak-form" onSubmit={handleSubmit}>
                     <input
                         type="text"
