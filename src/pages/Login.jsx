@@ -2,29 +2,34 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import "../components/PixelCanvas";
-const API_URL = import.meta.env.VITE_API_URL; 
+import { useAuth } from "../components/AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL; // Base API URL from environment variables
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // Use login function from AuthContext
   const [isRegistering, setIsRegistering] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
-    email: "",
     password: "",
+    email: "",
   });
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccessMessage("");  
+    setSuccessMessage("");
+
     if (formData.username && formData.password) {
       try {
         const response = await fetch(`${API_URL}/token-auth/`, {
@@ -33,23 +38,16 @@ const LoginPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username: formData.username, // Ensure the username field is used
+            username: formData.username,
             password: formData.password,
           }),
         });
-  
+
         if (response.ok) {
           const data = await response.json();
-  
-          // Update your auth state here
-          setAuthToken(data.token); // Save the token in a state (e.g., React Context or global state)
-          setUser({
-            userId: data.user_id,
-            username: data.username,
-          }); // Save user information if needed
-  
+          login(data.token, { userId: data.user_id, username: data.username }); // Use AuthContext login function
           setSuccessMessage("Logged in successfully!");
-          navigate("/home"); // Redirect to home or dashboard
+          navigate("/home"); // Redirect to the home page
         } else {
           const errorData = await response.json();
           setError(
@@ -66,12 +64,13 @@ const LoginPage = () => {
       setError("Please enter both username and password.");
     }
   };
-  
 
+  // Handle registration (unchanged)
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccessMessage("");  
+    setSuccessMessage("");
+
     if (formData.username && formData.email && formData.password) {
       try {
         const response = await fetch(`${API_URL}/users/`, {
@@ -85,12 +84,12 @@ const LoginPage = () => {
             password: formData.password,
           }),
         });
-  
+
         if (response.ok) {
           const data = await response.json();
           setSuccessMessage("Account created successfully!");
-          setIsRegistering(false);
-          console.log("User registered:", data); // Optional: Log the response
+          setIsRegistering(false); // Switch back to login view
+          console.log("User registered:", data);
         } else {
           const errorData = await response.json();
           setError(
@@ -105,39 +104,50 @@ const LoginPage = () => {
       setError("Please fill in all fields.");
     }
   };
-  
 
   return (
     <div className="login-page">
       <div className="login-box">
         <div className="logo">
-          <img src="src/assets/starslogo.png" alt="Logo Stars" className="logo-stars" />
-          <img src="src/assets/outerlogo.png" alt="Logo Outer Ring" className="logo-outer" />
-          <img src="src/assets/innerlogo.png" alt="Logo Inner Ring" className="logo-inner" />
+          <img
+            src="src/assets/starslogo.png"
+            alt="Logo Stars"
+            className="logo-stars"
+          />
+          <img
+            src="src/assets/outerlogo.png"
+            alt="Logo Outer Ring"
+            className="logo-outer"
+          />
+          <img
+            src="src/assets/innerlogo.png"
+            alt="Logo Inner Ring"
+            className="logo-inner"
+          />
         </div>
         <div className="auth-form">
           <h2>{isRegistering ? "Register" : "YOURA"}</h2>
           {error && <p className="error">{error}</p>}
           {successMessage && <p className="success">{successMessage}</p>}
           <form onSubmit={isRegistering ? handleRegister : handleLogin}>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
             {isRegistering && (
               <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
             )}
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
             <input
               type="password"
               name="password"
