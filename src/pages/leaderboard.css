@@ -1,0 +1,80 @@
+/* General styles for the 8-bit retro look */
+body {
+    font-family: "Press Start 2P", cursive; /* Retro 8-bit font */
+    background-color: #222; /* Dark background */
+    background-image: url('https://example.com/8bit-background.png'); /* Optional pixelated background */
+    background-size: cover;
+    color: #fff; /* White text for contrast */
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 2px 2px #ff6a00; /* Glowing effect */
+    margin: 20px 0;
+    animation: glitch 1s infinite; /* Optional glitch effect */
+  }
+  
+  /* Glitch animation for the title */
+  @keyframes glitch {
+    0% {
+      text-shadow: 2px 2px #ff6a00;
+    }
+    50% {
+      text-shadow: 5px 5px #ff00ff, -2px -2px #00ffff;
+    }
+    100% {
+      text-shadow: 2px 2px #ff6a00;
+    }
+  }
+  
+  .loading, .error {
+    text-align: center;
+    font-size: 16px;
+    color: #ffcc00;
+  }
+  
+  /* Table styling */
+  table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #111; /* Dark table background */
+    border: 3px solid #ffcc00; /* Retro yellow border */
+    box-shadow: 0 0 10px #ffcc00;
+  }
+  
+  th, td {
+    border: 1px solid #444; /* Inner grid lines */
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #ffcc00; /* Yellow text */
+  }
+  
+  th {
+    background-color: #333; /* Dark header */
+    color: #fff;
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #282828; /* Alternate row colors */
+  }
+  
+  tr:hover {
+    background-color: #ff6a00; /* Hover effect for rows */
+    color: #000;
+  }
+  
+  /* Leaderboard container */
+  .leaderboard-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 3px solid #ffcc00;
+    background-color: #1a1a1a;
+    box-shadow: 0 0 15px #ffcc00;
+  }
+  

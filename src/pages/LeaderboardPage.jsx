@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getLeaderboard } from "../api/get-leaderboard"; // Import the API call
+import "./leaderboard.css"; // Import the CSS file for 8-bit styling
 
 const LeaderboardPage = () => {
   const [leaderboard, setLeaderboard] = useState([]); // State to store leaderboard data
@@ -21,11 +22,11 @@ const LeaderboardPage = () => {
     fetchLeaderboard();
   }, []); // Run once on component mount
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p className="loading">Loading...</p>;
+  if (error) return <p className="error">Error: {error}</p>;
 
   return (
-    <div>
+    <div className="leaderboard-container">
       <h1>Leaderboard</h1>
       <table>
         <thead>

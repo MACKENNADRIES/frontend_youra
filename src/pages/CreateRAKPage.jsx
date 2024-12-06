@@ -28,11 +28,11 @@ const CreateRAKPage = () => {
             if (formRef.current) {
                 const rect = formRef.current.getBoundingClientRect();
                 setFormBoxStyle({
-                    width: `${rect.width}px`,
-                    height: `${rect.height}px`,
-                    top: `${rect.top}px`,
-                    left: `${rect.left}px`,
-                    position: "absolute", // Ensures alignment
+                    // width: `${rect.width}px`,
+                    // height: `${rect.height}px`,
+                    // top: `${rect.top}px`,
+                    // left: `${rect.left}px`,
+                    // position: "absolute", // Ensures alignment
                 });
             }
         };
@@ -118,11 +118,10 @@ const CreateRAKPage = () => {
 
     return (
         <div className="create-rak-page">
-            {/* Independent Form Box */}
-            <div className="form-box" style={formBoxStyle}></div>
-
             {/* Form Container */}
             <div className="form-container" ref={formRef}>
+            {/* Independent Form Box */}
+            <div className="form-box"></div>
                 {/* Dots Container */}
                 <div className={`rectangle ${dotsState}`}>
                     {Array.from({ length: 600 }, (_, i) => (
