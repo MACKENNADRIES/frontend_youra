@@ -79,10 +79,11 @@ const CreateRAKPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
             const token = localStorage.getItem("authToken");
-
+    
+            // Prepare the data for submission
             const response = await fetch(`${API_URL}/rak/`, {
                 method: "POST",
                 headers: {
@@ -91,23 +92,22 @@ const CreateRAKPage = () => {
                 },
                 body: JSON.stringify(formData),
             });
-
+    
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error("Error creating RAK:", errorData);
                 alert(`Failed to create RAK: ${errorData.detail || "Unknown error"}`);
                 return;
             }
-
+    
             const responseData = await response.json();
             console.log("RAK created successfully:", responseData);
-
+    
             // Trigger dots falling animation
             setDotsState("dots-falling");
-
+    
             // Reset dots to hidden after falling animation finishes
             setTimeout(() => {
-                // setDotsState("dots-hidden");
                 navigate("/home");
             }, 3000); // Matches dotFallOff duration
         } catch (error) {
@@ -115,6 +115,7 @@ const CreateRAKPage = () => {
             alert("An error occurred while creating the RAK.");
         }
     };
+    
 
     return (
         <div className="create-rak-page">
@@ -201,17 +202,15 @@ const CreateRAKPage = () => {
                         />
                         Post Anonymously
                     </label>
-
-                    {/* Collaborators Section */}
-                    <div className="collaborators-section">
-                        <h3>Allow Collaborators</h3>
-                        <input
-                            type="checkbox"
-                            // this might be wrong 
-                            checked={formData.allowcollaborators_rak}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <label>
+    <input
+        type="checkbox"
+        name="allow_collaborators"
+        checked={formData.allow_collaborators}
+        onChange={handleChange}
+    />
+    Allow Collaborators
+</label>
                     </div>
                     <button type="submit">Create RAK</button>
                 </form>

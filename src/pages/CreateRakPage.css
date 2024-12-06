@@ -94,6 +94,7 @@ body {
     }
 }
 
+/* Apply animation to the header-bar */
 .header-bar {
     position: relative;
     left: -1%;
@@ -108,6 +109,9 @@ body {
     box-shadow: 3px 3px 0 #ff66cc, 6px 6px 0 #ff33cc; /* 3D shadow to create depth */
     margin-bottom: 0.5rem;
     z-index: 1000;
+    opacity: 0; /* Initially hidden */
+    animation: formFadeIn 2.5s forwards; /* Apply the fade-in animation */
+    animation-delay: 1.9s; /* Add a delay if needed */
 }
 
 /* Apply 3D effect to the header-bar text */
@@ -116,8 +120,12 @@ body {
     transform: translateZ(10px); /* Apply the 3D effect to the text */
     text-align: center;
     letter-spacing: 3px; /* Slight space between letters for more of the pixelated look */
+    transform: perspective(600px) rotateX(10deg) rotateY(10deg);
+    opacity: 0;
+    animation: formFadeIn 2.5s forwards;
+    animation-delay: 1.9s;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-
 
 
 /* Apply animation to the form */
@@ -223,7 +231,7 @@ body {
 
 /* Checked state for pseudo-element */
 .create-rak-form input[type="checkbox"]:checked::before {
-    box-shadow: 0 0 2px 3px #2fa12f, 0 5px 5px -2px rgba(255, 105, 180, 1); /* Enhance cartoonish shadow when checked */
+    box-shadow: 0 0 2px 3px #661461, 0 5px 5px -2px rgb(12, 137, 81); /* Enhance cartoonish shadow when checked */
     transform: translate3d(0, 0.3em, -1em); /* Make the shadow appear closer on checked state */
     background: #c5f3bc;
 }
@@ -258,7 +266,7 @@ body {
 .create-rak-form label {
     font-family: 'Press Start 2P', cursive;
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-left: 0.5rem;
     cursor: pointer;
     display: inline-block;
