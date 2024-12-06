@@ -66,10 +66,23 @@ body {
 @keyframes dotFall {
     0% {
         transform: translateY(-10em); /* Start off-screen */
+        opacity: 0;
     }
     100% {
         opacity: 1; /* Fully visible */
         transform: translateY(0); /* Settle in place */
+    }
+}
+
+/* Keyframe for dots falling off the screen */
+@keyframes dotFallOff {
+    0% {
+        transform: translateY(0); /* Start in place */
+        opacity: 1;
+    }
+    100% {
+        opacity: 0; /* Fade out */
+        transform: translateY(10em); /* Fall off screen */
     }
 }
 
@@ -80,6 +93,16 @@ body {
     animation-fill-mode: forwards;
 }
 
+.rectangle.dots-falling .dot {
+    animation-name: dotFallOff; /* Use dotFallOff after RAK is created */
+    animation-fill-mode: forwards;
+}
+
+/* Optional: Add transition effects to improve the overall experience */
+.rectangle.dots-falling {
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+}
 
 
 /* Keyframe for dots falling off the screen */
@@ -291,6 +314,20 @@ body {
     }
 }
 
+@keyframes formFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+.form-fading {
+    animation: formFadeOut 1.5s forwards; /* Apply fade-out animation */
+}
 
 /* Adjusted Create Rak Button Styling */
 .create-rak-form button {

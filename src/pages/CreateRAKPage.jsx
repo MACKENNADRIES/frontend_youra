@@ -18,6 +18,7 @@ const CreateRAKPage = () => {
 
     const [collaboratorInput, setCollaboratorInput] = useState("");
     const [dotsState, setDotsState] = useState(""); // Default: dots visible and settling
+    const [formFadeOut, setFormFadeOut] = useState(false); // New state to trigger fade-out
     const navigate = useNavigate();
     const formRef = useRef(null);
     const [formBoxStyle, setFormBoxStyle] = useState({}); // Tracks form-box dimensions
@@ -54,39 +55,45 @@ const CreateRAKPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        try {
-            const token = localStorage.getItem("authToken");
-            // Prepare the data for submission
-            const response = await fetch(`${API_URL}/rak/rak/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Token ${token}`,
-                },
-                body: JSON.stringify(formData),
-            });
+        // Trigger the fade-out animation first
+        setFormFadeOut(true);
     
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("Error creating RAK:", errorData);
-                alert(`Failed to create RAK: ${errorData.detail || "Unknown error"}`);
-                return;
+        // Wait for the fade-out to complete before proceeding with the submission and triggering dots
+        setTimeout(async () => {
+            try {
+                const token = localStorage.getItem("authToken");
+                // Prepare the data for submission
+                const response = await fetch(`${API_URL}/rak/rak/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Token ${token}`,
+                    },
+                    body: JSON.stringify(formData),
+                });
+    
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Error creating RAK:", errorData);
+                    alert(`Failed to create RAK: ${errorData.detail || "Unknown error"}`);
+                    return;
+                }
+    
+                const responseData = await response.json();
+                console.log("RAK created successfully:", responseData);
+    
+                // Trigger the dots falling animation after the fade-out is complete
+                setDotsState("dots-falling");
+    
+                // Reset dots to hidden and navigate after animation finishes
+                setTimeout(() => {
+                    navigate("/home");
+                }, 3000); // Duration to match dotFallOff animation (3 seconds)
+            } catch (error) {
+                console.error("Error submitting the form:", error);
+                alert("An error occurred while creating the RAK.");
             }
-    
-            const responseData = await response.json();
-            console.log("RAK created successfully:", responseData);
-    
-            // Trigger dots falling animation
-            setDotsState("dots-falling");
-    
-            // Reset dots to hidden after falling animation finishes
-            setTimeout(() => {
-                navigate("/home");
-            }, 3000); // Matches dotFallOff duration
-        } catch (error) {
-            console.error("Error submitting the form:", error);
-            alert("An error occurred while creating the RAK.");
-        }
+        }, 2000); // Wait for 2 seconds (duration of fade-out) before sending the request
     };
     
 
@@ -110,11 +117,14 @@ const CreateRAKPage = () => {
                     ))}
                 </div>
 
-                <div className="header-bar">Create a Random Act of Kindness</div>
+                <div className={`header-bar ${formFadeOut ? 'form-fading' : ''}`}>
+    Create a Random Act of Kindness
+</div>
 
-                {/* Form */}
-                <form className="create-rak-form" onSubmit={handleSubmit}>
-                    <input
+<form
+    className={`create-rak-form ${formFadeOut ? 'form-fading' : ''}`}
+    onSubmit={handleSubmit}
+>                <input
                         type="text"
                         name="title"
                         value={formData.title}
@@ -156,7 +166,7 @@ const CreateRAKPage = () => {
                         min="1"
                         max="10"
                     />
-                    <div class="checkbox-container">
+                    <div className="checkbox-container">
                     <label>
                         <input
                             type="checkbox"
