@@ -38,7 +38,7 @@ body {
   
     .card:hover {
         transform: scale(1.05);
-        border: 3px solid rgb(229, 159, 255); /* Juicy and thicker border */
+        border: 1px solid rgb(229, 159, 255); /* Juicy and thicker border */
         box-shadow: 0px 0px 20px 5px rgba(229, 159, 255, 0.7); /* Adds a glow effect */
     }
   .card::before {

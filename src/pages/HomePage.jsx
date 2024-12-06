@@ -19,6 +19,11 @@ const HomePage = () => {
     { text: "Create RAK", image: "src/assets/createrak.png", route: "/create-rak" },
     { text: "Leaderboard", image: "src/assets/leaderboard.png", route: "/leaderboard" },
     { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
+    { text: "Discover", image: "src/assets/discover.png", route: "/discover" },
+    { text: "Create RAK", image: "src/assets/createrak.png", route: "/create-rak" },
+    { text: "Leaderboard", image: "src/assets/leaderboard.png", route: "/leaderboard" },
+    { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
+    { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
   ];
 
   return (
