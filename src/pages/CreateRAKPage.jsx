@@ -22,32 +22,6 @@ const CreateRAKPage = () => {
     const formRef = useRef(null);
     const [formBoxStyle, setFormBoxStyle] = useState({}); // Tracks form-box dimensions
 
-    useEffect(() => {
-        // Dynamically adjust the box to match the form size and position
-        const updateBoxSize = () => {
-            if (formRef.current) {
-                const rect = formRef.current.getBoundingClientRect();
-                setFormBoxStyle({
-                    // width: `${rect.width}px`,
-                    // height: `${rect.height}px`,
-                    // top: `${rect.top}px`,
-                    // left: `${rect.left}px`,
-                    // position: "absolute", // Ensures alignment
-                });
-            }
-        };
-
-        updateBoxSize(); // Initial size update
-        window.addEventListener("resize", updateBoxSize); // Update on resize
-        return () => window.removeEventListener("resize", updateBoxSize);
-    }, []);
-
-    // useEffect(() => {
-    //     // Trigger dots to hide after settling
-    //     const timeout = setTimeout(() => setDotsState("dots-hidden"), 2000); // Matches dotSettle duration
-    //     return () => clearTimeout(timeout); // Cleanup timeout on unmount
-    // }, []);
-
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
