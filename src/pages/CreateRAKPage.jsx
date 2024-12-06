@@ -169,7 +169,7 @@ const CreateRAKPage = () => {
                         type="text"
                         name="action"
                         value={formData.action}
-                        placeholder="Action Required"
+                        placeholder="What do you need?"
                         onChange={handleChange}
                         required
                     />
@@ -177,10 +177,12 @@ const CreateRAKPage = () => {
                         type="number"
                         name="aura_points_value"
                         value={formData.aura_points_value}
-                        placeholder="Aura Points Value"
+                        placeholder="Aura Points"
                         onChange={handleChange}
                         min="1"
+                        max="10"
                     />
+                    <div class="checkbox-container">
                     <label>
                         <input
                             type="checkbox"
@@ -204,29 +206,13 @@ const CreateRAKPage = () => {
                     <div className="collaborators-section">
                         <h3>Allow Collaborators</h3>
                         <input
-                            type="text"
-                            value={collaboratorInput}
-                            placeholder="Add Collaborator (e.g., username)"
-                            onChange={handleCollaboratorInputChange}
+                            type="checkbox"
+                            // this might be wrong 
+                            checked={formData.allowcollaborators_rak}
+                            onChange={handleChange}
                         />
-                        <button type="button" onClick={handleAddCollaborator}>
-                            Add
-                        </button>
-                        <ul>
-                            {formData.collaborators.map((collaborator, index) => (
-                                <li key={index}>
-                                    {collaborator}{" "}
-                                    <button
-                                        type="button"
-                                        onClick={() => handleRemoveCollaborator(collaborator)}
-                                    >
-                                        Remove
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
                     </div>
-
+                    </div>
                     <button type="submit">Create RAK</button>
                 </form>
             </div>

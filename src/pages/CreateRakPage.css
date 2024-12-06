@@ -19,15 +19,7 @@ body {
     /* padding: 1rem; */
 }
 
-.header-bar {
-    background: #2a0337;
-    color: #d98cf7;
-    padding: 1rem;
-    font-size: 1.2rem;
-    border-bottom: 4px solid #a600ff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-    margin-bottom: 2rem;
-}
+
 .form-box {
     margin: 0;
     position: absolute; /* Or `relative` for content-flow positioning */
@@ -89,19 +81,6 @@ body {
 }
 
 
-/* .rectangle.dots-hidden > .dot {
-    opacity: 0;
-} */
-
-/* .rectangle > .dot {
-    width: 1.5em;
-    height: 1.5em;
-    background: rgb(0, 0, 0);
-    animation: dotSettle 2s ease-out forwards;
-} */
-
-/* When dots are falling off the screen */
-
 
 /* Keyframe for dots falling off the screen */
 @keyframes dotFallOff {
@@ -115,55 +94,259 @@ body {
     }
 }
 
-/* Create staggered animations for dots */
-/* .rectangle .dot:nth-of-type(2n) { animation-delay: 0.2s; }
-.rectangle .dot:nth-of-type(3n) { animation-delay: 0.4s; }
-.rectangle .dot:nth-of-type(4n) { animation-delay: 0.6s; }
-.rectangle .dot:nth-of-type(5n) { animation-delay: 0.8s; } */
+.header-bar {
+    position: relative;
+    left: -1%;
+    background: #2a0337; /* Dark purple background */
+    color: #ecbdff; /* Bright purple text color */
+    padding: 1rem;
+    font-size: 2rem; /* Bigger font for a more retro look */
+    font-family: 'Press Start 2P', monospace; /* Pixelated 8-bit font */
+    text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Retro neon-style text shadow */
+    border: 4px solid #cc72fd; /* Purple border */
+    border-radius: 4px; /* Slightly rounded corners for a more playful look */
+    box-shadow: 3px 3px 0 #ff66cc, 6px 6px 0 #ff33cc; /* 3D shadow to create depth */
+    margin-bottom: 0.5rem;
+    z-index: 1000;
+}
+
+/* Apply 3D effect to the header-bar text */
+.header-bar span {
+    display: inline-block;
+    transform: translateZ(10px); /* Apply the 3D effect to the text */
+    text-align: center;
+    letter-spacing: 3px; /* Slight space between letters for more of the pixelated look */
+}
+
+
 
 /* Apply animation to the form */
 .create-rak-form {
     position: relative;
-    z-index: 2; /* Ensures the form stays on top */
-    padding: 2rem;
-    background: rgba(34, 34, 34, 0); /* Slight transparency for blending */
-    border: 4px solid #d400ff;
-    box-shadow: 0 0 8px #ff8000;
-    overflow: hidden; /* Ensures dots do not overflow outside the form */
-    opacity: 0; /* Start invisible */
-    animation: formFadeIn 2s forwards;
-    animation-delay: 1.5s; /* Matches the dots' settling animation */
+    z-index: 2;
+    padding: 2.5rem;
+    background: #2b2a2a00;
+    color: #ffffff;
+    border: 2px solid #ff66cc;
+    font-family: 'Press Start 2P', cursive;
+    box-shadow: 0px 6px 20px rgba(255, 105, 180, 0.7), 0 0 25px rgba(255, 105, 180, 0.4);
+    transform: perspective(600px) rotateX(10deg) rotateY(10deg);
+    opacity: 0;
+    animation: formFadeIn 2.5s forwards;
+    animation-delay: 1.5s;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the form elements horizontally */
+    justify-content: flex-start;
+    gap: 1.5rem; /* Add consistent space between elements */
 }
 
+/* Style for input, textarea, select elements */
 .create-rak-form input,
 .create-rak-form textarea,
-.create-rak-form select,
-.create-rak-form button {
+.create-rak-form select {
     width: 100%;
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-    font-size: 1rem;
-    background: #333;
+    max-width: 400px; /* Limit width of inputs */
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    background: #4e055329;
     color: #fff;
-    border: 2px solid #ff9d00;
+    border: 2px solid #ff66cc;
     font-family: 'Press Start 2P', cursive;
+    border-radius: 8px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    transform: translateZ(0);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+/* Hover and Focus Effects */
+.create-rak-form input:hover,
+.create-rak-form textarea:hover,
+.create-rak-form select:hover {
+    box-shadow: 0 8px 15px rgba(255, 105, 180, 0.8);
+    transform: translateY(-4px);
+}
+
+.create-rak-form input:focus,
+.create-rak-form textarea:focus,
+.create-rak-form select:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 1), 0 0 25px rgb(255, 105, 180);
+    transform: translateY(-5px);
+}
+/* Checkbox container to align checkboxes to the left */
+.create-rak-form .checkbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align checkboxes to the left */
+    gap: 0.5rem; /* Space between each checkbox */
+    width: 100%;
+    max-width: 400px; /* Limit width of checkboxes */
+}
+
+/* Style for checkboxes */
+.create-rak-form input[type="checkbox"] {
+    position: relative;
+    width: 45px; /* Bigger size for a cartoonish look */
+    height: 45px; /* Matching height */
+    background-color: #5e0d44; /* Solid light background */
+    border: 4px solid #dd57ff; /* Thick border for emphasis */
+    border-radius: 10px; /* Rounded corners for a cartoonish feel */
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 105, 180, 0.7); /* Deep shadow for 3D effect */
+    transform: translateZ(0) scale(1);
+}
+
+/* Add pseudo-element for the layered effect */
+.create-rak-form input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #ecc0f1; /* Solid light pink background for the layer */
+    border-radius: inherit; /* Keep the border radius consistent */
+    box-shadow: 0 0 5px 2px #3f0548, 0 4px 4px -2px rgba(180, 76, 128, 0.8); /* Strong cartoon shadow */
+    transform: translate3d(0, 0.2em, -1em); /* Make it appear behind with depth */
+    transition: transform 0.3s cubic-bezier(0, 0, 0.6, 1), box-shadow 0.3s ease;
+}
+
+/* Checkbox checked state */
+.create-rak-form input[type="checkbox"]:checked {
+    background-color: #911969; /* Solid pink on checked */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 105, 180, 1); /* Bolder shadow when checked */
+}
+
+/* Checked state for pseudo-element */
+.create-rak-form input[type="checkbox"]:checked::before {
+    box-shadow: 0 0 2px 3px #2fa12f, 0 5px 5px -2px rgba(255, 105, 180, 1); /* Enhance cartoonish shadow when checked */
+    transform: translate3d(0, 0.3em, -1em); /* Make the shadow appear closer on checked state */
+    background: #c5f3bc;
+}
+
+/* Checkbox hover state */
+.create-rak-form input[type="checkbox"]:hover {
+    transform: scale(1.1); /* Slightly enlarge for hover effect */
+    box-shadow: 0px 4px 6px rgba(254, 173, 213, 0.9); /* Stronger shadow effect on hover */
+}
+
+/* Hover state for pseudo-element */
+.create-rak-form input[type="checkbox"]:hover::before {
+    box-shadow: 0 0 10px 3px #651a5b, 0 3px 5px -5px rgba(255, 105, 180, 0.8); /* Cartoonish hover shadow */
+    transform: translate3d(0, 0.3em, -1em); /* Adjust shadow to match hover */
+}
+
+/* Checkbox focus state */
+.create-rak-form input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 1), 0 0 30px rgba(255, 105, 180, 0.7); /* Focus effect with glow */
+    transform: translateY(-5px); /* Lift the checkbox on focus */
+}
+
+/* Focus state for pseudo-element */
+.create-rak-form input[type="checkbox"]:focus::before {
+    box-shadow: 0 0 12px 4px #f157ff, 0 14px 14px -6px rgba(255, 105, 180, 0.9); /* Focused shadow with more depth */
+    transform: translate3d(0, 0.25em, -1em); /* Slightly adjust the layer on focus */
+}
+
+
+/* Label styling for checkboxes */
+.create-rak-form label {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for label */
+.create-rak-form input[type="checkbox"]:hover + label {
+    color: #ff66cc;
+}
+
+
+/* Keyframe for fading in the form */
+@keyframes formFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(1); /* Slightly smaller at start for zoom effect */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1); /* Full size at the end of the animation */
+    }
+}
+
+
+/* Adjusted Create Rak Button Styling */
 .create-rak-form button {
     position: relative;
-    display: block;
-    margin: 30px auto;
+    display: block; /* Ensures the button is on its own line */
+    width: 100%; /* Uniform width for the button */
+    max-width: 300px; /* Prevents the button from being too wide */
+    margin: 30px auto; /* Adds vertical spacing and centers the button */
     padding: 10px 30px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-family: 'Press Start 2P', monospace;
     background: #ecc1f6;
     color: #202020;
     border: 2px solid #dd57ff;
-    font-size: 16px;
-    font-family: 'Press Start 2P', monospace;
-    text-transform: uppercase;
+    border-radius: 10px;
+    font-weight: 750;
     transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
     transform-style: preserve-3d;
 }
 
+/* Style adjustments for hover and active states */
+.create-rak-form button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ec87f7;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #e957ff, 0 0.625em 0 0 #f7b5f8;
+    transform: translate3d(0, 0.75em, -1em);
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+}
+
 .create-rak-form button:hover {
     background: #f1adf8;
+    transform: translate(0, 0.25em);
+}
+
+.create-rak-form button:hover::before {
+    box-shadow: 0 0 0 2px #ff57e9, 0 0.5em 0 0 #f8b5f5;
+    transform: translate3d(0, 0.5em, -1em);
+}
+
+.create-rak-form button:active {
+    background: #f8adf8;
+    transform: translate(0, 0.75em);
+}
+
+.create-rak-form button:active::before {
+    box-shadow: 0 0 0 2px #f157ff, 0 0 #f7b5f8;
+    transform: translate3d(0, 0, -1em);
+}
+
+
+/* Style for each form element to pop in */
+.create-rak-form .form-element {
+    opacity: 0;
+    animation-name: elementPopIn;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
 }
