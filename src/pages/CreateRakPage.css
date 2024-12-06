@@ -72,36 +72,41 @@ body {
     z-index: 1;
     pointer-events: none;
 }
-@keyframes dotSettle {
+
+/* Keyframe for dots falling into place */
+@keyframes dotFall {
     0% {
-        opacity: 0;
-        transform: translateY(-10em);
-    }
-    50% {
-        opacity: 1;
-        transform: translateY(0);
+        transform: translateY(-10em); /* Start off-screen */
     }
     100% {
-        opacity: 1;
+        opacity: 1; /* Fully visible */
+        transform: translateY(0); /* Settle in place */
     }
-}
-
-.rectangle.dots-hidden > .dot {
-    opacity: 0;
 }
 
 .rectangle > .dot {
+    opacity: 0; /* Initial state: Hidden */
+    width: 1.5em;
+    height: 1.5em;
+    background: rgb(0, 0, 0);
+    animation-name: dotFall;
+    animation-fill-mode: forwards;
+}
+
+
+/* .rectangle.dots-hidden > .dot {
+    opacity: 0;
+} */
+
+/* .rectangle > .dot {
     width: 1.5em;
     height: 1.5em;
     background: rgb(0, 0, 0);
     animation: dotSettle 2s ease-out forwards;
-}
+} */
 
 /* When dots are falling off the screen */
-.rectangle.dots-falling > .dot {
-    opacity: 1;
-    animation: dotFallOff 3s ease-in forwards; /* Falling animation */
-}
+
 
 /* Keyframe for dots falling off the screen */
 @keyframes dotFallOff {
@@ -116,10 +121,10 @@ body {
 }
 
 /* Create staggered animations for dots */
-.rectangle .dot:nth-of-type(2n) { animation-delay: 0.2s; }
+/* .rectangle .dot:nth-of-type(2n) { animation-delay: 0.2s; }
 .rectangle .dot:nth-of-type(3n) { animation-delay: 0.4s; }
 .rectangle .dot:nth-of-type(4n) { animation-delay: 0.6s; }
-.rectangle .dot:nth-of-type(5n) { animation-delay: 0.8s; }
+.rectangle .dot:nth-of-type(5n) { animation-delay: 0.8s; } */
 
 /* Apply animation to the form */
 .create-rak-form {
@@ -131,8 +136,7 @@ body {
     box-shadow: 0 0 8px #ff8000;
     overflow: hidden; /* Ensures dots do not overflow outside the form */
     opacity: 0; /* Start invisible */
-    animation: formFadeIn 2s ease-in-out forwards;
-    animation-delay: 1.5s; /* Matches the dots' settling animation */
+    
 }
 
 .create-rak-form input,

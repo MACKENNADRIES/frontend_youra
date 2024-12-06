@@ -42,11 +42,11 @@ const CreateRAKPage = () => {
         return () => window.removeEventListener("resize", updateBoxSize);
     }, []);
 
-    useEffect(() => {
-        // Trigger dots to hide after settling
-        const timeout = setTimeout(() => setDotsState("dots-hidden"), 2000); // Matches dotSettle duration
-        return () => clearTimeout(timeout); // Cleanup timeout on unmount
-    }, []);
+    // useEffect(() => {
+    //     // Trigger dots to hide after settling
+    //     const timeout = setTimeout(() => setDotsState("dots-hidden"), 2000); // Matches dotSettle duration
+    //     return () => clearTimeout(timeout); // Cleanup timeout on unmount
+    // }, []);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -107,7 +107,7 @@ const CreateRAKPage = () => {
 
             // Reset dots to hidden after falling animation finishes
             setTimeout(() => {
-                setDotsState("dots-hidden");
+                // setDotsState("dots-hidden");
                 navigate("/home");
             }, 3000); // Matches dotFallOff duration
         } catch (error) {
@@ -125,7 +125,14 @@ const CreateRAKPage = () => {
                 {/* Dots Container */}
                 <div className={`rectangle ${dotsState}`}>
                     {Array.from({ length: 600 }, (_, i) => (
-                        <span key={i} className="dot"></span>
+                        <span 
+                            key={i} 
+                            className="dot" 
+                            style={{ 
+                                animationDuration: `${0.1 + Math.random() * 1}s`, // Random speed: 0.1s to 1s
+                                animationDelay: `${Math.random() * 1.5}s` // Staggered delay: 0-3s
+                            }} 
+                        ></span>
                     ))}
                 </div>
 
