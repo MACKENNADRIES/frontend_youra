@@ -5,6 +5,8 @@ import "../components/PixelCanvas"; // Import the PixelCanvas component
 
 const RAKList = () => {
   const [raks, setRaks] = useState([]); // State to store fetched RAKs
+  const [filteredRaks, setFilteredRaks] = useState([]); // State for filtered RAKs
+  const [filter, setFilter] = useState("all"); // Filter state
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const [auraData, setAuraData] = useState({}); // State to store aura data
@@ -14,6 +16,7 @@ const RAKList = () => {
       try {
         const data = await getRAKs(); // Use the centralized API function
         setRaks(data);
+        setFilteredRaks(data); // Initialize filtered RAKs with all RAKs
       } catch (err) {
         setError(err.message);
       } finally {
@@ -47,7 +50,9 @@ const RAKList = () => {
           const { range, level } = auraLevels[i];
           if (aura_points_value >= range[0] && aura_points_value <= range[1]) {
             try {
-              const image = await import(`../assets/${level.toLowerCase().replace(' ', '-')}.png`);
+              const image = await import(
+                `../assets/${level.toLowerCase().replace(" ", "-")}.png`
+              );
               auraDataObj[rak.id] = { level, badgeImage: image.default };
             } catch (error) {
               console.error(`Error loading image for ${level}:`, error);
@@ -66,6 +71,21 @@ const RAKList = () => {
     }
   }, [raks]); // This useEffect depends on 'raks', so it will re-run when 'raks' changes
 
+  // Update filtered RAKs when the filter changes
+  useEffect(() => {
+    if (filter === "all") {
+      setFilteredRaks(raks);
+    } else if (filter === "claimed") {
+      setFilteredRaks(raks.filter((rak) => rak.status === "in progress"));
+    } else if (filter === "unclaimed") {
+      setFilteredRaks(raks.filter((rak) => rak.status === "open"));
+    } else if (filter === "request") {
+      setFilteredRaks(raks.filter((rak) => rak.rak_type === "request"));
+    } else if (filter === "offer") {
+      setFilteredRaks(raks.filter((rak) => rak.rak_type === "offer"));
+    }
+  }, [filter, raks]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -73,35 +93,70 @@ const RAKList = () => {
     <div id="app">
       <section className="container nes-container with-title">
         <h2 className="title">Random Acts of Kindness</h2>
-        {raks.length > 0 ? (
+        {/* Filter Dropdown */}
+        <div className="filter-container">
+          <label htmlFor="filter">Filter by:</label>
+          <select
+            id="filter"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="claimed">Claimed</option>
+            <option value="unclaimed">Unclaimed</option>
+            <option value="request">Request</option>
+            <option value="offer">Offer</option>
+          </select>
+        </div>
+
+        {/* RAK List */}
+        {filteredRaks.length > 0 ? (
           <ul className="rak-list">
-            {raks.map((rak) => {
+            {filteredRaks.map((rak) => {
               const aura = auraData[rak.id]; // Get the aura data for each RAK
               return (
                 <li key={rak.id} className="rak-item">
-  <div className="rak-header-box">
-    <div className="rak-header">
-      <div className="rak-badge">
-        {aura && aura.badgeImage && (
-          <img
-            src={aura.badgeImage}
-            alt={`${aura.level} Badge`}
-            className="badge-img"
-          />
-        )}
-        {aura && <p className="rak-level">{aura.level}</p>}
-      </div>
-      <p className="rak-username">Posted by: {rak.username}</p>
-    </div>
-  </div>
-  <h3 className="rak-title">{rak.title}</h3>
-  <p className="rak-description">{rak.description}</p>
-  <p className="rak-type">Type: {rak.rak_type}</p>
-  <p className="rak-action">Action: {rak.action}</p>
-  <p className="rak-status">Status: {rak.status}</p>
-  <p className="rak-aura-points">Aura Points: {rak.aura_points_value}</p>
-</li>
-
+                  <div className="rak-header">
+                    {aura && aura.badgeImage && (
+                      <div className="rak-badge">
+                        <img
+                          src={aura.badgeImage}
+                          alt={`${aura.level} Badge`}
+                          className="badge-img"
+                        />
+                        <p className="rak-level">{aura.level}</p>
+                      </div>
+                    )}
+                    <p className="rak-username">
+                      Posted by: {rak.created_by_username}
+                    </p>
+                  </div>
+                  <div className="rak-content">
+                    <h3 className="rak-title">{rak.title}</h3>
+                    <p className="rak-description">{rak.description}</p>
+                    <div className="rak-details">
+                    <p className="rak-status">
+  Status:{" "}
+  {rak.status === "open" ? (
+    <span className="rak-open">Open</span>
+  ) : (
+    <span className="rak-completed">Completed</span>
+  )}
+</p>
+<p className="rak-claim-status">
+  Claim Status:{" "}
+  {rak.claim_status === "unclaimed" ? (
+    <span className="rak-unclaimed">Unclaimed</span>
+  ) : (
+    <span className="rak-claimed">Claimed</span>
+  )}
+</p>
+                      <p className="rak-aura-points">
+                        Aura Points: {rak.aura_points_value}
+                      </p>
+                    </div>
+                  </div>
+                </li>
               );
             })}
           </ul>

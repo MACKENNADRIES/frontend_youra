@@ -8,8 +8,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
   }
   
   /* Error Page Container */
@@ -168,3 +166,14 @@ body {
   }
   
   /* Falling Animation */
+
+  .game-area {
+    position: relative;
+    margin: 20px auto;
+    width: 60%; /* Adjust the game area width */
+    height: 300px; /* Constrain the height */
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+}

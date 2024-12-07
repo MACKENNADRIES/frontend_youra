@@ -1,57 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
-/* General Styling */
+/* Global Styles */
 body {
   background: radial-gradient(circle, #deb0ff, #7a57ad, #2e276f, #0e000d);
-  font-family: "Press Start 2P", sans-serif;
+  font-family: "Roboto Mono", monospace;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   margin: 0;
 }
 
+
+html {
+    scroll-behavior: smooth;
+  }
+/* App Container */
 #app {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
 }
 
-/* Container Styling */
+/* Main Container Styling */
 .container {
   background: rgba(246, 218, 242, 0.9);
-  padding: 1em;
-  border-radius: 10px;
+  padding: 1.5em;
+  border-radius: 15px;
   width: 100%;
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   cursor: pointer;
   z-index: 5;
-  box-shadow: 4px 4px 0 #efa3f9, 8px 8px 0 #e573e9;
+  box-shadow: 6px 6px 10px rgba(255, 102, 204, 0.7), 12px 12px 15px rgba(229, 115, 233, 0.5);
   margin: 20px 0;
   border: 2px solid #ff66cc;
   transform: rotateX(2deg) rotateY(2deg);
 }
 
-/* Pixel Canvas Styling */
-pixel-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 50%;
+.container:hover {
+  transform: rotateX(0deg) rotateY(0deg);
+  box-shadow: 8px 8px 15px rgba(255, 102, 204, 0.9);
 }
 
 /* Title Styling */
 .title {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-transform: uppercase;
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
   background: linear-gradient(45deg, #ecc1f6, #dd57ff);
   color: #202020;
   padding: 10px;
@@ -73,107 +72,151 @@ pixel-canvas {
 
 /* RAK List Styling */
 .rak-list {
-  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2em;
   padding: 0;
   margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5em;
-  text-align: center;
+  list-style: none;
 }
 
 /* RAK Item Styling */
 .rak-item {
   position: relative;
-  padding: 2em 1em 1em;
-  border-radius: 10px;
+  padding: 2em 1em;
+  border-radius: 15px;
   background-color: rgba(17, 16, 16, 0.9);
   box-shadow: 3px 3px 0 #ff66cc, 6px 6px 0 #ff33cc, 9px 9px 0 #cc72fd, 12px 12px 0 #841368;
   overflow: hidden;
   color: white;
-  transition: background-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .rak-item:hover {
-  background-color: #f0f0f0;
+  transform: translateY(-5px);
+  background-color: #2e276f;
+  box-shadow: 5px 5px 15px rgba(255, 102, 204, 0.8);
 }
 
-/* Header Box Styling */
-.rak-header-box {
-  background-color: rgb(62, 60, 59);
-  border: 2px solid #ff66cc;
-  padding: 10px;
-  border-radius: 8px;
+/* RAK Header Styling */
+.rak-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1em;
-
-}
-
-/* Header Content Styling */
-.rak-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.rak-username {
-  font-size: 0.9rem;
-  color: #ff66cc;
-  font-family: 'Roboto Mono', monospace;
 }
 
 .rak-badge {
   text-align: center;
-  font-family: 'Roboto Mono', monospace;
 }
 
 .badge-img {
-    width: 50px;
-    height: 50px;
-    animation: float 3s ease-in-out infinite;
+  width: 60px;
+  height: 60px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
   }
-  
-  @keyframes float {
-    0% {
-      transform: translateY(0); /* Initial position */
-    }
-    50% {
-      transform: translateY(-5px); /* Move up slightly */
-    }
-    100% {
-      transform: translateY(0); /* Return to original position */
-    }
+  50% {
+    transform: translateY(-5px);
   }
-  
+  100% {
+    transform: translateY(0);
+  }
+}
 
 .rak-level {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #ff66cc;
   text-transform: uppercase;
   margin-top: 5px;
 }
 
-/* RAK Details Styling */
+.rak-username {
+  font-size: 1rem;
+  color: #ffa6d9;
+}
+
+/* RAK Content Styling */
+.rak-content {
+  text-align: left;
+}
+
 .rak-title {
   font-size: 1.5rem;
-  margin-top: 4em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: #ff66cc;
   text-align: center;
 }
 
 .rak-description {
   font-size: 1rem;
-  margin-bottom: 0.5em;
-  font-family: 'Press Start 2P', monospace;
-  text-transform: uppercase;
+  margin-bottom: 1em;
+  color: #ffffff;
 }
 
-.rak-type,
-.rak-action,
-.rak-status,
-.rak-aura-points {
+.rak-details p {
+  margin: 0.3em 0;
   font-size: 1rem;
-  margin-bottom: 0.5em;
-  font-family: 'Roboto Mono', monospace;
+  color: #ddd;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .rak-list {
+    grid-template-columns: 1fr;
+  }
+
+  .rak-item {
+    padding: 1em;
+  }
+
+  .rak-title {
+    font-size: 1.25rem;
+  }
+
+  .rak-description {
+    font-size: 0.9rem;
+  }
+
+  .rak-details p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Pixel Canvas Styling */
+pixel-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 50%;
+}
+
+.filter-container {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .filter-container label {
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    color: #ffffff;
+  }
+  
+  .filter-container select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 2px solid #ff66cc;
+    background-color: #ffffff;
+    color: #ff66cc;
+    cursor: pointer;
+  }
