@@ -7,13 +7,16 @@ import Login from "./pages/Login.jsx";
 import RAKDetailsPage from "./pages/RAKDetailsPage.jsx";
 import LeaderboardPage from "./pages/LeaderboardPage.jsx";
 import UserProfilePage from "./pages/UserProfilePage.jsx";
+import Navbar from "./components/NavBar.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import RAKList from "./pages/RAKList.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         // element: <Navbar />,
+        errorElement: <ErrorPage />, // Display this page for invalid routes
         children: [
             { path: "/", element: <Login /> },
             { path: "/home", element: <HomePage /> },

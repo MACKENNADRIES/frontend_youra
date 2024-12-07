@@ -4,7 +4,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #000428, #004e92);
+    background: radial-gradient(circle, #deb0ff, #7a57ad, #2e276f, #0e000d);
     color: #fff;
     font-family: 'Press Start 2P', cursive;
     display: flex;

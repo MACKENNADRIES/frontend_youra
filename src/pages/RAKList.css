@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+/* General Styling */
+body {
+  background: radial-gradient(circle, #deb0ff, #7a57ad, #2e276f, #0e000d);
+  font-family: "Press Start 2P", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#app {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Container Styling */
+.container {
+  background: rgba(246, 218, 242, 0.9);
+  padding: 1em;
+  border-radius: 10px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 4px 4px 0 #efa3f9, 8px 8px 0 #e573e9;
+  margin: 20px 0;
+  border: 2px solid #ff66cc;
+  transform: rotateX(2deg) rotateY(2deg);
+}
+
+/* Pixel Canvas Styling */
+pixel-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 50%;
+}
+
+/* Title Styling */
+.title {
+  text-align: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(45deg, #ecc1f6, #dd57ff);
+  color: #202020;
+  padding: 10px;
+  border: 2px solid #dd57ff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+  transition: all 0.3s ease;
+}
+
+.title:hover {
+  background: linear-gradient(45deg, #f1adf8, #f7b5f8);
+  transform: translateY(-0.25em);
+}
+
+.title:active {
+  background: linear-gradient(45deg, #f8adf8, #f157ff);
+  transform: translateY(-0.5em);
+}
+
+/* RAK List Styling */
+.rak-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  text-align: center;
+}
+
+/* RAK Item Styling */
+.rak-item {
+  position: relative;
+  padding: 2em 1em 1em;
+  border-radius: 10px;
+  background-color: rgba(17, 16, 16, 0.9);
+  box-shadow: 3px 3px 0 #ff66cc, 6px 6px 0 #ff33cc, 9px 9px 0 #cc72fd, 12px 12px 0 #841368;
+  overflow: hidden;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.rak-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Header Box Styling */
+.rak-header-box {
+  background-color: rgb(62, 60, 59);
+  border: 2px solid #ff66cc;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
+
+}
+
+/* Header Content Styling */
+.rak-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rak-username {
+  font-size: 0.9rem;
+  color: #ff66cc;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.rak-badge {
+  text-align: center;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.badge-img {
+    width: 50px;
+    height: 50px;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0); /* Initial position */
+    }
+    50% {
+      transform: translateY(-5px); /* Move up slightly */
+    }
+    100% {
+      transform: translateY(0); /* Return to original position */
+    }
+  }
+  
+
+.rak-level {
+  font-size: 0.9rem;
+  color: #ff66cc;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+/* RAK Details Styling */
+.rak-title {
+  font-size: 1.5rem;
+  margin-top: 4em;
+  text-align: center;
+}
+
+.rak-description {
+  font-size: 1rem;
+  margin-bottom: 0.5em;
+  font-family: 'Press Start 2P', monospace;
+  text-transform: uppercase;
+}
+
+.rak-type,
+.rak-action,
+.rak-status,
+.rak-aura-points {
+  font-size: 1rem;
+  margin-bottom: 0.5em;
+  font-family: 'Roboto Mono', monospace;
+}
