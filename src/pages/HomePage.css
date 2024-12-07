@@ -9,32 +9,119 @@ body {
   
   main.homepage {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr); /* Ensures three columns */
+    gap: 1.5rem; /* Space between cards */
     padding: 2rem;
-    justify-items: center;
-    align-items: center;
-    height: 100vh;
+    justify-items: center; /* Center-align items horizontally */
+    align-items: start; /* Align items to the top of the row */
+}
+.hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: calc(100% - 4rem); /* Adjusts the width to account for margins */
+  margin: 2rem auto; /* Adds space at the top and on the sides */
+  height: 50%;
+  background: #2a0337;
+  color: #ecbdff;
+  font-family: 'Press Start 2P', monospace;
+  border: 4px solid #cc72fd;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #ff66cc, 6px 6px 0 #ff33cc;
+  overflow: hidden;
+}
+
+
+/* Hero content styling */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Retro neon-style text shadow */
+  animation: fadeIn 2.5s forwards;
+}
+
+/* Hero title */
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Neon-style shadow */
+  letter-spacing: 3px; /* Extra spacing for retro look */
+  transform: perspective(600px) rotateX(10deg) rotateY(10deg); /* 3D effect */
+  animation: fadeIn 2.5s forwards;
+}
+
+/* Hero description */
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Neon-style shadow */
+  letter-spacing: 2px; /* Slight space between letters */
+}
+
+/* Call-to-action button */
+.hero-button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(135deg, #ff66cc, #ff33cc); /* Neon pink gradient */
+  color: #202020;
+  border: 4px solid #cc72fd; /* Matches the hero border */
+  border-radius: 4px; /* Slight rounding */
+  box-shadow: 3px 3px 0 #ff33cc, 6px 6px 0 #ff0099; /* Retro 3D shadow */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-button:hover {
+  transform: translate(-3px, -3px); /* Slight movement for interactivity */
+  box-shadow: 4px 4px 0 #ff66cc, 8px 8px 0 #ff33cc;
+}
+
+.hero-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 #ff0099, 4px 4px 0 #ff33cc;
+}
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
   }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
   
   
-  /* Card styles */
-  .card {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 4 / 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--surface-2);
-    background: rgb(0, 0, 0);
-    border-radius: 10px;
-    isolation: isolate;
-    transition: transform 0.3s ease-in-out, border 0.5s ease, border-color 0.3s ease-in-out;
-    cursor: pointer;
-    text-align: center;
-  }
+.card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--surface-2);
+  background: rgb(0, 0, 0);
+  border-radius: 10px;
+  isolation: isolate;
+  transition: transform 0.3s ease-in-out, border 0.5s ease, border-color 0.3s ease-in-out;
+  cursor: pointer;
+  text-align: center;
+  
+  /* Add these for size constraints */
+  max-width: 300px; /* Maximum width of the card */
+  max-height: 300px; /* Maximum height of the card */
+  width: 100%; /* Allows scaling down on smaller screens */
+  height: auto; /* Maintains aspect ratio */
+  margin: 1rem auto; /* Centers the card and adds space between them */
+}
   
     .card:hover {
         transform: scale(1.05);
@@ -111,3 +198,15 @@ body {
     font-family: "Press Start 2P", cursive;
   }
   
+
+  @media (max-width: 768px) {
+    main.homepage {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    main.homepage {
+        grid-template-columns: 1fr; /* One column on very small screens */
+    }
+}

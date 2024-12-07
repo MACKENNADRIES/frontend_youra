@@ -54,46 +54,47 @@ const CreateRAKPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        // Trigger the fade-out animation first
-        setFormFadeOut(true);
-    
-        // Wait for the fade-out to complete before proceeding with the submission and triggering dots
-        setTimeout(async () => {
-            try {
-                const token = localStorage.getItem("authToken");
-                // Prepare the data for submission
-                const response = await fetch(`${API_URL}/rak/rak/`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Token ${token}`,
-                    },
-                    body: JSON.stringify(formData),
-                });
-    
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error("Error creating RAK:", errorData);
-                    alert(`Failed to create RAK: ${errorData.detail || "Unknown error"}`);
-                    return;
-                }
-    
-                const responseData = await response.json();
-                console.log("RAK created successfully:", responseData);
-    
-                // Trigger the dots falling animation after the fade-out is complete
-                setDotsState("dots-falling");
-    
-                // Reset dots to hidden and navigate after animation finishes
-                setTimeout(() => {
-                    navigate("/home");
-                }, 3000); // Duration to match dotFallOff animation (3 seconds)
-            } catch (error) {
-                console.error("Error submitting the form:", error);
-                alert("An error occurred while creating the RAK.");
+
+        try {
+            const token = localStorage.getItem("authToken");
+            const response = await fetch(`${API_URL}/rak/rak/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Token ${token}`,
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Error creating RAK:", errorData);
+                alert(`Failed to create RAK: ${errorData.detail || "Unknown error"}`);
+                return;
             }
-        }, 2000); // Wait for 2 seconds (duration of fade-out) before sending the request
+
+            // 1. First fade out the form
+            setFormFadeOut(true);
+            
+            // 2. After form fades out, expand dots margin
+            setTimeout(() => {
+                setDotsState("dots-expand");
+                
+                // 3. After margin expansion, make dots fall
+                setTimeout(() => {
+                    setDotsState("dots-expand dots-falling");
+                    
+                    // 4. Navigate after falling animation completes
+                    setTimeout(() => {
+                        navigate("/home");
+                    }, 3000); // Duration of falling animation
+                }, 1000); // Wait for margin expansion
+            }, 400); // Wait for form fade-out
+
+        } catch (error) {
+            console.error("Error submitting the form:", error);
+            alert("An error occurred while creating the RAK.");
+        }
     };
     
 
@@ -102,7 +103,6 @@ const CreateRAKPage = () => {
             {/* Form Container */}
             <div className="form-container" ref={formRef}>
             {/* Independent Form Box */}
-            <div className="form-box"></div>
                 {/* Dots Container */}
                 <div className={`rectangle ${dotsState}`}>
                     {Array.from({ length: 600 }, (_, i) => (

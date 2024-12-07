@@ -28,15 +28,14 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="hero-section">
-        <h1>Welcome to Youra</h1>
-        <p>
-          A glowing platform to inspire Random Acts of Kindness. Join the movement, track your aura, and
-          spread kindness one act at a time!
-        </p>
-        <button onClick={() => navigate("/discover")}>Get Started</button>
-      </section>
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Welcome to Youra</h1>
+        <p class="hero-description">Spread kindness, earn aura points, and pay it forward!</p>
+    </div>
+    <div class="hero-overlay"></div>
+</div>
+
 
       {/* Main Section with Cards */}
       <main className="homepage">
