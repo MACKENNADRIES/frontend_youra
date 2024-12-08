@@ -12,6 +12,8 @@ import HomePage from "./pages/HomePage.jsx";
 import RAKList from "./pages/RAKList.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 
+
+
 // Layout for pages WITH Navbar
 const NavbarLayout = () => {
     return (
@@ -50,7 +52,7 @@ const router = createBrowserRouter([
             { path: "/rak/:id", element: <RAKDetailsPage /> },
             { path: "/rak/leaderboard", element: <LeaderboardPage /> },
             {
-                path: "/profile/:id", // Dynamic route for user profile with 'id'
+                path: "/profile", // Dynamic route for user profile with 'id'
                 element: <UserProfilePage />,
             },
             { path: "/create-rak", element: <CreateRAKPage /> },
