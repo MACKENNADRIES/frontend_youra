@@ -10,6 +10,8 @@ const UserProfilePage = () => {
   const [error, setError] = useState(null);
   const [auraBadge, setAuraBadge] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null); // New state for uploaded image
+  const [editMode, setEditMode] = useState(false); // New state for edit mode
+  const [formData, setFormData] = useState({}); // Form data for editing
   const hasFetchedData = useRef(false);
 
   useEffect(() => {
@@ -32,6 +34,12 @@ const UserProfilePage = () => {
 
         const data = await response.json();
         setProfileData(data);
+        setFormData({
+          username: data.user.username,
+          first_name: data.user.first_name,
+          last_name: data.user.last_name,
+          email: data.user.email,
+        });
         hasFetchedData.current = true;
       } catch (err) {
         setError(err.message);
@@ -81,53 +89,162 @@ const UserProfilePage = () => {
     loadBadgeImage();
   }, [profileData]);
 
-  if (loading) return <p>Loading profile...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const handleEditToggle = () => {
+    setEditMode(!editMode);
+  };
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setUploadedImage(e.target.result); // Update state with the uploaded image
-      };
-      reader.readAsDataURL(file);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${API_URL}/users/profile/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const updatedData = await response.json();
+      setProfileData((prevData) => ({
+        ...prevData,
+        user: updatedData,
+      }));
+      setEditMode(false);
+    } catch (error) {
+      console.error("Update failed:", error);
     }
   };
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("profile_image", file); // 'profile_image' should match the field in your serializer
+
+      try {
+        const response = await fetch(`${API_URL}/users/profile/image-upload/`, {
+          method: "PUT",
+          headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setProfileData((prevData) => ({
+          ...prevData,
+          profile_picture_url: data.profile_picture_url, // Update the profile picture URL
+        }));
+      } catch (error) {
+        console.error("Image upload failed:", error);
+      }
+    }
+  };
+
+  if (loading) return <p>Loading profile...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="user-profile-page">
       <h1 className="page-title">User Profile</h1>
       {profileData && (
         <div className="profile-container">
-<div className="profile-header">
-  <div className="user-info">
-    <h2 className="username">{profileData.user.username}</h2>
-    <p className="email">{profileData.user.email}</p>
-  </div>
-  <div
-    className="profile-picture-container"
-    style={{ "--glow-color": profileData?.aura_color }}
-  >
-    <img
-      className="profile-picture"
-      src={uploadedImage || profileData.profile_picture_url || "default-profile.png"}
-      alt="User Profile"
-    />
-  </div>
-  <div className="image-upload">
-    <label htmlFor="upload-image" className="upload-label">
-      Upload
-    </label>
-    <input
-      id="upload-image"
-      type="file"
-      onChange={handleImageUpload}
-      className="upload-input"
-      accept="image/*"
-    />
-  </div>
-</div>
+          <div className="profile-header">
+            <div className="user-info">
+              {editMode ? (
+                <form onSubmit={handleFormSubmit} className="edit-form">
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    placeholder="Username"
+                    required
+                  />
+                  <input
+                    type="text"
+                    name="first_name"
+                    value={formData.first_name}
+                    onChange={handleInputChange}
+                    placeholder="First Name"
+                    required
+                  />
+                  <input
+                    type="text"
+                    name="last_name"
+                    value={formData.last_name}
+                    onChange={handleInputChange}
+                    placeholder="Last Name"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Email"
+                    required
+                  />
+                  <button type="submit">Save</button>
+                  <button type="button" onClick={handleEditToggle}>
+                    Cancel
+                  </button>
+                </form>
+              ) : (
+                <>
+                  <h2 className="username">{profileData.user.username}</h2>
+                  <p className="name">{profileData.user.first_name}</p>
+                  <p className="surname">{profileData.user.last_name}</p>
+                  <p className="email">{profileData.user.email}</p>
+                  <button onClick={handleEditToggle}>Edit</button>
+                </>
+              )}
+            </div>
+            <div
+              className="profile-picture-container"
+              style={{ "--glow-color": profileData?.aura_color }}
+            >
+              <img
+                className="profile-picture"
+                src={
+                  uploadedImage ||
+                  (profileData.profile_image
+                    ? `https://youra-ddaa03c13e4e.herokuapp.com/media/profile_images/me_HkIqmkD.png`
+                    : "default-profile.png")
+                }
+                alt="User Profile"
+              />
+            </div>
+            <div className="image-upload">
+              <label htmlFor="upload-image" className="upload-label">
+                Upload
+              </label>
+              <input
+                id="upload-image"
+                type="file"
+                onChange={handleImageUpload}
+                className="upload-input"
+                accept="image/*"
+              />
+            </div>
+          </div>
 
 
           {/* Section 2: Current Level and Badge */}

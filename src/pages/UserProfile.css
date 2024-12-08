@@ -1,74 +1,69 @@
-.user-profile-page {
-    padding: 20px;
-    font-family: 'Press Start 2P', cursive;
-  }
-  
-  /* Page Title */
-  .page-title {
-    text-align: center;
-    color: #faccff; /* Bright yellow for retro vibe */
-    font-size: 1.5rem;
-    text-shadow: 2px 2px #000;
-  }
-  
-/* Profile Header */
 
+.user-profile-page {
+  padding: 90px;
+  font-family: 'Roboto Mono', monospace; /* Cleaner font for body text */
+}
+
+/* Page Title */
+.page-title {
+  text-align: center;
+  color: #faccff; /* Retro pink */
+  font-size: 1.8rem;
+  font-family: 'Press Start 2P', monospace; /* Retro font for headings */
+  text-shadow: 1px 1px #000;
+  margin-bottom: 30px;
+}
+
+/* Profile Header */
 .profile-header {
-    display: flex;
-    justify-content: space-between; /* Pushes content to edges */
-    align-items: center; /* Aligns content to the top */
-    margin: 20px auto;
-    padding: 20px;
-    border: 4px solid #ffbefd;
-    background-color: #000000;
-    border-radius: 10px;
-    box-shadow: 5px 5px 0px #57076b;
-    max-width: 800px;
-  }
-  
-  
-  /* User Information */
+  display: grid;
+  grid-template-columns: auto 1fr; /* Flexible layout */
+  gap: 20px;
+  align-items: center;
+  margin: 20px auto;
+  padding: 20px;
+  border: 3px solid #ffbefd;
+  background: linear-gradient(135deg, #1a1a2e, #000000);
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px rgba(87, 7, 107, 0.6);
+  max-width: 800px;
+}
+
 /* User Information */
 .user-info {
-    text-align: left;
-    flex: 1; /* Take up remaining space on the left */
-  }
-  
-  .username {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    color: #f1bbff; /* Bright cyan for retro text */
-  }
-  
-  .email {
-    color: #ffffff; /* Hot pink */
-    font-family: "roboto mono";
-  }
-  
-  .profile-picture-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .profile-picture {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    background-color: #444; /* Fallback background */
-    border: 4px solid var(--glow-color, #FFFFFF); /* Default to white if no aura color */
-    box-shadow: 0 0 20px var(--glow-color, #FFFFFF), 
-                0 0 40px var(--glow-color, #FFFFFF);
-    transition: box-shadow 0.3s ease;
-  }
-  
-  /* Upload Section */
-  .image-upload {
-    text-align: center;
-    margin: 10px auto;
-  }
+  text-align: left;
+}
+
+.username {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: #f1bbff; /* Retro text color */
+  font-family: 'Press Start 2P', cursive;
+}
+
+.email {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+/* Profile Picture */
+.profile-picture-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--glow-color, #FFFFFF); /* Glowing border */
+  box-shadow: 0 0 20px var(--glow-color, #FFFFFF),
+              0 0 40px var(--glow-color, #FFFFFF);
+  transition: box-shadow 0.3s ease;
+}
 
   .upload-label {
     position: relative;
@@ -133,98 +128,89 @@
     display: none;
 }
 
-  
-  /* Separate Box Styling for Current Level */
-  .current-level {
+/* Current Level Section */
+.current-level {
     text-align: center;
     margin: 20px auto;
     padding: 20px;
-    border: 4px solid #fdd5ff;
-    background-color: #000000;
-    box-shadow: 5px 5px 0px #550765;
+    border: 3px solid #fdd5ff;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    box-shadow: 5px 5px 15px rgba(85, 7, 101, 0.6);
     color: #daa5f5;
-    max-width: 800px;
-    border-radius: 10px;
+    border-radius: 15px;
   }
-  
-  .level-title {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px #000;
-  }
-  
-  .badge-title {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px #000;
-  }
-  
-  .current-badge {
-    height: 100px;
-    margin-top: 10px;
-    animation: float 3s ease-in-out infinite; /* Floating effect */
-  }
+/* Earned Badges Section */
+.earned-badges {
+  margin: 20px auto;
+  padding: 20px;
+  border: 3px solid rgba(138, 255, 243, 0.6);
+  background: rgba(51, 51, 51, 0.8);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+  max-width: 1200px; /* Allow wider container */
+}
 
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-  }
-  
-  /* Separate Box Styling for Earned Badges */
-  .earned-badges {
-    margin: 20px auto;
-    padding: 20px;
-    border: 4px solid #8afff3;
-    background-color: #333;
-    box-shadow: 5px 5px 0px #000;
-    max-width: 800px;
-  }
-  
-  .section-title {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px #000;
-  }
-  
+/* Adjusted Badges Container */
+.badges-container {
+  display: grid; /* Use Grid Layout */
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 20px; /* Add spacing between items */
+  justify-items: center; /* Center badges in each grid cell */
+}
+
+/* Adjusted Badge Image */
+.badge-image {
+  width: 120px; /* Wider badges */
+  height: 120px;
+  border: 3px solid #f8e71c;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(248, 231, 28, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.badge-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(248, 231, 28, 0.8);
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
   .badges-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
   }
-  
-  .badge-image {
-    width: 80px;
-    height: 80px;
-    border: 4px solid #f8e71c;
-    object-fit: cover;
-    background-color: #333;
-    image-rendering: pixelated;
-    box-shadow: 5px 5px 0px #000;
+}
+
+@media (max-width: 480px) {
+  .badges-container {
+    grid-template-columns: 1fr; /* Single column for very small screens */
   }
-  
-  .no-badges {
-    text-align: center;
-    width: 100%;
-    color: #8afff3;
-    font-size: 0.8rem;
-  }
-  
-  /* Separate Box Styling for RAK Statistics */
-  .rak-statistics {
-    margin: 20px auto;
-    padding: 20px;
-    border: 4px solid #8afff3;
-    background-color: #333;
-    box-shadow: 5px 5px 0px #000;
-    max-width: 800px;
-  }
-  
-  .stat {
-    margin-bottom: 10px;
-    color: #ff69b4;
-  }
-  
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-form input {
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.edit-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #57076b;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-form button:hover {
+  background-color: #7a1d8e;
+}
