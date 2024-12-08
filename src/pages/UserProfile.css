@@ -1,86 +1,193 @@
 .user-profile-page {
     padding: 20px;
-    font-family: Arial, sans-serif;
+    font-family: 'Press Start 2P', cursive;
   }
   
+  /* Page Title */
   .page-title {
     text-align: center;
-    color: #333;
+    color: #faccff; /* Bright yellow for retro vibe */
+    font-size: 1.5rem;
+    text-shadow: 2px 2px #000;
   }
   
-  .profile-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .profile-header {
+/* Profile Header */
+
+.profile-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    justify-content: space-between; /* Pushes content to edges */
+    align-items: center; /* Aligns content to the top */
+    margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 4px solid #ffbefd;
+    background-color: #000000;
     border-radius: 10px;
+    box-shadow: 5px 5px 0px #57076b;
+    max-width: 800px;
   }
   
-  .user-info {
+  
+  /* User Information */
+/* User Information */
+.user-info {
     text-align: left;
+    flex: 1; /* Take up remaining space on the left */
   }
   
   .username {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-bottom: 5px;
+    color: #f1bbff; /* Bright cyan for retro text */
   }
   
   .email {
-    color: #555;
+    color: #ffffff; /* Hot pink */
+    font-family: "roboto mono";
   }
   
+  .profile-picture-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #444; /* Fallback background */
+    border: 4px solid var(--glow-color, #FFFFFF); /* Default to white if no aura color */
+    box-shadow: 0 0 20px var(--glow-color, #FFFFFF), 
+                0 0 40px var(--glow-color, #FFFFFF);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Upload Section */
   .image-upload {
-    text-align: right;
+    text-align: center;
+    margin: 10px auto;
   }
-  
+
   .upload-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #007bff;
+    position: relative;
+    display: inline-block; /* Ensures it behaves like a block element for consistent spacing */
+    width: 60%; /* Full-width label */
+    max-width: 300px; /* Restricts the label's width */
+    margin: 100px auto 0; /* Centers the label horizontally and adds top spacing */
+    padding: 8px 28px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-family: 'Press Start 2P', monospace;
+    background: #ecc1f6;
+    color: #202020;
+    border: 2px solid #dd57ff;
+    border-radius: 10px;
+    font-weight: 750;
     cursor: pointer;
-  }
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+    transform-style: preserve-3d;
+}
+
+/* Add hover and active styles */
+.upload-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    background: #ec87f7;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #e957ff, 0 0.625em 0 0 #f7b5f8;
+    transform: translate3d(0, 0.75em, -1em);
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+}
+
+.upload-label:hover {
+    background: #f1adf8;
+    transform: translate(0, 0.25em);
+}
+
+.upload-label:hover::before {
+    box-shadow: 0 0 0 2px #ff57e9, 0 0.5em 0 0 #f8b5f5;
+    transform: translate3d(0, 0.5em, -1em);
+}
+
+.upload-label:active {
+    background: #f8adf8;
+    transform: translate(0, 0.75em);
+}
+
+.upload-label:active::before {
+    box-shadow: 0 0 0 2px #f157ff, 0 0 #f7b5f8;
+    transform: translate3d(0, 0, -1em);
+}
+
+/* Upload input remains hidden */
+.upload-input {
+    display: none;
+}
+
   
-  .upload-input {
-    display: block;
-  }
-  
+  /* Separate Box Styling for Current Level */
   .current-level {
     text-align: center;
+    margin: 20px auto;
     padding: 20px;
-    margin-bottom: 20px;
+    border: 4px solid #fdd5ff;
+    background-color: #000000;
+    box-shadow: 5px 5px 0px #550765;
+    color: #daa5f5;
+    max-width: 800px;
     border-radius: 10px;
-    border: 1px solid #ddd;
   }
   
   .level-title {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    text-shadow: 2px 2px #000;
   }
   
   .badge-title {
     font-size: 1rem;
     margin-bottom: 10px;
+    text-shadow: 1px 1px #000;
   }
   
   .current-badge {
     height: 100px;
     margin-top: 10px;
+    animation: float 3s ease-in-out infinite; /* Floating effect */
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
   }
   
+  /* Separate Box Styling for Earned Badges */
   .earned-badges {
-    margin-bottom: 20px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 4px solid #8afff3;
+    background-color: #333;
+    box-shadow: 5px 5px 0px #000;
+    max-width: 800px;
   }
   
   .section-title {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    text-shadow: 1px 1px #000;
   }
   
   .badges-container {
@@ -92,22 +199,32 @@
   .badge-image {
     width: 80px;
     height: 80px;
-    border-radius: 10px;
+    border: 4px solid #f8e71c;
     object-fit: cover;
+    background-color: #333;
+    image-rendering: pixelated;
+    box-shadow: 5px 5px 0px #000;
   }
   
   .no-badges {
     text-align: center;
     width: 100%;
+    color: #8afff3;
+    font-size: 0.8rem;
   }
   
+  /* Separate Box Styling for RAK Statistics */
   .rak-statistics {
+    margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    border: 4px solid #8afff3;
+    background-color: #333;
+    box-shadow: 5px 5px 0px #000;
+    max-width: 800px;
   }
   
   .stat {
     margin-bottom: 10px;
+    color: #ff69b4;
   }
   
