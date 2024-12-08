@@ -34,20 +34,26 @@ const LeaderboardPage = () => {
             <th>Rank</th>
             <th>User</th>
             <th>Aura Points</th>
+            <th>Aura Level</th> {/* Add Aura Level column */}
           </tr>
         </thead>
         <tbody>
           {leaderboard.map((user, index) => (
-            <tr key={user.id}>
+            <tr
+              key={index}
+              className={index === 0 ? "rank-1" : ""} // Add 'rank-1' class for the top player
+            >
               <td>{index + 1}</td>
-              <td>{user.username}</td>
+              <td>{user.user.username}</td> {/* Access username inside the user object */}
               <td>{user.aura_points}</td>
+              <td>{user.aura_level}</td> {/* Access Aura Level */}
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
+  
 };
 
 export default LeaderboardPage;

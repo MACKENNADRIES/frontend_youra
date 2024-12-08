@@ -1,79 +1,101 @@
 /* General styles for the 8-bit retro look */
 body {
   font-family: "Press Start 2P", cursive; /* Retro 8-bit font */
-  background-color: #222; /* Dark background */
-  background-image: url('https://example.com/8bit-background.png'); /* Optional pixelated background */
-  background-size: cover;
-  color: #fff; /* White text for contrast */
+  background-color: #0d0d0d; /* Slightly lighter dark background */
+  color: #f4f4f4; /* Softer white text for better contrast */
   margin: 0;
   padding: 0;
 }
 
 h1 {
   text-align: center;
-  font-size: 24px;
-  text-shadow: 2px 2px #ff6a00; /* Glowing effect */
-  margin: 20px 0;
-  animation: glitch 1s infinite; /* Optional glitch effect */
-}
-
-/* Glitch animation for the title */
-@keyframes glitch {
-  0% {
-    text-shadow: 2px 2px #ff6a00;
-  }
-  50% {
-    text-shadow: 5px 5px #ff00ff, -2px -2px #00ffff;
-  }
-  100% {
-    text-shadow: 2px 2px #ff6a00;
-  }
-}
-
-.loading, .error {
-  text-align: center;
-  font-size: 16px;
-  color: #ffcc00;
+  font-size: 32px;
+  color: #f6beff; /* Retro yellow */
+  margin: 20px 0; /* Space around the title */
 }
 
 /* Table styling */
 table {
-  width: 80%;
-  margin: 0 auto;
+  width: 100%; /* Wider table to fit more of the page */
+  margin: 20px auto; /* Reduce top margin to bring it closer to the title */
   border-collapse: collapse;
-  background-color: #111; /* Dark table background */
-  border: 3px solid #ffcc00; /* Retro yellow border */
-  box-shadow: 0 0 10px #ffcc00;
+  height: 90%;
+}
+
+/* Flashing text animation for Rank 1 */
+.rank-1 {
+  background-color: #ff00ff; /* Bright pink background */
+  color: #ff00c3; /* White text for contrast */
+  font-weight: bold; /* Highlight text */
+  border: 2px solid #f6beff; /* Glowing pink border */
+  text-shadow: 0 0 10px #dd00ff, 0 0 20px #ff00ff;
+  animation: text-flash 1.5s infinite;
+}
+
+/* Flashing text animation */
+@keyframes text-flash {
+  0%, 100% {
+    opacity: 1; /* Fully visible */
+  }
+  50% {
+    opacity: 0; /* Fully invisible */
+  }
+}
+
+/* Styling for other rows */
+tbody tr {
+  background-color: #ffffff; /* White background for all other rows */
+  color: #000; /* Black text */
+  transition: background-color 0.3s, color 0.3s; /* Smooth hover transition */
+}
+
+tbody tr:hover {
+  background-color: #ecc6ff; /* Hover effect with yellow background */
+  color: #000; /* Black text on hover */
 }
 
 th, td {
-  border: 1px solid #444; /* Inner grid lines */
-  padding: 10px;
+  border: 1px solid #55555500; /* Inner grid lines */
+  padding: 15px;
+  height: 100%;
   text-align: center;
-  font-size: 14px;
-  color: #ffcc00; /* Yellow text */
+  font-size: 16px; /* Slightly larger text */
+  font-family: "roboto mono";
+  color: #ffffff; /* White text */
 }
 
 th {
-  background-color: #333; /* Dark header */
-  color: #fff;
+  background: linear-gradient(135deg, #333, #444); /* Subtle gradient header */
+  color: #ffffff;
+  font-size: 18px;
+  text-transform: uppercase; /* Retro uppercase header */
+  letter-spacing: 1px;
 }
 
+/* Alternate row colors */
 tr:nth-child(odd) {
-  background-color: #282828; /* Alternate row colors */
+  background-color: #1a1a1a; /* Alternate row colors */
 }
 
+tr:nth-child(even) {
+  background-color: #222; /* Alternate row colors */
+}
+
+/* Hover effect */
 tr:hover {
-  background-color: #ff6a00; /* Hover effect for rows */
+  background-color: #f4bafa; /* Hover effect with yellow background */
   color: #000;
+  transition: 0.2s ease-in-out;
 }
 
 /* Leaderboard container */
 .leaderboard-container {
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 3px solid #ffcc00;
-  background-color: #1a1a1a;
-  box-shadow: 0 0 15px #ffcc00;
+  max-width: 1200px; /* Wider container */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 10px; /* Add padding inside the container */
+  border: 4px solid #69065f; /* Highlighted border */
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a); /* Gradient container background */
+  box-shadow: 0 0 30px #f8bef2 inset; /* Glowing border effect */
+  border-radius: 10px; /* Add slight rounding for a polished look */
 }
+

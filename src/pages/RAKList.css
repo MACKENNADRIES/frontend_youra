@@ -11,10 +11,10 @@ body {
   margin: 0;
 }
 
-
 html {
-    scroll-behavior: smooth;
-  }
+  scroll-behavior: smooth;
+}
+
 /* App Container */
 #app {
   width: 100%;
@@ -25,7 +25,7 @@ html {
 
 /* Main Container Styling */
 .container {
-  background: rgb(251, 239, 249);
+  background: rgb(233, 194, 226);
   padding: 1.5em;
   border-radius: 15px;
   width: 100%;
@@ -40,40 +40,21 @@ html {
   transform: rotateX(2deg) rotateY(2deg);
 }
 
-
-
-/* Title styling with improved animation and retro aesthetic */
+/* Title styling */
 .title {
   position: relative;
-  background: linear-gradient(135deg, #2a0337, #3d054d); /* Gradient for depth */
-  color: #edcaff; /* Bright purple text color */
+  background: linear-gradient(135deg, #2a0337, #3d054d);
+  color: #edcaff;
   padding: 1rem 1.5rem;
-  font-size: 2.5rem; /* Slightly larger for emphasis */
-  font-family: 'Press Start 2P', monospace; /* Retro pixel font */
-  text-shadow: 
-    1px 1px 0 #340825, 
-    3px 3px 0 #841368, 
-    5px 5px 5px rgba(0, 0, 0, 0.5); /* Enhanced neon-style shadow */
-  border: 4px solid #cc72fd; /* Vibrant purple border */
-  border-radius: 8px; /* More pronounced rounding for a modern-retro blend */
-  box-shadow: 
-    4px 4px 0 #e7a9ff, 
-    8px 8px 0 #7e1986, 
-    0 0 15px #ecbdff; /* Layered shadows for a glowing effect */
+  font-size: 2.5rem;
+  font-family: "Press Start 2P", monospace;
+  text-shadow: 1px 1px 0 #340825, 3px 3px 0 #841368, 5px 5px 5px rgba(0, 0, 0, 0.5);
+  border: 4px solid #cc72fd;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 #e7a9ff, 8px 8px 0 #7e1986, 0 0 15px #ecbdff;
   margin-bottom: 1rem;
   z-index: 1000;
-  text-align: center; /* Ensure title is centered */
-}
-
-
-/* 3D effect for text */
-.title span {
-  display: inline-block;
-  transform: perspective(600px) rotateX(10deg) rotateY(10deg); /* 3D tilt */
-  letter-spacing: 3px; /* Spaced out letters */
-  opacity: 0; /* Start hidden */
-  animation: fadeInSlide 2.5s forwards ease-out;
-  animation-delay: 1.9s;
+  text-align: center;
 }
 
 /* RAK List Styling */
@@ -85,42 +66,39 @@ html {
   margin-top: 2em;
   list-style: none;
 }
+
 /* RAK Item Styling */
 .rak-item {
   position: relative;
   padding: 2rem 1.5rem;
   border-radius: 15px;
-  background-color: rgba(17, 16, 16, 0.9); /* Dark translucent background */
-  box-shadow: 
-    3px 3px 0 #f5a7ff, 
-    6px 6px 0 #b16bd9, 
-    0 0 10px rgba(255, 102, 204, 0.5); /* Add glow effect */
+  background-color: rgba(17, 16, 16, 0.9);
+  box-shadow: 3px 3px 0 #f5a7ff, 6px 6px 0 #b16bd9, 0 0 10px rgba(255, 102, 204, 0.5);
   overflow: hidden;
-  color: #ffffff; /* Ensure text contrast */
-  transition: 
-    transform 0.3s ease, 
-    background-color 0.3s ease, 
-    box-shadow 0.3s ease; /* Smooth transitions */
+  color: #ffffff;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .rak-item:hover {
-  transform: translateY(-2px); /* Subtle lift effect */
-  box-shadow: 
-    5px 5px 15px rgba(255, 255, 255, 0.997), 
-    0 0 20px rgba(255, 51, 204, 0.6); /* Enhanced glow on hover */
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.997), 0 0 20px rgba(255, 51, 204, 0.6);
 }
 
 /* RAK Header Styling */
 .rak-header {
   display: flex;
-  align-items: center;
+  align-items: center; /* Vertically align items */
   justify-content: space-between;
   margin-bottom: 1rem;
   border-bottom: 2px solid #ffffff; /* Add separator */
+  font-family: "roboto mono";
   padding-bottom: 0.5rem;
 }
 
 .rak-badge {
+  display: flex; /* Enable horizontal alignment for badge and text */
+  align-items: center; /* Vertically align badge and level */
+  gap: 10px; /* Add space between badge image and level text */
   text-align: center;
 }
 
@@ -130,23 +108,24 @@ html {
   animation: float 3s ease-in-out infinite; /* Floating effect */
 }
 
+.rak-level, .rak-username {
+  font-size: 1rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-family: "Roboto Mono", monospace;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-5px); /* Smooth floating motion */
+    transform: translateY(-5px);
   }
-}
-
-.rak-level, .rak-username {
-  font-size: 0.9rem;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-family: "Roboto Mono", monospace;
-  font-weight: bold;
-  letter-spacing: 1px;
-  margin: 0; /* Consistent margins */
 }
 
 
@@ -156,29 +135,28 @@ html {
 }
 
 .rak-title {
-  font-size: 1.8rem; /* Larger for emphasis */
+  font-size: 1.8rem;
   letter-spacing: 1px;
   margin-bottom: 0.5rem;
-  color: #f2bfff; /* Matches design theme */
+  color: #f2bfff;
   text-align: center;
 }
 
 .rak-description {
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: #eaeaea; /* Softer white for readability */
+  color: #eaeaea;
   font-family: "Roboto Mono", monospace;
-  line-height: 1.6; /* Improve readability */
+  line-height: 1.6;
 }
 
 .rak-details p {
   margin: 0.5rem 0;
-  font-size: 0.95rem; /* Slightly smaller for detail text */
-  color: #cccccc; /* Muted gray for secondary details */
+  font-size: 0.95rem;
+  color: #cccccc;
   line-height: 1.4;
   font-family: "Roboto Mono", monospace;
 }
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -216,6 +194,7 @@ pixel-canvas {
   opacity: 50%;
 }
 
+/* Filter Container Styling */
 .filter-container {
   margin-bottom: 1rem;
   text-align: left;
@@ -224,58 +203,48 @@ pixel-canvas {
 .filter-container label {
   font-size: 1rem;
   margin-right: 0.5rem;
-  color: #000000; /* Matches the theme color */
-  font-family: 'Roboto mono', monospace; /* Retro font */
+  color: #000000;
+  font-family: "Roboto Mono", monospace;
   text-transform: uppercase;
 }
 
 .filter-container select {
-  position: relative;
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  font-family: 'Roboto Mono', monospace; /* Retro font for dropdown */
+  font-family: "Roboto Mono", monospace;
   text-transform: uppercase;
-  color: #350339; /* Text color */
-  background: #ecc1f6; /* Light background with pastel theme */
-  border: 2px solid #340b3e; /* Matches the button border color */
+  color: #350339;
+  background: #ecc1f6;
+  border: 2px solid #340b3e;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 
-    0 0 0 2px #9e1ab2, 
-    0 0.5em 0 0 #f7b5f8; /* 3D shadow effect */
+  box-shadow: 0 0 0 2px #9e1ab2, 0 0.5em 0 0 #f7b5f8;
   transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
   transform-style: preserve-3d;
 }
 
-/* Hover Effect */
 .filter-container select:hover {
-  background: #f1adf8; /* Slightly brighter background */
-  transform: translateY(-2px); /* Subtle lift effect */
-  box-shadow: 
-    0 0 0 2px #ff57e9, 
-    0 0.3em 0 0 #f8b5f5; /* Brighter hover shadow */
+  background: #f1adf8;
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px #ff57e9, 0 0.3em 0 0 #f8b5f5;
 }
 
-/* Active Effect */
 .filter-container select:active {
-  background: #f8adf8; /* Darker background when active */
-  transform: translateY(2px); /* Push down effect */
-  box-shadow: 
-    0 0 0 2px #f157ff, 
-    0 0 0 0 #f7b5f8; /* Flatten shadow */
+  background: #f8adf8;
+  transform: translateY(2px);
+  box-shadow: 0 0 0 2px #f157ff, 0 0 0 0 #f7b5f8;
 }
 
-/* Smaller Claim Button */
+/* Claim Button Styling */
 .claim-button {
-  position: relative;
-  display: inline-block; /* Inline styling to fit inside a list item */
-  width: auto; /* Allow flexible sizing */
-  max-width: 200px; /* Smaller width compared to Create RAK button */
-  margin: 10px auto; /* Adds vertical spacing and centers */
-  padding: 8px 20px; /* Smaller padding */
+  display: inline-block;
+  width: auto;
+  max-width: 200px;
+  margin: 10px auto;
+  padding: 8px 20px;
   text-transform: uppercase;
-  font-size: 14px; /* Smaller font size */
-  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  font-family: "Press Start 2P", monospace;
   background: #ecc1f6;
   color: #202020;
   border: 2px solid #dd57ff;
@@ -285,40 +254,12 @@ pixel-canvas {
   transform-style: preserve-3d;
 }
 
-/* Hover and active states for Claim Button */
-.claim-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #ec87f7;
-  border-radius: inherit;
-  box-shadow: 0 0 0 2px #e957ff, 0 0.625em 0 0 #f7b5f8;
-  transform: translate3d(0, 0.75em, -1em);
-  transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
-}
-
 .claim-button:hover {
   background: #f1adf8;
   transform: translate(0, 0.25em);
-}
-
-.claim-button:hover::before {
-  box-shadow: 0 0 0 2px #ff57e9, 0 0.5em 0 0 #f8b5f5;
-  transform: translate3d(0, 0.5em, -1em);
 }
 
 .claim-button:active {
   background: #f8adf8;
   transform: translate(0, 0.75em);
 }
-
-.claim-button:active::before {
-  box-shadow: 0 0 0 2px #f157ff, 0 0 #f7b5f8;
-  transform: translate3d(0, 0, -1em);
-}
-
