@@ -19,19 +19,19 @@ const HomePage = () => {
     { text: "Create RAK", image: "src/assets/createrak.png", route: "/create-rak" },
     { text: "Leaderboard", image: "src/assets/leaderboard.png", route: "/leaderboard" },
     { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
-    { text: "Discover", image: "src/assets/discover.png", route: "/discover" },
-    { text: "Create RAK", image: "src/assets/createrak.png", route: "/create-rak" },
-    { text: "Leaderboard", image: "src/assets/leaderboard.png", route: "/leaderboard" },
-    { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
-    { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
+    { text: "Earn Points", image: "src/assets/Earn.png", route: "/play" },
+    { text: "My Raks", image: "src/assets/myraks.png", route: "/create-rak" },
+    { text: "psy it forward", image: "src/assets/pif.png", route: "/leaderboard" },
+    { text: "ABout", image: "src/assets/logolarge.png", route: "/profile" },
+    { text: "Contact Us", image: "src/assets/contact.png", route: "/profile" },
   ];
 
   return (
     <div>
 <div class="hero-section">
     <div class="hero-content">
-        <h1 class="hero-title">Welcome to Youra</h1>
-        <p class="hero-description">Spread kindness, earn aura points, and pay it forward!</p>
+        <h1 class="hero-title">YOURA<br></br>Your Aura</h1>
+        <p class="hero-description">Spread kindness, expand your aura!</p>
     </div>
     <div class="hero-overlay"></div>
 </div>
