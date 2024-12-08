@@ -27,9 +27,9 @@ body {
   background: #2a0337;
   color: #ecbdff;
   font-family: 'Press Start 2P', monospace;
-  border: 4px solid #cc72fd;
+  border: 4px solid #e7bbff;
   border-radius: 4px;
-  box-shadow: 3px 3px 0 #ff66cc, 6px 6px 0 #ff33cc;
+  box-shadow: 3px 3px 0 #640c47, 6px 6px 0 #ff95f4;
   overflow: hidden;
 }
 
@@ -56,33 +56,10 @@ body {
 .hero-description {
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Neon-style shadow */
   letter-spacing: 2px; /* Slight space between letters */
+  font-family: "roboto mono";
 }
 
-/* Call-to-action button */
-.hero-button {
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  font-family: 'Press Start 2P', monospace;
-  background: linear-gradient(135deg, #ff66cc, #ff33cc); /* Neon pink gradient */
-  color: #202020;
-  border: 4px solid #cc72fd; /* Matches the hero border */
-  border-radius: 4px; /* Slight rounding */
-  box-shadow: 3px 3px 0 #ff33cc, 6px 6px 0 #ff0099; /* Retro 3D shadow */
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hero-button:hover {
-  transform: translate(-3px, -3px); /* Slight movement for interactivity */
-  box-shadow: 4px 4px 0 #ff66cc, 8px 8px 0 #ff33cc;
-}
-
-.hero-button:active {
-  transform: translate(3px, 3px);
-  box-shadow: 2px 2px 0 #ff0099, 4px 4px 0 #ff33cc;
-}
 
 /* Animation for fade-in effect */
 @keyframes fadeIn {
