@@ -57,6 +57,7 @@ const router = createBrowserRouter([
             },
             { path: "/create-rak", element: <CreateRAKPage /> },
             { path: "/all", element: <RAKList /> },
+            
         ],
     },
 ]);

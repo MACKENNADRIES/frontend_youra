@@ -12,6 +12,7 @@ function Navbar() {
                     <li><a href="/discover" className="navbar-link">Discover</a></li>
                     <li><a href="/create" className="navbar-link">Create</a></li>
                     <li><a href="/profile" className="navbar-link">Profile</a></li>
+                    
                 </ul>
             </nav>
             <Outlet />

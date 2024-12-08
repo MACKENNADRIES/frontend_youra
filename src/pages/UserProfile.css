@@ -1,24 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+/* Global Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Roboto Mono', monospace; /* Default font */
+}
+
+/* For headings or emphasized text */
+h1, h2, h3, .page-title, .upload-label, .logout-button, .edit-form button {
+  font-family: 'Press Start 2P', monospace; /* Retro font for emphasis */
+}
+
+
+
+
 
 .user-profile-page {
-  padding: 90px;
-  font-family: 'Roboto Mono', monospace; /* Cleaner font for body text */
+  padding: 50px;
+  width: 100%; /* Make it span 90% of the viewport width */
+  max-width: 1600px; /* Limit the max width for large screens */
+  min-height: 100vh; /* Full height of the viewport */
+  margin: 0 auto; /* Center horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  font-family: 'Roboto Mono', monospace;
 }
 
-/* Page Title */
-.page-title {
-  text-align: center;
-  color: #faccff; /* Retro pink */
-  font-size: 1.8rem;
-  font-family: 'Press Start 2P', monospace; /* Retro font for headings */
-  text-shadow: 1px 1px #000;
-  margin-bottom: 30px;
+* {
+  box-sizing: border-box;
 }
 
-/* Profile Header */
+
+
+
+
 .profile-header {
-  display: grid;
-  grid-template-columns: auto 1fr; /* Flexible layout */
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   margin: 20px auto;
   padding: 20px;
@@ -26,32 +49,28 @@
   background: linear-gradient(135deg, #1a1a2e, #000000);
   border-radius: 15px;
   box-shadow: 5px 5px 15px rgba(87, 7, 107, 0.6);
-  max-width: 800px;
+  width: 95%; /* Increase to span 95% of the viewport width */
+  max-width: 1600px; /* Allow wider layout for larger screens */
+  text-align: center;
 }
 
-/* User Information */
-.user-info {
-  text-align: left;
-}
 
-.username {
-  font-size: 1.5rem;
-  margin-bottom: 8px;
-  color: #f1bbff; /* Retro text color */
-  font-family: 'Press Start 2P', cursive;
-}
-
-.email {
-  color: #ffffff;
-  font-size: 1rem;
+/* Adjust Sections to Be Wider */
+.current-level, .earned-badges, .rak-statistics {
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(51, 51, 51, 0.8);
+  width: 90%; /* Make sections span 90% of the page width */
+  max-width: 1400px; /* Consistent maximum width for all sections */
+  text-align: center; /* Center-align the text */
 }
 
 /* Profile Picture */
 .profile-picture-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 15px;
 }
 
 .profile-picture {
@@ -59,158 +78,122 @@
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--glow-color, #FFFFFF); /* Glowing border */
-  box-shadow: 0 0 20px var(--glow-color, #FFFFFF),
-              0 0 40px var(--glow-color, #FFFFFF);
+  border: 4px solid var(--glow-color, #FFFFFF);
+  box-shadow: 0 0 20px var(--glow-color, #FFFFFF), 0 0 40px var(--glow-color, #FFFFFF);
   transition: box-shadow 0.3s ease;
 }
 
-  .upload-label {
-    position: relative;
-    display: inline-block; /* Ensures it behaves like a block element for consistent spacing */
-    width: 60%; /* Full-width label */
-    max-width: 300px; /* Restricts the label's width */
-    margin: 100px auto 0; /* Centers the label horizontally and adds top spacing */
-    padding: 8px 28px;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 16px;
-    font-family: 'Press Start 2P', monospace;
-    background: #ecc1f6;
-    color: #202020;
-    border: 2px solid #dd57ff;
-    border-radius: 10px;
-    font-weight: 750;
-    cursor: pointer;
-    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
-    transform-style: preserve-3d;
-}
-
-/* Add hover and active styles */
-.upload-label::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 90%;
-    background: #ec87f7;
-    border-radius: inherit;
-    box-shadow: 0 0 0 2px #e957ff, 0 0.625em 0 0 #f7b5f8;
-    transform: translate3d(0, 0.75em, -1em);
-    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+/* Upload Button */
+.upload-label {
+  padding: 8px 28px;
+  background: #ecc1f6;
+  color: #202020;
+  border: 2px solid #dd57ff;
+  border-radius: 10px;
+  font-family: 'Press Start 2P', monospace;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0, 0, 0.6, 1);
 }
 
 .upload-label:hover {
-    background: #f1adf8;
-    transform: translate(0, 0.25em);
+  background: #f1adf8;
+  transform: translateY(-5px);
 }
 
-.upload-label:hover::before {
-    box-shadow: 0 0 0 2px #ff57e9, 0 0.5em 0 0 #f8b5f5;
-    transform: translate3d(0, 0.5em, -1em);
-}
-
-.upload-label:active {
-    background: #f8adf8;
-    transform: translate(0, 0.75em);
-}
-
-.upload-label:active::before {
-    box-shadow: 0 0 0 2px #f157ff, 0 0 #f7b5f8;
-    transform: translate3d(0, 0, -1em);
-}
-
-/* Upload input remains hidden */
 .upload-input {
-    display: none;
+  display: none;
 }
 
-/* Current Level Section */
+/* User Info */
+.user-info {
+  margin-top: 20px;
+  text-align: center;
+  font-family: "Roboto Mono", monospace;
+}
+
+.username, .name, .surname, .email {
+  color: #ffffff;
+  margin: 5px 0;
+  font-size: 1.2rem;
+  font-family: "Roboto Mono", monospace;
+
+}
+
+
+/* Section 2: Current Level and Badge */
 .current-level {
-    text-align: center;
-    margin: 20px auto;
-    padding: 20px;
-    border: 3px solid #fdd5ff;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    box-shadow: 5px 5px 15px rgba(85, 7, 101, 0.6);
-    color: #daa5f5;
-    border-radius: 15px;
-  }
-/* Earned Badges Section */
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+  border: 3px solid #fdd5ff;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  color: #daa5f5;
+}
+
+.current-badge {
+  width: 100px;
+  height: 100px;
+}
+
+/* Section 3: Earned Badges */
 .earned-badges {
   margin: 20px auto;
   padding: 20px;
   border: 3px solid rgba(138, 255, 243, 0.6);
   background: rgba(51, 51, 51, 0.8);
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
   border-radius: 15px;
-  max-width: 1200px; /* Allow wider container */
 }
 
-/* Adjusted Badges Container */
 .badges-container {
-  display: grid; /* Use Grid Layout */
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  gap: 20px; /* Add spacing between items */
-  justify-items: center; /* Center badges in each grid cell */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+  justify-items: center;
 }
 
-/* Adjusted Badge Image */
+
 .badge-image {
-  width: 120px; /* Wider badges */
-  height: 120px;
-  border: 3px solid #f8e71c;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(248, 231, 28, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.badge-image:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(248, 231, 28, 0.8);
-}
-
-/* Responsive Design for Smaller Screens */
-@media (max-width: 768px) {
-  .badges-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    border: 3px solid #f8e71c;
+    box-shadow: 0 0 10px rgba(248, 231, 28, 0.5);
+    animation: float 3s ease-in-out infinite; /* Apply the floating animation */
   }
-}
-
-@media (max-width: 480px) {
-  .badges-container {
-    grid-template-columns: 1fr; /* Single column for very small screens */
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0); /* Start and end at the same position */
+    }
+    50% {
+      transform: translateY(-10px); /* Move up slightly */
+    }
   }
+  
+
+/* Section 4: RAK Statistics */
+.rak-statistics {
+  margin: 20px auto;
+  padding: 20px;
+  border: 3px solid #ecc1f6;
+  background: #1a1a2e;
+  border-radius: 15px;
+  color: #ffffff;
 }
 
-.edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.stat {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #faccff;
 }
 
-.edit-form input {
-  padding: 10px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.edit-form button {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #57076b;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.edit-form button:hover {
-  background-color: #7a1d8e;
+/* Center the Page Title */
+.page-title {
+  text-align: center;
+  font-size: 2rem; /* Slightly larger for emphasis */
+  font-family: 'Press Start 2P', monospace;
+  color: #faccff;
+  text-shadow: 1px 1px #000;
+  margin-bottom: 30px;
 }
