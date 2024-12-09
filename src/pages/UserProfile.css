@@ -1,0 +1,340 @@
+/* General Page Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #000000;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* User Profile Page Styling */
+.user-profile-page {
+  max-width: 800px;
+  width: 100%;
+  margin:0; /* Remove the 100px margin to center it properly */
+  padding: 20px;
+  margin-top: 100px;
+  background: #000000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 4px solid #cc72fd; /* Purple border */
+  border-radius: 4px; /* Slightly rounded corners for a more playful look */
+  box-shadow: 3px 3px 0 #520238, 6px 6px 0 #d361b7; /* 3D shadow to create depth */
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  /* Center the content inside the profile page */
+  align-items: center; /* Centers items horizontally */
+}
+
+/* Apply 3D effect to the header-bar text */
+.user-profile-page span {
+  display: inline-block;
+  transform: translateZ(10px); /* Apply the 3D effect to the text */
+  text-align: center;
+  letter-spacing: 3px; /* Slight space between letters for more of the pixelated look */
+  transform: perspective(600px) rotateX(10deg) rotateY(10deg);
+  opacity: 0;
+  animation: formFadeIn 2.5s forwards;
+  animation-delay: 1.9s;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+/* Page Title */
+.page-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  color: #f3d1ff;
+  margin-bottom: 20px;
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+/* Profile Picture Container */
+.profile-picture-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  top: -80px;
+  border: 4px solid var(--glow-color, #ddd);
+  box-shadow: 0 0 15px 5px var(--glow-color, #ddd),
+              0 0 30px 10px var(--glow-color, #ddd);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.profile-picture-container:hover {
+  box-shadow: 0 0 20px 8px var(--glow-color, #ddd),
+              0 0 40px 15px var(--glow-color, #ddd);
+}
+
+.profile-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-label {
+  display: block;
+  margin: 10px auto 0; /* Keep the vertical spacing */
+  background-color: #5a5a8b;
+  color: #fff;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  width: fit-content; /* Adjusts width to the text */
+  position: relative; /* Ensure proper placement */
+  left: -140px; /* Move the label 20px to the left */
+  bottom: -20px;
+}
+
+.upload-label:hover {
+  background-color: #484875; /* Darker shade on hover */
+}
+
+
+.upload-input {
+  display: none; /* Hide the file input */
+}
+
+
+/* User Info Section */
+.user-info {
+  flex: 1;
+  position: relative;
+  left: -50px;
+}
+
+.username {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.name,
+.surname,
+.email {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #555;
+  font-family: "roboto mono";
+}
+
+.edit-button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #5a5a8b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #484875;
+}
+
+.logout-button {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+/* Current Level Section */
+.current-level {
+  text-align: center;
+  padding: 15px;
+  background-color: #393739;
+  border: 4px solid #cc72fd; /* Purple border */
+  border-radius: 4px; /* Slightly rounded corners for a more playful look */
+  box-shadow: 3px 3px 0 #520238, 6px 6px 0 #d361b7; 
+
+}
+
+.level-title {
+  font-size: 1.4rem;
+  color: #f2aff1;
+  margin-bottom: 10px;
+}
+
+.current-badge {
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  animation: float 3s ease-in-out infinite; /* Attach the float animation */
+}
+
+/* Keyframes for the floating animation */
+@keyframes float {
+  0% {
+    transform: translateY(0); /* Start position */
+  }
+  50% {
+    transform: translateY(-10px); /* Move up slightly */
+  }
+  100% {
+    transform: translateY(0); /* Return to start position */
+  }
+}
+
+
+/* Earned Badges Section */
+.earned-badges {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.badges-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  transition: transform 0.2s;
+}
+
+.badge-image:hover {
+  transform: scale(1.2);
+}
+
+/* RAK Statistics Section */
+.rak-statistics {
+  background: #2e2c2c; /* Darker background for better contrast */
+  padding: 30px;
+  border: 4px solid #cc72fd; /* Purple border */
+  border-radius: 10px; /* More rounded corners for a smoother look */
+  box-shadow: 3px 3px 0 #520238, 6px 6px 0 #d361b7; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Increased space between items */
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text within the section */
+}
+
+/* Section Title */
+.rak-statistics .section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f0bbff; /* Light text color for title */
+  margin-bottom: 20px;
+}
+
+/* Stat Text */
+.stat {
+  font-size: 1.1rem;
+  font-family: "roboto mono";
+  margin: 10px 0;
+  color: #ffffff; /* Light color for better contrast */
+  display: flex;
+  justify-content: space-between; /* Align the labels and values on opposite sides */
+  width: 100%; /* Full width to give space for label and value */
+  padding: 5px;
+  border-radius: 6px;
+  transition: background-color 0.3s; /* Smooth hover transition */
+}
+
+/* Stat Labels */
+.stat span {
+  font-weight: 600;
+  color: #ffffff; /* Slightly lighter color for the labels */
+}
+
+/* Stat Values */
+.stat strong {
+  color: #fff; /* White for the values to make them stand out */
+  font-weight: 700;
+  font-family: "roboto mono";
+}
+
+/* Optionally add icons for each stat, like a circle or a small image */
+.stat-icon {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+}
+
+/* Optional: Hover effect to highlight each stat */
+.stat:hover {
+  background-color: #bc3ed2;
+}
+
+/* Stat Section for displaying individual data */
+.rak-statistics p {
+  font-size: 1rem;
+  color: #d3d3d3;
+  line-height: 1.6;
+  font-family: "roboto mono";
+}
+
+
+
+/* Form Styling */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.edit-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.edit-form button {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-form button[type="submit"] {
+  background-color: #5a5a8b;
+  color: white;
+}
+
+.edit-form button[type="button"] {
+  background-color: #ccc;
+  color: #333;
+}
+
+.edit-form button[type="submit"]:hover {
+  background-color: #484875;
+}
+
+.edit-form button[type="button"]:hover {
+  background-color: #aaa;
+}

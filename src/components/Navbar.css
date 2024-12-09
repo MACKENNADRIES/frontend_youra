@@ -1,0 +1,47 @@
+/* Navbar Container */
+.navbar {
+    background: linear-gradient(135deg, #2a0337, #4b0a62); /* Retro gradient */
+    border-bottom: 4px solid #cc72fd; /* Vibrant bottom border */
+    padding: 1rem 2rem;
+    font-family: 'Press Start 2P', monospace; /* 8-bit font */
+    text-align: center;
+    position: fixed; /* Navbar sticks to the top */
+    top: 5%; /* Move to the very top of the page */
+    left: 50%; /* Center horizontally */
+    z-index: 1000; /* Ensure it's above other content */
+    transform: translate(-50%, -50%); /* Adjust position to exact center */
+
+}
+
+
+/* Navbar List */
+.navbar-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    gap: 2rem; /* Add spacing between links */
+}
+
+/* Navbar Links */
+.navbar-link {
+    text-decoration: none;
+    color: #ecbdff; /* Bright retro purple */
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 2px; /* 8-bit spacing */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Hover Effects */
+.navbar-link:hover {
+    color: #ff66cc; /* Pink hover effect */
+    text-shadow: 1px 1px 2px #fff, 2px 2px 4px #ff66cc; /* Glow effect */
+}
+
+/* Active Link */
+.navbar-link:active {
+    color: #ffa6d9; /* Softer pink on click */
+    text-shadow: 0px 0px 4px #ffa6d9;
+}

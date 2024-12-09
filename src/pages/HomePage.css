@@ -1,299 +1,189 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-
-
-.homepage-grid {
+/* Ensure body and main take up the full screen */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Press Start 2P", cursive; /* Use the retro font */
+    background: radial-gradient(circle, #deb0ff, #7a57ad, #2e276f, #0e000d);
+    color: white;
+  }
+  
+  main.homepage {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    grid-template-rows: auto;
-    gap: 20px;
-    width: 110vh;
-    height: 80vh;
+    grid-template-columns: repeat(3, 1fr); /* Ensures three columns */
+    gap: 1.5rem; /* Space between cards */
+    padding: 2rem;
+    justify-items: center; /* Center-align items horizontally */
+    align-items: start; /* Align items to the top of the row */
 }
-
-/* This is for the big buttons - with imgs in it  */
-.button {
-    position: relative; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: rgb(29, 6, 44);
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 2px 10px rgba(242, 177, 159, 0.6); 
-    cursor: pointer;
-    overflow: visible; 
-    /* could remove */
-    transition: background-color 0.3s ease; 
-}
-.button-heading {
-    position: absolute;
-    top: 10px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    font-size: 1.2rem; 
-    font-family: lato;
-    font-weight: bold; 
-    color: #e7a8f4; 
-    text-align: center; 
-    z-index: 10; 
-}
-.button-description {
-    margin-top: -45%; 
-    font-size: 1rem; 
-    font-family: 'Lato', Arial, sans-serif; 
-    color: #ffffff; 
-    text-align: center; 
-    line-height: 1.5; 
+.hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: calc(100% - 4rem); /* Adjusts the width to account for margins */
+  margin: 2rem auto; /* Adds space at the top and on the sides */
+  height: 50%;
+  background: #2a0337;
+  color: #ecbdff;
+  font-family: 'Press Start 2P', monospace;
+  border: 4px solid #e7bbff;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #640c47, 6px 6px 0 #ff95f4;
+  overflow: hidden;
 }
 
 
+/* Hero content styling */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Retro neon-style text shadow */
+  animation: fadeIn 2.5s forwards;
+}
+
+/* Hero title */
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Neon-style shadow */
+  letter-spacing: 3px; /* Extra spacing for retro look */
+  transform: perspective(600px) rotateX(10deg) rotateY(10deg); /* 3D effect */
+  animation: fadeIn 2.5s forwards;
+}
+
+/* Hero description */
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  letter-spacing: 2px; /* Slight space between letters */
+  font-family: "roboto mono";
+}
 
 
-.button::before {
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+  
+  
+.card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--surface-2);
+  background: rgb(0, 0, 0);
+  border-radius: 10px;
+  isolation: isolate;
+  transition: transform 0.3s ease-in-out, border 0.5s ease, border-color 0.3s ease-in-out;
+  cursor: pointer;
+  text-align: center;
+  
+  /* Add these for size constraints */
+  max-width: 300px; /* Maximum width of the card */
+  max-height: 300px; /* Maximum height of the card */
+  width: 100%; /* Allows scaling down on smaller screens */
+  height: auto; /* Maintains aspect ratio */
+  margin: 1rem auto; /* Centers the card and adds space between them */
+}
+  
+    .card:hover {
+        transform: scale(1.05);
+        border: 1px solid rgb(229, 159, 255); /* Juicy and thicker border */
+        box-shadow: 0px 0px 20px 5px rgba(229, 159, 255, 0.7); /* Adds a glow effect */
+    }
+  .card::before {
     content: "";
     position: absolute;
-    top: -10px; 
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border-radius: 15px; 
-    box-shadow: 0 4px 20px rgba(242, 177, 159, 0.6); 
-    z-index: -1; 
-}
-
-
-.button::after {
+    inset: 0;
+    background: radial-gradient(
+      circle at bottom left,
+      transparent 55%,
+      var(--surface-1)
+    );
+    pointer-events: none;
+    box-shadow: var(--bg) -0.5cqi 0.5cqi 2.5cqi inset;
+    transition: opacity 900ms var(--ease-out);
+  }
+  
+  .card::after {
     content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, var(--bg), transparent 65%);
+    opacity: 0;
+    transition: opacity 800ms var(--ease-out);
+  }
+  
+  .card:hover::before {
+    opacity: 0;
+  }
+  
+  .card:hover::after {
+    opacity: 1;
+  }
+  
+  /* Pixel canvas styling */
+  pixel-canvas {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 10px; /* Match the button's rounded corners */
-    border: 2px solid transparent; /* Invisible border initially */
-    z-index: 1; /* Place above the button content */
-}
-
-.button:hover {
-    border-color: rgba(255, 165, 0, 0.9);
-    box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);
-    text-decoration-color: #cf5c33; /* Light pink color to match the design */ /* Add subtle orange glow */
-}
-
-.compass {
-    position: absolute; /* Position relative to the button container */
-    bottom: 10%; /* Move the compass setup towards the bottom of the button */
-    left: 50%; /* Center horizontally within the button */
-    transform: translateX(-50%); /* Perfect centering horizontally */
-    width: 150px; /* Adjust size as needed */
-    height: 150px;
-    display: flex; /* Use flex to help align child elements */
-    align-items: center; /* Center items vertically */
-    justify-content: center; /* Center items horizontally */
-}
-
-.compass-base {
-    width: 100%; /* Full size of the compass */
-    height: auto;
-    position: relative;
-}
-
-.compass-top {
-    width: 30%; /* Adjust size for better fit */
-    height: auto;
-    position: absolute;
-    top: 55%; /* Center vertically within the base */
-    left: 57%; /* Center horizontally within the base */
-    transform: translate(-50%, -50%); /* Perfect centering */
-    animation: swayCompass 2s ease-in-out infinite; /* Add sway animation */
-}
-
-@keyframes swayCompass {
-    0%, 100% {
-        transform: translate(-48%, -52%) rotate(-5deg); /* Tilt left */
-    }
-    50% {
-        transform: translate(-48%, -52%) rotate(5deg); /* Tilt right */
-    }
-}
-
-.lotus-container {
-    display: flex;
-    flex-direction: column; /* Stack lotus elements vertically */
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically within the container */
-    position: relative;
-    width: 100%;
-    height: 100%; /* Make container fill the button */
-    gap: 8px; /* Adjust spacing between lotus elements */
-}
-
-.lotus-top {
-    width: 50%; /* Full size of the compass */
-    height: auto;
-    position: relative;
-    top: 42%;
-    animation: float 3s ease-in-out infinite;
-}
-
-.lotus-bottom1 {
-    width: 50%; /* Adjust size as needed */
-    height: auto;
-    position: relative;
-    top: 34%;
-}
-.lotus-bottom2 {
-    width: 70%; /* Adjust size as needed */
-    height: auto;
-    position: relative;
-    top: 16%;
-}
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0); /* Start and end at the initial position */
-    }
-    50% {
-        transform: translateY(-2px); /* Move slightly upward */
-    }
-}
-
-.hands-container {
-    position: relative;
-    display: flex;
-    flex-direction: column; /* Stack hands-outer and hands-inner */
-    align-items: center; /* Center horizontally */
-    justify-content: flex-end; /* Align to the bottom of the button */
     width: 100%;
     height: 100%;
-    gap: 8px; /* Add spacing between hands */
-}
-
-/* Responsive scaling for hands */
-.hands-outer {
-    width: 70%; /* Adjust size as needed */
-    height: auto;
-    position: relative;
-    top: 40%;
-}
-.hands-inner {
-    width: 35%; /* Adjust size as needed */
-    height: auto;
-    position: relative;
-    top: -20%;
-    animation: grow-shrink 4s ease-in-out infinite;
-}
-
-@keyframes grow-shrink {
-    0%, 100% {
-        transform: scale(1); /* Normal size */
-    }
-    50% {
-        transform: scale(1.1); /* Grow to 20% larger */
-    }
-}
-
-/* Crown container for id: 4 */
-.crown-container {
-    position: relative;
-    display: flex;
-    flex-direction: column; /* Stack crown-top and crown-bottom vertically */
-    align-items: center; /* Center horizontally */
-    justify-content: flex-end; /* Align to the bottom of the button */
-    width: 100%;
-    height: 100%;
-    gap: 8px; /* Space between crown elements */
-}
-
-/* Responsive scaling for crown elements */
-.crown-top {
-    width: 50%; /* Adjust size proportionately */
-    max-width: 100px; /* Maximum size for larger screens */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Ensure content scales without distortion */
-    animation: twinkle 6s infinite ease-in-out; 
-}
-.crown-bottom {
-    width: 50%; /* Adjust size proportionately */
-    max-width: 100px; /* Maximum size for larger screens */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Ensure content scales without distortion */
-}
-@keyframes twinkle {
-    0%, 100% {
-        opacity: 1; /* Fully visible */
-        transform: scale(1); /* Normal size */
-    }
-    50% {
-        opacity: 0.6; /* Slightly dimmed */
-        transform: scale(1.1); /* Slightly larger */
-    }
-} 
-
-/* Profile container for id: 5 */
-.profile-container {
-    position: relative;
-    display: flex;
-    flex-direction: column; /* Stack profile-inner and profile-outer vertically */
-    align-items: center; /* Center horizontally */
-    justify-content: flex-end; /* Align to the bottom of the button */
-    width: 100%;
-    height: 100%;
-    gap: 8px; /* Space between profile elements */
-}
-
-/* Responsive scaling for profile elements */
-.profile-outer {
-    width: 75%; /* Adjust size as needed */
-    height: auto;
-    position: relative;
-    top: 32%;
-    animation: grow-shrink 4s infinite ease-in-out; 
-}
-.profile-inner {
-    width: 30%; /* Adjust size as needed */
-    height: auto;
-    position: relative;
-    top: -20%;
-}
-@keyframes grow-shrink {
-    0%, 100% {
-        transform: scale(1); /* Normal size */
-    }
-    50% {
-        transform: scale(1.05); /* Grow to 120% of original size */
-    }
-}
-/* Scope the styles specifically to id=6 */
-#button-6 .logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
-    gap: 10px; /* Add spacing between images */
-    transform: translateY(10px); /* Optional: Adjust vertical position */
+    pointer-events: none;
+    z-index: 0;
   }
   
-  #button-6 .logo-stars {
-    width: 300px; /* Adjust size for smaller stars */
-    height: 300px;
+  /* Icon/Image inside the card */
+  .card-image {
+    z-index: 1;
+    width: 50%;
+    height: auto;
+    margin-bottom: 1rem;
+    filter: grayscale(100%);
+    transition: transform 6s ease-in-out;
   }
   
-  #button-6 .logo-outer {
-    width: 110px; /* Adjust size for smaller outer ring */
-    height: 110px;
+  .card:hover .card-image {
+    transform: scale(1.1);
+    filter: grayscale(0%);
   }
   
-  #button-6 .logo-inner {
-    width: 80px; /* Adjust size for smaller inner ring */
-    height: 80px;
+  /* Text inside the card */
+  .card-text {
+    z-index: 1;
+    font-size: 0.8rem; /* Keep the retro font readable */
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    opacity: 0.9;
+    font-family: "Press Start 2P", cursive;
   }
   
 
-@media (max-width: 600px) {
-    .homepage-grid {
-        grid-template-columns: 1fr; /* Single column for mobile */
-        grid-auto-rows: auto;
+  @media (max-width: 768px) {
+    main.homepage {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    main.homepage {
+        grid-template-columns: 1fr; /* One column on very small screens */
     }
 }

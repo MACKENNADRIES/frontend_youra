@@ -1,0 +1,179 @@
+/* General Styling */
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle, #deb0ff, #7a57ad, #2e276f, #0e000d);
+    font-family: 'Press Start 2P', monospace;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Error Page Container */
+  .error-page {
+    text-align: center;
+    animation: flicker 2s infinite alternate;
+  }
+  
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+  }
+  
+  /* Game Over Text */
+  .game-over {
+    font-size: 4rem;
+    color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 8px #1d0022;
+    animation: glitch 1s infinite alternate;
+  }
+  
+  @keyframes glitch {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(5px);
+    }
+  }
+  
+  /* Error Code */
+  .error-code {
+    font-size: 2rem;
+    margin: 20px 0;
+    color: #e763f3;
+    text-shadow: 1px 1px 8px #4f0c4b;
+  }
+  
+  /* Error Message */
+  .error-message {
+    font-size: 1.2rem;
+    margin: 20px 0;
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffffff;
+  }
+  
+  .home-button {
+    position: relative;
+    display: inline-block; /* Centers the button within the error page */
+    padding: 10px 30px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-family: 'Press Start 2P', monospace;
+    background: #ecc1f6;
+    color: #202020;
+    border: 2px solid #dd57ff;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+    transform-style: preserve-3d;
+    margin-top: 30px;
+  }
+  
+  /* Add 3D shadow effect */
+  .home-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ec87f7;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #e957ff, 0 0.625em 0 0 #f7b5f8;
+    transform: translate3d(0, 0.75em, -1em);
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+  }
+  
+  /* Hover Effect */
+  .home-button:hover {
+    background: #f1adf8;
+    transform: translate(0, 0.25em);
+  }
+  
+  .home-button:hover::before {
+    box-shadow: 0 0 0 2px #ff57e9, 0 0.5em 0 0 #f8b5f5;
+    transform: translate3d(0, 0.5em, -1em);
+  }
+  
+  /* Active Effect */
+  .home-button:active {
+    background: #f8adf8;
+    transform: translate(0, 0.75em);
+  }
+  
+  .home-button:active::before {
+    box-shadow: 0 0 0 2px #f157ff, 0 0 #f7b5f8;
+    transform: translate3d(0, 0, -1em);
+  }
+  
+/* Pixel Animation Container */
+.pixel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* Prevent interaction with pixels */
+}
+
+/* Pixel Elements */
+.pixel {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: black; /* Set the pixel color to black */
+    animation: fall-bounce-tumble linear forwards;
+    animation-duration: 6s; /* Combined duration for fall and bounce */
+}
+
+/* Falling, Bouncing, and Tumbling Animation */
+@keyframes fall-bounce-tumble {
+    0% {
+        transform: translateY(-100px) translateX(0); /* Start above the screen */
+    }
+    80% {
+        transform: translateY(calc(100vh - 10px)) translateX(0); /* Reach the bottom */
+    }
+    90% {
+        transform: translateY(calc(100vh - 30px)) translateX(10px); /* Bounce up and shift right */
+    }
+    100% {
+        transform: translateY(calc(100vh - 10px)) translateX(20px); /* Settle slightly shifted */
+    }
+}
+
+  
+  /* Different Pixel Colors */
+  .pixel.purple {
+    background: #020202;
+  }
+  
+  .pixel.blue {
+    background: #000000;
+  }
+  
+  .pixel.red {
+    background: #010101;
+  }
+  
+  /* Falling Animation */
+
+  .game-area {
+    position: relative;
+    margin: 20px auto;
+    width: 60%; /* Adjust the game area width */
+    height: 300px; /* Constrain the height */
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+}

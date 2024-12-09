@@ -1,0 +1,309 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+/* Global Styles */
+body {
+  background: radial-gradient(circle, #deb0ff, #7a57ad, #2e276f, #0e000d);
+  font-family: "Roboto Mono", monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* App Container */
+#app {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Main Container Styling */
+.container {
+  background: rgb(233, 194, 226);
+  padding: 1.5em;
+  border-radius: 15px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 6px 6px 10px rgba(83, 16, 61, 0.7), 12px 12px 15px rgba(229, 115, 233, 0.5);
+  margin: 20px 0;
+  border: 2px solid #ff66cc;
+  transform: rotateX(2deg) rotateY(2deg);
+}
+
+/* Title styling */
+.title {
+  position: relative;
+  background: linear-gradient(135deg, #2a0337, #3d054d);
+  color: #edcaff;
+  padding: 1rem 1.5rem;
+  font-size: 2.5rem;
+  font-family: "Press Start 2P", monospace;
+  text-shadow: 1px 1px 0 #340825, 3px 3px 0 #841368, 5px 5px 5px rgba(0, 0, 0, 0.5);
+  border: 4px solid #cc72fd;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 #e7a9ff, 8px 8px 0 #7e1986, 0 0 15px #ecbdff;
+  margin-bottom: 1rem;
+  z-index: 1000;
+  text-align: center;
+}
+
+/* RAK List Styling */
+.rak-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2em;
+  padding: 0;
+  margin-top: 2em;
+  list-style: none;
+}
+
+/* RAK Item Styling */
+.rak-item {
+  position: relative;
+  padding: 2rem 1.5rem;
+  border-radius: 15px;
+  background-color: rgba(17, 16, 16, 0.9);
+  box-shadow: 3px 3px 0 #f5a7ff, 6px 6px 0 #b16bd9, 0 0 10px rgba(255, 102, 204, 0.5);
+  overflow: hidden;
+  color: #ffffff;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rak-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.997), 0 0 20px rgba(255, 51, 204, 0.6);
+}
+
+/* RAK Header Styling */
+.rak-header {
+  display: flex;
+  align-items: center; /* Vertically align items */
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ffffff; /* Add separator */
+  font-family: "roboto mono";
+  padding-bottom: 0.5rem;
+}
+
+.rak-badge {
+  display: flex; /* Enable horizontal alignment for badge and text */
+  align-items: center; /* Vertically align badge and level */
+  gap: 10px; /* Add space between badge image and level text */
+  text-align: center;
+}
+
+.badge-img {
+  width: 60px;
+  height: 60px;
+  animation: float 3s ease-in-out infinite; /* Floating effect */
+}
+
+.rak-level, .rak-username {
+  font-size: 1rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-family: "Roboto Mono", monospace;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+
+/* RAK Content Styling */
+.rak-content {
+  text-align: left;
+}
+
+.rak-title {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: #f2bfff;
+  text-align: center;
+}
+
+.rak-description {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #eaeaea;
+  font-family: "Roboto Mono", monospace;
+  line-height: 1.6;
+}
+
+.rak-details p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #cccccc;
+  line-height: 1.4;
+  font-family: "Roboto Mono", monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .rak-list {
+    grid-template-columns: 1fr;
+  }
+
+  .rak-item {
+    padding: 1em;
+  }
+
+  .rak-title {
+    font-size: 1.25rem;
+  }
+
+  .rak-description {
+    font-size: 0.9rem;
+  }
+
+  .rak-details p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Pixel Canvas Styling */
+pixel-canvas {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 50%;
+}
+
+/* Filter Container Styling */
+.filter-container {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.filter-container label {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  color: #000000;
+  font-family: "Roboto Mono", monospace;
+  text-transform: uppercase;
+}
+
+.filter-container select {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-family: "Roboto Mono", monospace;
+  text-transform: uppercase;
+  color: #350339;
+  background: #ecc1f6;
+  border: 2px solid #340b3e;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px #9e1ab2, 0 0.5em 0 0 #f7b5f8;
+  transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+  transform-style: preserve-3d;
+}
+
+.filter-container select:hover {
+  background: #f1adf8;
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px #ff57e9, 0 0.3em 0 0 #f8b5f5;
+}
+
+.filter-container select:active {
+  background: #f8adf8;
+  transform: translateY(2px);
+  box-shadow: 0 0 0 2px #f157ff, 0 0 0 0 #f7b5f8;
+}
+
+/* Claim Button Styling */
+.claim-button {
+  display: inline-block;
+  width: auto;
+  max-width: 200px;
+  margin: 10px auto;
+  padding: 8px 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: "Press Start 2P", monospace;
+  background: #ecc1f6;
+  color: #202020;
+  border: 2px solid #dd57ff;
+  border-radius: 10px;
+  font-weight: 750;
+  transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+  transform-style: preserve-3d;
+}
+
+.claim-button:hover {
+  background: #f1adf8;
+  transform: translate(0, 0.25em);
+}
+
+.claim-button:active {
+  background: #f8adf8;
+  transform: translate(0, 0.75em);
+}
+.claim-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.claim-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.modal-buttons button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

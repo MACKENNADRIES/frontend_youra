@@ -1,204 +1,62 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom"; // Import for navigation
+import "../styles.css";
 import "./HomePage.css";
-
+import "../components/PixelCanvas"; // Import the PixelCanvas component
+import Footer from "../components/FooterGame"; 
 const HomePage = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+  const navigate = useNavigate(); // React Router navigation function
 
-  // Update `isMobile` on window resize
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 600);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const buttons = [
-    {
-      id: 1,
-      label: "Start a RAK",
-      gridPosition: "2 / 1 / span 2 / span 2",
-      isCompass: true,
-      link: "/rak/all-raks",
-      content: (
-        <div className="compass">
-          <img
-            src="src/assets/compass-base.png"
-            alt="Compass Base"
-            className="compass-base"
-          />
-          <img
-            src="src/assets/compass-top.png"
-            alt="Compass Top"
-            className="compass-top"
-          />
-          <h2 className="button-heading">DISCOVER</h2>
-          <p className="button-description">
-            Curious about the kindness around you? Explore Random Acts of
-            Kindness happening in your community...
-          </p>
-        </div>
-      ),
-    },
-    {
-      id: 2,
-      label: "Claim a RAK",
-      gridPosition: "2 / 3",
-      content: (
-        <>
-          <h2 className="button-heading">REQUEST</h2>
-          <div className="lotus-container">
-            <img
-              src="src/assets/lotus-top.png"
-              alt="Lotus Top"
-              className="lotus-top"
-            />
-            <img
-              src="src/assets/lotus-bottom1.png"
-              alt="Lotus Bottom 1"
-              className="lotus-bottom1"
-            />
-            <img
-              src="src/assets/lotus-bottom2.png"
-              alt="Lotus Bottom 2"
-              className="lotus-bottom2"
-            />
-            <p className="button-description">
-              Do you need a Random Act of Kindness?
-            </p>
-          </div>
-        </>
-      ),
-    },
-    {
-      id: 3,
-      label: "My Aura",
-      gridPosition: "2 / 4",
-      link: "/create-rak",
-      content: (
-        <div className="hands-container">
-          <img
-            src="src/assets/hands-outer.png"
-            alt="Hands Outer"
-            className="hands-outer"
-          />
-          <img
-            src="src/assets/hands-inner.png"
-            alt="Hands Inner"
-            className="hands-inner"
-          />
-          <p className="button-description">
-            Give someone a Random Act of Kindness
-          </p>
-        </div>
-      ),
-    },
-    {
-      id: 4,
-      label: "Pay It Forward",
-      gridPosition: "3 / 3",
-      content: (
-        <div className="crown-container">
-          <img
-            src="src/assets/crown-top.png"
-            alt="Crown Top"
-            className="crown-top"
-          />
-          <img
-            src="src/assets/crown-bottom.png"
-            alt="Crown Bottom"
-            className="crown-bottom"
-          />
-          <p className="button-description">Whose aura is growing</p>
-        </div>
-      ),
-    },
-    {
-      id: 5,
-      label: "Leaderboard",
-      gridPosition: "3 / 4",
-      content: (
-        <Link to="/leaderboard" className="button">
-          <div className="profile-container">
-            <img
-              src="src/assets/profile-outer.png"
-              alt="Profile Outer"
-              className="profile-outer"
-            />
-            <img
-              src="src/assets/profile-inner.png"
-              alt="Profile Inner"
-              className="profile-inner"
-            />
-            <p className="button-description">Explore your aura</p>
-          </div>
-        </Link>
-      ),
-    },    
-    {
-      id: 6,
-      label: "Explore",
-      gridPosition: "4 / 1 / span 1 / span 4",
-      content: (
-        <div className="logo">
-          <img
-            src="src/assets/starslogo.png"
-            alt="Logo Stars"
-            className="logo-stars"
-          />
-          <img
-            src="src/assets/outerlogo.png"
-            alt="Logo Outer"
-            className="logo-outer"
-          />
-          <img
-            src="src/assets/innerlogo.png"
-            alt="Logo Inner"
-            className="logo-inner"
-          />
-        </div>
-      ),
-    },
+  const pixelAnimationConfigs = [
+    { gap: 9, speed: 30, colors: "#6a0dad, #4b0082, #9370db" },
+    { gap: 8, speed: 20, colors: "#ffd700, #ffa500, #ff69b4" },
+    { gap: 10, speed: 15, colors: "#fef08a, #fde047, #eab308" },
+    { gap: 7, speed: 25, colors: "#e57373, #ff8a80, #ff5252" },
   ];
 
-  const handleClick = (e, id) => {
-    const ripple = document.createElement("div");
-    ripple.className = "animation";
-    e.target.appendChild(ripple);
-
-    setTimeout(() => {
-      ripple.remove();
-    }, 600);
-
-    console.log(`Button ${id} clicked!`);
-  };
+  const cards = [
+    { text: "Discover", image: "src/assets/discover.png", route: "/discover" },
+    { text: "Create RAK", image: "src/assets/createrak.png", route: "/create-rak" },
+    { text: "Leaderboard", image: "src/assets/leaderboard.png", route: "/leaderboard" },
+    { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
+    { text: "Earn Points", image: "src/assets/Earn.png", route: "/" },
+    { text: "My Raks", image: "src/assets/myraks.png", route: "/create-rak" },
+    { text: "psy it forward", image: "src/assets/pif.png", route: "/leaderboard" },
+    { text: "ABout", image: "src/assets/logolarge.png", route: "/profile" },
+    { text: "Contact Us", image: "src/assets/contact.png", route: "/profile" },
+  ];
 
   return (
-    <div className="homepage-grid">
-      {buttons.map((button) =>
-        button.link ? (
-          <Link
-            key={button.id}
-            to={button.link}
-            className="button"
-            id={`button-${button.id}`}
-            style={!isMobile ? { gridArea: button.gridPosition } : undefined}
+    <div>
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">YOURA<br></br>Your Aura</h1>
+        <p class="hero-description">Spread kindness, expand your aura!</p>
+    </div>
+    <div class="hero-overlay"></div>
+</div>
+
+
+      {/* Main Section with Cards */}
+      <main className="homepage">
+        {cards.map((card, index) => (
+          <button
+            key={index}
+            className="card"
+            style={{ "--active-color": pixelAnimationConfigs[index % pixelAnimationConfigs.length].colors.split(",")[0] }}
+            onClick={() => navigate(card.route)} // Navigate to the corresponding page
           >
-            {button.content}
-          </Link>
-        ) : (
-          <div
-            key={button.id}
-            className="button"
-            id={`button-${button.id}`}
-            style={!isMobile ? { gridArea: button.gridPosition } : undefined}
-            onClick={(e) => handleClick(e, button.id)}
-          >
-            {button.content}
-          </div>
-        )
-      )}
+            <pixel-canvas
+              data-gap={pixelAnimationConfigs[index % pixelAnimationConfigs.length].gap}
+              data-speed={pixelAnimationConfigs[index % pixelAnimationConfigs.length].speed}
+              data-colors={pixelAnimationConfigs[index % pixelAnimationConfigs.length].colors}
+            ></pixel-canvas>
+            <img src={card.image} alt={`${card.text} Icon`} className="card-image" />
+            <span className="card-text">{card.text}</span>
+          </button>
+        ))}
+      </main>
+      <Footer /> {/* Include Footer here */}
     </div>
   );
 };

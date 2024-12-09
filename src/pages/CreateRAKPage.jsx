@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateRakPage.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const CreateRAKPage = () => {
     const [formData, setFormData] = useState({
@@ -11,9 +13,15 @@ const CreateRAKPage = () => {
         aura_points_value: 10,
         private: false,
         anonymous_rak: false,
+        collaborators: [], // New field for collaborators
     });
 
+    const [collaboratorInput, setCollaboratorInput] = useState("");
+    const [dotsState, setDotsState] = useState(""); // Default: dots visible and settling
+    const [formFadeOut, setFormFadeOut] = useState(false); // New state to trigger fade-out
     const navigate = useNavigate();
+    const formRef = useRef(null);
+    const [formBoxStyle, setFormBoxStyle] = useState({}); // Tracks form-box dimensions
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -23,17 +31,37 @@ const CreateRAKPage = () => {
         });
     };
 
+    const handleCollaboratorInputChange = (e) => {
+        setCollaboratorInput(e.target.value);
+    };
+
+    const handleAddCollaborator = () => {
+        if (collaboratorInput.trim() && !formData.collaborators.includes(collaboratorInput)) {
+            setFormData({
+                ...formData,
+                collaborators: [...formData.collaborators, collaboratorInput.trim()],
+            });
+            setCollaboratorInput("");
+        }
+    };
+
+    const handleRemoveCollaborator = (collaborator) => {
+        setFormData({
+            ...formData,
+            collaborators: formData.collaborators.filter((c) => c !== collaborator),
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const token = localStorage.getItem("authToken"); // Replace with actual token retrieval logic
-
-            const response = await fetch("http://localhost:8000/rak/", {
+            const token = localStorage.getItem("authToken");
+            const response = await fetch(`${API_URL}/rak/rak/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Token ${token}`,
                 },
                 body: JSON.stringify(formData),
             });
@@ -45,82 +73,131 @@ const CreateRAKPage = () => {
                 return;
             }
 
-            const responseData = await response.json();
-            console.log("RAK created successfully:", responseData);
+            // 1. First fade out the form
+            setFormFadeOut(true);
+            
+            // 2. After form fades out, expand dots margin
+            setTimeout(() => {
+                setDotsState("dots-expand");
+                
+                // 3. After margin expansion, make dots fall
+                setTimeout(() => {
+                    setDotsState("dots-expand dots-falling");
+                    
+                    // 4. Navigate after falling animation completes
+                    setTimeout(() => {
+                        navigate("/home");
+                    }, 3000); // Duration of falling animation
+                }, 1000); // Wait for margin expansion
+            }, 400); // Wait for form fade-out
 
-            // Redirect to home or another page after success
-            navigate("/home");
         } catch (error) {
             console.error("Error submitting the form:", error);
             alert("An error occurred while creating the RAK.");
         }
     };
+    
 
     return (
-        <div>
-            <h1>Create a Random Act of Kindness</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    placeholder="Title"
-                    onChange={handleChange}
-                    required
-                />
-                <textarea
-                    name="description"
-                    value={formData.description}
-                    placeholder="Description"
-                    onChange={handleChange}
-                    required
-                />
-                <select
-                    name="rak_type"
-                    value={formData.rak_type}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Select Type</option>
-                    <option value="offer">Offer</option>
-                    <option value="request">Request</option>
-                </select>
-                <input
-                    type="text"
-                    name="action"
-                    value={formData.action}
-                    placeholder="Action Required"
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="number"
-                    name="aura_points_value"
-                    value={formData.aura_points_value}
-                    placeholder="Aura Points Value"
-                    onChange={handleChange}
-                    min="1"
-                />
-                <label>
-                    <input
-                        type="checkbox"
-                        name="private"
-                        checked={formData.private}
+        <div className="create-rak-page">
+            {/* Form Container */}
+            <div className="form-container" ref={formRef}>
+            {/* Independent Form Box */}
+                {/* Dots Container */}
+                <div className={`rectangle ${dotsState}`}>
+                    {Array.from({ length: 600 }, (_, i) => (
+                        <span 
+                            key={i} 
+                            className="dot" 
+                            style={{ 
+                                animationDuration: `${0.1 + Math.random() * 1}s`, // Random speed: 0.1s to 1s
+                                animationDelay: `${Math.random() * 1.5}s` // Staggered delay: 0-3s
+                            }} 
+                        ></span>
+                    ))}
+                </div>
+
+                <div className={`header-bar ${formFadeOut ? 'form-fading' : ''}`}>
+    Create a Random Act of Kindness
+</div>
+
+<form
+    className={`create-rak-form ${formFadeOut ? 'form-fading' : ''}`}
+    onSubmit={handleSubmit}
+>                <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        placeholder="Title"
                         onChange={handleChange}
+                        required
                     />
-                    Private
-                </label>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="anonymous_rak"
-                        checked={formData.anonymous_rak}
+                    <textarea
+                        name="description"
+                        value={formData.description}
+                        placeholder="Description"
                         onChange={handleChange}
+                        required
                     />
-                    Post Anonymously
-                </label>
-                <button type="submit">Create RAK</button>
-            </form>
+                    <select
+                        name="rak_type"
+                        value={formData.rak_type}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select Type</option>
+                        <option value="offer">Offer</option>
+                        <option value="request">Request</option>
+                    </select>
+                    <input
+                        type="text"
+                        name="action"
+                        value={formData.action}
+                        placeholder="What do you need?"
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="number"
+                        name="aura_points_value"
+                        value={formData.aura_points_value}
+                        placeholder="Aura Points"
+                        onChange={handleChange}
+                        min="1"
+                        max="10"
+                    />
+                    <div className="checkbox-container">
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="private"
+                            checked={formData.private}
+                            onChange={handleChange}
+                        />
+                        Private
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="anonymous_rak"
+                            checked={formData.anonymous_rak}
+                            onChange={handleChange}
+                        />
+                        Post Anonymously
+                    </label>
+                    <label>
+    <input
+        type="checkbox"
+        name="allow_collaborators"
+        checked={formData.allow_collaborators}
+        onChange={handleChange}
+    />
+    Allow Collaborators
+</label>
+                    </div>
+                    <button type="submit">Create RAK</button>
+                </form>
+            </div>
         </div>
     );
 };

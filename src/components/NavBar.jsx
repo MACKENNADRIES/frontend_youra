@@ -1,14 +1,18 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import "./Navbar.css";
 
 function Navbar() {
     return (
         <div>
-            {/* Navbar content */}
-            <nav>
-                <ul>
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="/rak/1">RAK Details</a></li>
+            {/* 8-bit styled Navbar */}
+            <nav className="navbar">
+                <ul className="navbar-list">
+                    <li><a href="/home" className="navbar-link">Home</a></li>
+                    <li><a href="/discover" className="navbar-link">Discover</a></li>
+                    <li><a href="/create" className="navbar-link">Create</a></li>
+                    <li><a href="/profile" className="navbar-link">Profile</a></li>
+                    
                 </ul>
             </nav>
             <Outlet />
