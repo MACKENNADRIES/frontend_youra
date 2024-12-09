@@ -172,151 +172,155 @@ const UserProfilePage = () => {
   return (
 <div className="user-profile-page">
   <h1 className="page-title">User Profile</h1>
+
   {profileData && (
-    <div className="profile-header">
-      {/* Profile Picture and Upload Button */}
-      <div
-        className="profile-picture-container"
-        style={{ "--glow-color": profileData?.aura_color }}
-      >
-        <img
-          className="profile-picture"
-          src={
-            uploadedImage ||
-            (profileData.profile_image
-              ? `https://youra-ddaa03c13e4e.herokuapp.com/media/profile_images/me_HkIqmkD.png`
-              : "default-profile.png")
-          }
-          alt="User Profile"
-        />
+    <div className="profile-container">
+      {/* Section 1: Profile Header */}
+      <div className="profile-header">
+        <div
+          className="profile-picture-container"
+          style={{ "--glow-color": profileData?.aura_color }}
+        >
+          <img
+            className="profile-picture"
+            src={
+              uploadedImage ||
+              profileData.profile_image ||
+              "default-profile.png"
+            }
+            alt="User Profile"
+          />
+        </div>
         <label htmlFor="upload-image" className="upload-label">
-          Upload
-        </label>
-        <input
-          id="upload-image"
-          type="file"
-          onChange={handleImageUpload}
-          className="upload-input"
-          accept="image/*"
-        />
+            Upload
+          </label>
+          <input
+            id="upload-image"
+            type="file"
+            onChange={handleImageUpload}
+            className="upload-input"
+            accept="image/*"
+          />
+        <div className="user-info">
+          {editMode ? (
+            <form onSubmit={handleFormSubmit} className="edit-form">
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                placeholder="Username"
+                required
+              />
+              <input
+                type="text"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleInputChange}
+                placeholder="First Name"
+                required
+              />
+              <input
+                type="text"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleInputChange}
+                placeholder="Last Name"
+              />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="Email"
+                required
+              />
+              <button type="submit">Save</button>
+              <button type="button" onClick={handleEditToggle}>
+                Cancel
+              </button>
+            </form>
+          ) : (
+            <>
+              <h2 className="username">{profileData.user.username}</h2>
+              <p className="name">{profileData.user.first_name}</p>
+              <p className="surname">{profileData.user.last_name}</p>
+              <p className="email">{profileData.user.email}</p>
+              <button className="edit-button" onClick={handleEditToggle}>
+                Edit
+              </button>
+            </>
+          )}
+        </div>
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
       </div>
 
-      {/* User Info and Edit Form */}
-      <div className="user-info">
-        {editMode ? (
-          <form onSubmit={handleFormSubmit} className="edit-form">
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              placeholder="Username"
-              required
-            />
-            <input
-              type="text"
-              name="first_name"
-              value={formData.first_name}
-              onChange={handleInputChange}
-              placeholder="First Name"
-              required
-            />
-            <input
-              type="text"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleInputChange}
-              placeholder="Last Name"
-            />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="Email"
-              required
-            />
-            <button type="submit">Save</button>
-            <button type="button" onClick={handleEditToggle}>
-              Cancel
-            </button>
-          </form>
+      {/* Section 2: Current Level */}
+      <div className="current-level">
+        <h3 className="level-title">{profileData.aura_level}</h3>
+        {auraBadge ? (
+          <img
+            src={auraBadge}
+            alt={`${profileData.aura_level} Badge`}
+            className="current-badge"
+          />
         ) : (
-          <>
-            <h2 className="username">{profileData.user.username}</h2>
-            <p className="name">{profileData.user.first_name}</p>
-            <p className="surname">{profileData.user.last_name}</p>
-            <p className="email">{profileData.user.email}</p>
-            <button className="edit-button" onClick={handleEditToggle}>
-              Edit
-            </button>
-          </>
+          <p>Loading badge...</p>
         )}
       </div>
 
-      {/* Logout Button */}
-      <button onClick={handleLogout} className="logout-button">
-        Logout
-      </button>
-      
-
-          {/* Section 2: Current Level and Badge */}
-          <div className="current-level">
-            <h3 className="level-title">{profileData.aura_level}</h3>
-            <p className="badge-title"></p>
-            {auraBadge ? (
+      {/* Section 3: Earned Badges */}
+      <div className="earned-badges">
+        <h3 className="section-title">Past Badges</h3>
+        <div className="badges-container">
+          {profileData.badges?.length > 0 ? (
+            profileData.badges.map((badge, index) => (
               <img
-                src={auraBadge}
-                alt={`${profileData.aura_level} Badge`}
-                className="current-badge"
+                key={index}
+                src={badge.imageUrl}
+                alt={`Badge ${index + 1}`}
+                className="badge-image"
               />
-            ) : (
-              <p>Loading badge...</p>
-            )}
-          </div>
-
-          {/* Section 3: Earned Badges */}
-          <div className="earned-badges">
-            <h3 className="section-title">Past Badges</h3>
-            <div className="badges-container">
-              {profileData.badges?.length > 0 ? (
-                profileData.badges.map((badge, index) => (
-                  <img
-                    key={index}
-                    src={badge.imageUrl}
-                    alt={`Badge ${index + 1}`}
-                    className="badge-image"
-                  />
-                ))
-              ) : (
-                <p className="no-badges">No badges earned yet.</p>
-              )}
-            </div>
-          </div>
-
-          {/* Section 4: RAK Statistics */}
-          <div className="rak-statistics">
-            <h3 className="section-title">RAK Statistics</h3>
-            <p className="stat">
-              <strong>Total Aura Points:</strong> {profileData.aura_points}
-            </p>
-            <p className="stat">
-              <strong>Points from Claiming:</strong> {profileData.points_from_claiming || 0} (
-              {(profileData.points_from_claiming_percentage || 0).toFixed(2)}%)
-            </p>
-            <p className="stat">
-              <strong>Points from Pay It Forward:</strong>{" "}
-              {profileData.points_from_pay_it_forward} (
-              {profileData.points_from_pay_it_forward_percentage.toFixed(2)}%)
-            </p>
-            <p className="stat">
-              <strong>Points from Offers:</strong> {profileData.points_from_offers} (
-              {profileData.points_from_offers_percentage.toFixed(2)}%)
-            </p>
-          </div>
+            ))
+          ) : (
+            <p className="no-badges">No badges earned yet.</p>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+
+{/* Section 4: RAK Statistics */}
+<div className="rak-statistics">
+  <div className="stat-icon-container">
+    <img src="src/assets/stat-icon.png" alt="RAK Icon" className="stat-icon" />
+  </div>
+  <h3 className="section-title">RAK Statistics</h3>
+  
+  <div className="stat">
+    <span>Total Aura Points:</span>
+    <strong>{profileData.aura_points}</strong>
+  </div>
+  
+  <div className="stat">
+    <span>Points from Claiming:</span>
+    <strong>{profileData.points_from_claiming || 0} ({(profileData.points_from_claiming_percentage || 0).toFixed(2)}%)</strong>
+  </div>
+  
+  <div className="stat">
+    <span>Points from Pay It Forward:</span>
+    <strong>{profileData.points_from_pay_it_forward || 0} ({(profileData.points_from_pay_it_forward_percentage || 0).toFixed(2)}%)</strong>
+  </div>
+  
+  <div className="stat">
+    <span>Points from Offers:</span>
+    <strong>{profileData.points_from_offers || 0} ({(profileData.points_from_offers_percentage || 0).toFixed(2)}%)</strong>
+  </div>
+</div>
+</div>
+  )}
+</div>
+
   );
 };
 
