@@ -1,4 +1,3 @@
-// src/pages/RAKList.jsx
 import React, { useState, useEffect } from "react";
 import { getRAKs } from "../api/get-raks"; // Import the API function
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
@@ -14,7 +13,6 @@ const RAKList = () => {
   const [auraData, setAuraData] = useState({}); // State to store aura data
   const [showClaimModal, setShowClaimModal] = useState(false); // To control modal visibility
   const [selectedRakId, setSelectedRakId] = useState(null); // Store the RAK ID being claimed
-  const [comment, setComment] = useState(""); // Store the comment for the claimed RAK
 
   useEffect(() => {
     const fetchRAKs = async () => {
@@ -92,52 +90,21 @@ const RAKList = () => {
   const handleClaimButtonClick = (rakId) => {
     setSelectedRakId(rakId); // Set the RAK ID to be claimed
     setShowClaimModal(true); // Show the claim modal
-    setComment(""); // Clear any previous comment
   };
 
-  const handleClaim = async (comment) => {
-    if (!comment) {
-      alert("Please add a comment to claim the RAK");
-      return;
-    }
-
-    try {
-      const response = await fetch(`/rak/${selectedRakId}/claim/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ comment }), // Include the comment in the request body
-      });
-
-      if (response.ok) {
-        const updatedRAK = await response.json(); // Get updated RAK data
-        // Update the RAK in state
-        setRaks((prevRaks) =>
-          prevRaks.map((rak) =>
-            rak.id === selectedRakId
-              ? {
-                  ...rak,
-                  status: updatedRAK.status,
-                  claimed_by_username: updatedRAK.claimed_by_username,
-                  claim_status: updatedRAK.claim_status,
-                }
-              : rak
-          )
-        );
-        setShowClaimModal(false); // Close modal after claiming
-        setComment(''); // Clear the comment
-      } else {
-        console.error("Failed to claim RAK");
-      }
-    } catch (error) {
-      console.error("Error claiming RAK:", error);
-    }
-  };
-
-  const handleCancel = () => {
-    setShowClaimModal(false); // Close the modal without claiming
+  const handleClaimSuccess = (updatedRAK) => {
+    setRaks((prevRaks) =>
+      prevRaks.map((rak) =>
+        rak.id === updatedRAK.id
+          ? {
+              ...rak,
+              status: updatedRAK.status,
+              claimed_by_username: updatedRAK.claimed_by_username,
+            }
+          : rak
+      )
+    );
+    setShowClaimModal(false); // Close the modal after a successful claim
   };
 
   if (loading) return <p>Loading...</p>;
@@ -220,7 +187,7 @@ const RAKList = () => {
                     {!rak.claimed_by_username && rak.status === "open" ? (
                       <button
                         className="claim-button"
-                        onClick={() => handleClaimButtonClick(rak.id)} // Call the claim modal function
+                        onClick={() => handleClaimButtonClick(rak.id)}
                       >
                         Claim
                       </button>
@@ -242,9 +209,8 @@ const RAKList = () => {
       <ClaimModal
         isOpen={showClaimModal}
         onClose={() => setShowClaimModal(false)}
-        onClaim={handleClaim}
-        comment={comment}
-        setComment={setComment}
+        rakId={selectedRakId}
+        onClaimSuccess={handleClaimSuccess}
       />
 
       <pixel-canvas
