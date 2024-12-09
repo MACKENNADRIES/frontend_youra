@@ -10,6 +10,10 @@ const RAKList = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const [auraData, setAuraData] = useState({}); // State to store aura data
+  const [showClaimPopup, setShowClaimPopup] = useState(false); // To control popup visibility
+  const [selectedRakId, setSelectedRakId] = useState(null); // Store the RAK ID being claimed
+  const [comment, setComment] = useState(""); // Store the comment for the claimed RAK
+
 
   useEffect(() => {
     const fetchRAKs = async () => {
@@ -86,41 +90,59 @@ const RAKList = () => {
     }
   }, [filter, raks]);
 
-  const handleClaim = async (rakId) => {
+  const handleClaimButtonClick = (rakId) => {
+    setSelectedRakId(rakId); // Set the RAK ID to be claimed
+    setShowClaimPopup(true); // Show the claim popup
+    setComment(""); // Clear any previous comment
+  };
+  
+  const handleClaim = async () => {
+    if (!comment) {
+      alert("Please add a comment to claim the RAK");
+      return;
+    }
+  
     try {
-      const response = await fetch(`/rak/${rakId}/claim/`, {
+      const response = await fetch(`/rak/${selectedRakId}/claim/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Include user token
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        body: JSON.stringify({ comment }), // Include the comment in the request body
       });
   
-      if (!response.ok) {
-        throw new Error("Failed to claim RAK");
+      if (response.ok) {
+        const updatedRAK = await response.json(); // Get updated RAK data
+        // Update the RAK in state
+        setRaks((prevRaks) =>
+          prevRaks.map((rak) =>
+            rak.id === selectedRakId
+              ? {
+                  ...rak,
+                  status: updatedRAK.status,
+                  claimed_by_username: updatedRAK.claimed_by_username,
+                  claim_status: updatedRAK.claim_status,
+                }
+              : rak
+          )
+        );
+        setShowClaimPopup(false); // Close popup after claiming
+        setComment(''); // Clear the comment
+      } else {
+        console.error("Failed to claim RAK");
       }
-  
-      const updatedRAK = await response.json(); // Get the updated RAK data from the backend
-  
-      // Update the local state with the updated RAK data
-      setRaks((prevRaks) =>
-        prevRaks.map((rak) =>
-          rak.id === rakId
-            ? {
-                ...rak,
-                status: updatedRAK.status, // Ensure status is updated
-                claimed_by_username: updatedRAK.claimed_by_username, // Update claimed user
-                claim_status: updatedRAK.claim_status, // Update claim status
-                collaborators: updatedRAK.collaborators || [], // Include collaborators
-              }
-            : rak
-        )
-      );
-    } catch (err) {
-      console.error("Failed to claim RAK:", err);
-      alert("Failed to claim RAK. Please try again.");
+    } catch (error) {
+      console.error("Error claiming RAK:", error);
     }
   };
+  
+  const handleCancel = () => {
+    setShowClaimPopup(false); // Close the popup without claiming
+  };
+  
+  
+  
   
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -144,6 +166,21 @@ const RAKList = () => {
             <option value="offer">Offer</option>
           </select>
         </div>
+
+        {showClaimPopup && (
+  <div className="claim-popup">
+    <h3>Claim this RAK</h3>
+    <textarea
+      value={comment}
+      onChange={(e) => setComment(e.target.value)} // Update comment state
+      placeholder="Add your comment here"
+    />
+    <div className="popup-buttons">
+      <button onClick={handleClaim}>Claim</button>
+      <button onClick={handleCancel}>Cancel</button>
+    </div>
+  </div>
+)}
 
         {/* RAK List */}
         {filteredRaks.length > 0 ? (
@@ -202,11 +239,12 @@ const RAKList = () => {
                     
                     {!rak.claimed_by_username && rak.status === "open" ? (
                       <button
-                        className="claim-button"
-                        onClick={() => handleClaim(rak.id)}
-                      >
-                        Claim
-                      </button>
+  className="claim-button"
+  onClick={() => handleClaimButtonClick(rak.id)} // Call the claim popup function
+>
+  Claim
+</button>
+
                     ) : (
                       <button className="claim-button" disabled>
                         Claimed
