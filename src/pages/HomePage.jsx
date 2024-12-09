@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import for navigation
 import "../styles.css";
 import "./HomePage.css";
 import "../components/PixelCanvas"; // Import the PixelCanvas component
-
+import Footer from "../components/FooterGame"; 
 const HomePage = () => {
   const navigate = useNavigate(); // React Router navigation function
 
@@ -19,7 +19,7 @@ const HomePage = () => {
     { text: "Create RAK", image: "src/assets/createrak.png", route: "/create-rak" },
     { text: "Leaderboard", image: "src/assets/leaderboard.png", route: "/leaderboard" },
     { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
-    { text: "Earn Points", image: "src/assets/Earn.png", route: "/play" },
+    { text: "Earn Points", image: "src/assets/Earn.png", route: "/" },
     { text: "My Raks", image: "src/assets/myraks.png", route: "/create-rak" },
     { text: "psy it forward", image: "src/assets/pif.png", route: "/leaderboard" },
     { text: "ABout", image: "src/assets/logolarge.png", route: "/profile" },
@@ -56,6 +56,7 @@ const HomePage = () => {
           </button>
         ))}
       </main>
+      <Footer /> {/* Include Footer here */}
     </div>
   );
 };

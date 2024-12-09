@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+.page-content {
+  padding-bottom: 100px; /* Space for the footer */
+}
+
+.footer {
+  position: relative;
+  height: 200px; /* Adjust to your desired footer height */
+  border-top: 2px solid #f8b5ff75; /* Line separating page and footer */
+}
+
+.platform {
+  position: absolute; /* Position of the jump platform at the bottom of the footer */
+  width: 8%; /* Adjust width of the platform */
+  text-align: center;
+}
+
+.platform img {
+  width: 100%; /* Ensure the platform image fills the width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Platform specific positions */
+.platform-1 {
+  left: 15%; /* Position for the first platform */
+  bottom: 10px;
+}
+
+.platform-2 {
+  left: 45%; /* Position for the second platform */
+  bottom: 80px;
+}
+
+.platform-3 {
+  left: 80%; /* Position for the third platform */
+  bottom: 40px;
+}
+
+.doodle {
+  width: 50px; /* Doodle size */
+  height: 50px;
+  position: absolute;
+  bottom: 45px; /* Position the doodle at the bottom of the platform */
+  left: 20%; /* Start from the first platform position */
+  transform: translateX(-50%); /* Adjust the doodle to be centered exactly */
+  animation: moveDoodle 1s infinite alternate, flipDoodle 1s infinite steps(1); /* Move and flip animation */
+}
+
+@keyframes flipDoodle {
+  0% {
+    transform: translateX(-50%) scaleX(1); /* Doodle facing right */
+  }
+  50% {
+    transform: translateX(-50%) scaleX(-1); /* Doodle flipped horizontally (facing left) */
+  }
+  100% {
+    transform: translateX(-50%) scaleX(1); /* Doodle facing right again */
+  }
+}
+
+.doodle img {
+  width: 100%; /* Ensure the doodle image fills the area */
+  height: 100%; /* Ensure the doodle image fills the area */
+}
+
+/* Healthbar image at the top-right */
+.healthbar {
+  position: absolute;
+  top: -20px; /* Adjust distance from the top of the footer */
+  right: 10px; /* Adjust distance from the right of the footer */
+  width: 100px; /* Adjust the size of the healthbar */
+  height: auto; /* Maintain the aspect ratio */
+}
+
+
+/* Text at the bottom of the footer */
+.footer-text {
+  position: absolute;
+  bottom: -50px; /* Place it just above the footer line */
+  width: 100%;
+  text-align: center;
+  font-size: 16px; /* Adjust font size */
+  padding-top: 10px;
+  z-index: 3; /* Ensure text appears above the ripple and doodle */
+}
+
+.footer-text--youra {
+  font-family: 'Press Start 2P', sans-serif; /* Use Press Start 2P for YOURA */
+  color: #fbc8ff;
+}
+
+.footer-text--rest {
+  font-family: 'Roboto Mono', monospace; /* Use Roboto Mono for the rest */
+  color: #fbc8ff;
+  font-size: 14px; /* Slightly smaller for the rest of the text */
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
