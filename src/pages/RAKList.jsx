@@ -1,7 +1,9 @@
+// src/pages/RAKList.jsx
 import React, { useState, useEffect } from "react";
 import { getRAKs } from "../api/get-raks"; // Import the API function
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
 import "../components/PixelCanvas"; // Import the PixelCanvas component
+import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
 
 const RAKList = () => {
   const [raks, setRaks] = useState([]); // State to store fetched RAKs
@@ -10,10 +12,9 @@ const RAKList = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const [auraData, setAuraData] = useState({}); // State to store aura data
-  const [showClaimPopup, setShowClaimPopup] = useState(false); // To control popup visibility
+  const [showClaimModal, setShowClaimModal] = useState(false); // To control modal visibility
   const [selectedRakId, setSelectedRakId] = useState(null); // Store the RAK ID being claimed
   const [comment, setComment] = useState(""); // Store the comment for the claimed RAK
-
 
   useEffect(() => {
     const fetchRAKs = async () => {
@@ -31,7 +32,6 @@ const RAKList = () => {
     fetchRAKs();
   }, []); // Empty dependency array ensures this runs once
 
-  // Load aura data asynchronously for each RAK
   useEffect(() => {
     const loadAuraData = async () => {
       const auraLevels = [
@@ -73,9 +73,8 @@ const RAKList = () => {
     if (raks.length > 0) {
       loadAuraData(); // Load aura data only after RAKs are fetched
     }
-  }, [raks]); // This useEffect depends on 'raks', so it will re-run when 'raks' changes
+  }, [raks]);
 
-  // Update filtered RAKs when the filter changes
   useEffect(() => {
     if (filter === "all") {
       setFilteredRaks(raks);
@@ -92,16 +91,16 @@ const RAKList = () => {
 
   const handleClaimButtonClick = (rakId) => {
     setSelectedRakId(rakId); // Set the RAK ID to be claimed
-    setShowClaimPopup(true); // Show the claim popup
+    setShowClaimModal(true); // Show the claim modal
     setComment(""); // Clear any previous comment
   };
-  
-  const handleClaim = async () => {
+
+  const handleClaim = async (comment) => {
     if (!comment) {
       alert("Please add a comment to claim the RAK");
       return;
     }
-  
+
     try {
       const response = await fetch(`/rak/${selectedRakId}/claim/`, {
         method: "POST",
@@ -111,7 +110,7 @@ const RAKList = () => {
         },
         body: JSON.stringify({ comment }), // Include the comment in the request body
       });
-  
+
       if (response.ok) {
         const updatedRAK = await response.json(); // Get updated RAK data
         // Update the RAK in state
@@ -127,7 +126,7 @@ const RAKList = () => {
               : rak
           )
         );
-        setShowClaimPopup(false); // Close popup after claiming
+        setShowClaimModal(false); // Close modal after claiming
         setComment(''); // Clear the comment
       } else {
         console.error("Failed to claim RAK");
@@ -136,14 +135,11 @@ const RAKList = () => {
       console.error("Error claiming RAK:", error);
     }
   };
-  
+
   const handleCancel = () => {
-    setShowClaimPopup(false); // Close the popup without claiming
+    setShowClaimModal(false); // Close the modal without claiming
   };
-  
-  
-  
-  
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -166,21 +162,6 @@ const RAKList = () => {
             <option value="offer">Offer</option>
           </select>
         </div>
-
-        {showClaimPopup && (
-  <div className="claim-popup">
-    <h3>Claim this RAK</h3>
-    <textarea
-      value={comment}
-      onChange={(e) => setComment(e.target.value)} // Update comment state
-      placeholder="Add your comment here"
-    />
-    <div className="popup-buttons">
-      <button onClick={handleClaim}>Claim</button>
-      <button onClick={handleCancel}>Cancel</button>
-    </div>
-  </div>
-)}
 
         {/* RAK List */}
         {filteredRaks.length > 0 ? (
@@ -236,15 +217,13 @@ const RAKList = () => {
                         </p>
                       )}
                     </div>
-                    
                     {!rak.claimed_by_username && rak.status === "open" ? (
                       <button
-  className="claim-button"
-  onClick={() => handleClaimButtonClick(rak.id)} // Call the claim popup function
->
-  Claim
-</button>
-
+                        className="claim-button"
+                        onClick={() => handleClaimButtonClick(rak.id)} // Call the claim modal function
+                      >
+                        Claim
+                      </button>
                     ) : (
                       <button className="claim-button" disabled>
                         Claimed
@@ -259,10 +238,20 @@ const RAKList = () => {
           <p>No RAKs available.</p>
         )}
       </section>
+
+      <ClaimModal
+        isOpen={showClaimModal}
+        onClose={() => setShowClaimModal(false)}
+        onClaim={handleClaim}
+        comment={comment}
+        setComment={setComment}
+      />
+
       <pixel-canvas
-        data-gap="20"
-        data-speed="15"
-        data-colors="#6a0dad, #ff4500, #ffd700, #87ceeb"
+        data="data:image/png;base64,...."
+        className="nes-canvas"
+        id="canvas"
+        name="canvas"
       ></pixel-canvas>
     </div>
   );

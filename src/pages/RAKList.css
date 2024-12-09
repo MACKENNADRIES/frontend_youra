@@ -263,22 +263,20 @@ pixel-canvas {
   background: #f8adf8;
   transform: translate(0, 0.75em);
 }
-
-
-.claim-popup {
+.claim-modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 1000;
 }
 
-.claim-popup form {
+.claim-modal-content {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -287,25 +285,12 @@ pixel-canvas {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.claim-popup h3 {
-  margin-bottom: 10px;
-}
-
-.claim-popup textarea {
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.popup-buttons {
+.modal-buttons {
   display: flex;
   justify-content: space-between;
 }
 
-.popup-buttons button {
+.modal-buttons button {
   padding: 10px 20px;
   border: none;
   background-color: #007bff;
@@ -314,12 +299,11 @@ pixel-canvas {
   cursor: pointer;
 }
 
-.popup-buttons button:hover {
+.modal-buttons button:hover {
   background-color: #0056b3;
 }
 
-.popup-buttons button:disabled {
+.modal-buttons button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
 }
-
