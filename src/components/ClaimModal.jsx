@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./ClaimModal.css"; // Ensure your styles are here
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const ClaimModal = ({ isOpen, onClose, rakId, onClaimSuccess }) => {
   if (!isOpen) return null;
 
@@ -9,34 +11,36 @@ const ClaimModal = ({ isOpen, onClose, rakId, onClaimSuccess }) => {
 
   const handleClaim = async () => {
     if (!comment) {
-      alert("Please add a comment to claim the RAK.");
+      alert("Please add a comment to claim the RAK");
       return;
     }
-
+  
     try {
-      const response = await fetch(`/rak/${rakId}/claim/`, {
+      // Use rakId instead of selectedRakId
+      const response = await fetch(`${API_URL}/rak/rak/${rakId}/claim/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Token ${localStorage.getItem("token")}`,
+
         },
-        body: JSON.stringify({
-          comment,
-          anonymous_claimant: anonymous,
-        }),
+        body: JSON.stringify({ comment }), // Send the comment in the request body
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to claim the RAK.");
+      
+  
+      if (response.ok) {
+        const updatedRAK = await response.json(); // Get the updated RAK data
+        onClaimSuccess(updatedRAK); // Pass the updated RAK to the parent
+        setComment(""); // Clear the comment input
+        onClose(); // Close the modal after successful claim
+      } else {
+        console.error("Failed to claim RAK");
       }
-
-      const updatedRAK = await response.json();
-      onClaimSuccess(updatedRAK); // Notify parent component of successful claim
-      onClose(); // Close the modal
     } catch (error) {
       console.error("Error claiming RAK:", error);
     }
   };
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>

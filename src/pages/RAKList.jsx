@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getRAKs } from "../api/get-raks"; // Import the API function
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
-import "../components/PixelCanvas"; // Import the PixelCanvas component
+import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
 import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
 
 const RAKList = () => {
@@ -88,10 +88,12 @@ const RAKList = () => {
   }, [filter, raks]);
 
   const handleClaimButtonClick = (rakId) => {
-    setSelectedRakId(rakId); // Set the RAK ID to be claimed
-    setShowClaimModal(true); // Show the claim modal
+    console.log("Claiming RAK with ID:", rakId); // Add log to check
+    setSelectedRakId(rakId);
+    setShowClaimModal(true);
   };
 
+  // Update the list of RAKs when a claim is successful
   const handleClaimSuccess = (updatedRAK) => {
     setRaks((prevRaks) =>
       prevRaks.map((rak) =>
@@ -107,13 +109,11 @@ const RAKList = () => {
     setShowClaimModal(false); // Close the modal after a successful claim
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-
   return (
     <div id="app">
       <section className="container nes-container with-title">
         <h2 className="title">Random Acts of Kindness</h2>
+        
         {/* Filter Dropdown */}
         <div className="filter-container">
           <label htmlFor="filter">Filter by:</label>
@@ -206,19 +206,18 @@ const RAKList = () => {
         )}
       </section>
 
+      {/* Claim Modal */}
       <ClaimModal
         isOpen={showClaimModal}
         onClose={() => setShowClaimModal(false)}
         rakId={selectedRakId}
-        onClaimSuccess={handleClaimSuccess}
+        onClaimSuccess={handleClaimSuccess} // Pass handleClaimSuccess to the modal
       />
 
-      <pixel-canvas
-        data="data:image/png;base64,...."
-        className="nes-canvas"
-        id="canvas"
-        name="canvas"
-      ></pixel-canvas>
+      {/* Pixel Canvas (Kept as per original structure) */}
+      <div className="pixel-canvas-container">
+        <pixel-canvas></pixel-canvas> {/* Your pixel canvas component goes here */}
+      </div>
     </div>
   );
 };
