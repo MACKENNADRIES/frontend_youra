@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Create the context
+
 const AuthContext = createContext();
 
-// AuthProvider component to wrap around your app
+// AuthProvider component to wrap app
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Store user details
   const [token, setToken] = useState(null); // Store authentication token
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const login = (authToken, userData) => {
     setToken(authToken);
     setUser(userData);
-    // Optionally store in localStorage for persistence
+    
     localStorage.setItem("token", authToken);
     localStorage.setItem("user", JSON.stringify(userData));
   };

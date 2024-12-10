@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'; // Import useEffect
-import './footer.css'; // Import your CSS file
+import React, { useEffect } from 'react'; 
+import './footer.css'; 
 
 const Footer = () => {
   useEffect(() => {
     const starContainer = document.querySelector('.stars');
-    const numberOfStars = 50; // Number of stars you want to generate
+    const numberOfStars = 50; 
 
     for (let i = 0; i < numberOfStars; i++) {
       const star = document.createElement('div');

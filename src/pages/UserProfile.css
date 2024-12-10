@@ -1,48 +1,28 @@
-/* General Page Styling */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #000000;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+
 
 /* User Profile Page Styling */
 .user-profile-page {
   max-width: 800px;
   width: 100%;
-  margin:0; /* Remove the 100px margin to center it properly */
+  margin: 0;
   padding: 20px;
   margin-top: 100px;
+  margin-bottom: 30px;
   background: #000000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 4px solid #cc72fd; /* Purple border */
-  border-radius: 4px; /* Slightly rounded corners for a more playful look */
+  border-radius: 4px;
   box-shadow: 3px 3px 0 #520238, 6px 6px 0 #d361b7; /* 3D shadow to create depth */
   display: flex;
   flex-direction: column;
-  gap: 0px;
-  /* Center the content inside the profile page */
-  align-items: center; /* Centers items horizontally */
+  align-items: center;
+  gap: 20px; /* Add spacing between sections */
+  box-sizing: border-box; /* Include padding and border in the element's width */
+  overflow: hidden; /* Prevent content overflow */
 }
 
-/* Apply 3D effect to the header-bar text */
-.user-profile-page span {
-  display: inline-block;
-  transform: translateZ(10px); /* Apply the 3D effect to the text */
-  text-align: center;
-  letter-spacing: 3px; /* Slight space between letters for more of the pixelated look */
-  transform: perspective(600px) rotateX(10deg) rotateY(10deg);
-  opacity: 0;
-  animation: formFadeIn 2.5s forwards;
-  animation-delay: 1.9s;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
 /* Page Title */
 .page-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
   color: #f3d1ff;
@@ -50,27 +30,31 @@ body {
 }
 
 /* Profile Header */
-.profile-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-/* Profile Picture Container */
-.profile-picture-container {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  top: -80px;
-  border: 4px solid var(--glow-color, #ddd); /* Default glow color if not set */
-  box-shadow: 0 0 15px 5px var(--glow-color, #ddd), /* Default glow color if not set */
-              0 0 30px 10px var(--glow-color, #ddd); /* Default glow color if not set */
-  transition: box-shadow 0.3s ease-in-out;
-}
 
+.profile-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%; /* Ensure it spans the full width of the parent container */
+    box-sizing: border-box;
+  }
+
+
+.profile-picture-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--glow-color, #ddd);
+    box-shadow: 0 0 15px 5px var(--glow-color, #ddd),
+                0 0 30px 10px var(--glow-color, #ddd);
+    transition: box-shadow 0.3s ease-in-out;
+    flex-shrink: 0; /* Prevents resizing of the image */
+  }
+  
 
 .profile-picture-container:hover {
   box-shadow: 0 0 20px 8px var(--glow-color, #ddd),
@@ -84,8 +68,7 @@ body {
 }
 
 .upload-label {
-  display: block;
-  margin: 10px auto 0; /* Keep the vertical spacing */
+  margin-top: 10px; /* Add spacing below the picture */
   background-color: #5a5a8b;
   color: #fff;
   padding: 8px 15px;
@@ -94,33 +77,29 @@ body {
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s ease;
-  width: fit-content; /* Adjusts width to the text */
-  position: relative; /* Ensure proper placement */
-  left: -140px; /* Move the label 20px to the left */
-  bottom: -20px;
+  width: fit-content; /* Adjust to text size */
 }
-
 .upload-label:hover {
-  background-color: #484875; /* Darker shade on hover */
+  background-color: #484875;
 }
-
 
 .upload-input {
-  display: none; /* Hide the file input */
+  display: none;
 }
-
 
 /* User Info Section */
 .user-info {
-  flex: 1;
-  position: relative;
-  left: -50px;
+  flex: 1; /* Allow it to grow and take available space */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .username {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  margin: 0;
+  margin-bottom: 10px;
+  color: #fff;
 }
 
 .name,
@@ -128,19 +107,28 @@ body {
 .email {
   font-size: 1rem;
   margin: 5px 0;
-  color: #555;
-  font-family: "roboto mono";
+}
+
+/* Buttons Section */
+.buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-button,
+.logout-button {
+  padding: 8px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .edit-button {
-  margin-top: 10px;
-  padding: 8px 15px;
   background-color: #5a5a8b;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s;
 }
 
 .edit-button:hover {
@@ -150,11 +138,6 @@ body {
 .logout-button {
   background-color: #f44336;
   color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s;
 }
 
 .logout-button:hover {
@@ -167,9 +150,11 @@ body {
   padding: 15px;
   background-color: #393739;
   border: 4px solid #cc72fd; /* Purple border */
-  border-radius: 4px; /* Slightly rounded corners for a more playful look */
-  box-shadow: 3px 3px 0 #520238, 6px 6px 0 #d361b7; 
-
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #520238, 6px 6px 0 #d361b7;
+  width: 100%; /* Ensure it fits within the user-profile-page */
+  box-sizing: border-box; /* Include padding in width calculations */
+  max-width: 100%; /* Prevent overflow */
 }
 
 .level-title {
@@ -182,22 +167,20 @@ body {
   width: 80px;
   height: 80px;
   margin-top: 10px;
-  animation: float 3s ease-in-out infinite; /* Attach the float animation */
+  animation: float 3s ease-in-out infinite;
 }
 
-/* Keyframes for the floating animation */
 @keyframes float {
   0% {
-    transform: translateY(0); /* Start position */
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px); /* Move up slightly */
+    transform: translateY(-10px);
   }
   100% {
-    transform: translateY(0); /* Return to start position */
+    transform: translateY(0);
   }
 }
-
 
 /* Earned Badges Section */
 .earned-badges {
@@ -207,13 +190,14 @@ body {
 .section-title {
   font-size: 1.2rem;
   margin-bottom: 15px;
+  color: #f3d1ff;
 }
 
 .badges-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
 }
 
 .badge-image {
@@ -230,82 +214,54 @@ body {
 
 /* RAK Statistics Section */
 .rak-statistics {
-  background: #2e2c2c; /* Darker background for better contrast */
+  background: #2e2c2c;
   padding: 30px;
   border: 4px solid #cc72fd; /* Purple border */
-  border-radius: 10px; /* More rounded corners for a smoother look */
-  box-shadow: 3px 3px 0 #520238, 6px 6px 0 #d361b7; 
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 #520238, 6px 6px 0 #d361b7;
   display: flex;
   flex-direction: column;
   gap: 20px; /* Increased space between items */
   align-items: center; /* Center content horizontally */
   text-align: center; /* Center text within the section */
+  width: 100%; /* Ensure it fits within the user-profile-page */
+  box-sizing: border-box; /* Include padding in width calculations */
+  max-width: 100%; /* Prevent overflow */
 }
 
-/* Section Title */
 .rak-statistics .section-title {
   font-size: 1.5rem;
-  font-weight: bold;
-  color: #f0bbff; /* Light text color for title */
+  color: #f0bbff;
   margin-bottom: 20px;
 }
 
-/* Stat Text */
 .stat {
   font-size: 1.1rem;
-  font-family: "roboto mono";
-  margin: 10px 0;
-  color: #ffffff; /* Light color for better contrast */
-  display: flex;
-  justify-content: space-between; /* Align the labels and values on opposite sides */
-  width: 100%; /* Full width to give space for label and value */
-  padding: 5px;
-  border-radius: 6px;
-  transition: background-color 0.3s; /* Smooth hover transition */
+  font-family: "Roboto Mono", monospace;
+  color: #fff;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  background-color: #3a3a3a;
+  border-radius: 8px;
+  transition: background-color 0.3s;
 }
-
-/* Stat Labels */
-.stat span {
-  font-weight: 600;
-  color: #ffffff; /* Slightly lighter color for the labels */
+img.stat-icon {
+  width: 10%;
 }
-
-/* Stat Values */
-.stat strong {
-  color: #fff; /* White for the values to make them stand out */
-  font-weight: 700;
-  font-family: "roboto mono";
-}
-
-/* Optionally add icons for each stat, like a circle or a small image */
-.stat-icon {
-  width: 100px;
-  height: 100px;
-  display: inline-block;
-}
-
-/* Optional: Hover effect to highlight each stat */
 .stat:hover {
   background-color: #bc3ed2;
 }
 
-/* Stat Section for displaying individual data */
-.rak-statistics p {
-  font-size: 1rem;
-  color: #d3d3d3;
-  line-height: 1.6;
-  font-family: "roboto mono";
+.stat span {
+  font-weight: 600;
 }
 
-
+.stat strong {
+  font-weight: bold;
+}
 
 /* Form Styling */
-.edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
 .edit-form input {
   padding: 10px;
   font-size: 1rem;
@@ -327,13 +283,13 @@ body {
   color: white;
 }
 
+.edit-form button[type="submit"]:hover {
+  background-color: #484875;
+}
+
 .edit-form button[type="button"] {
   background-color: #ccc;
   color: #333;
-}
-
-.edit-form button[type="submit"]:hover {
-  background-color: #484875;
 }
 
 .edit-form button[type="button"]:hover {

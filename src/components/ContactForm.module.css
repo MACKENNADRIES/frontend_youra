@@ -1,62 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
-/* Style the ContactForm container */
 .contactFormContainer {
-    max-width: 1000px; /* Increase the max width to make the form larger */
-    width: 100vh; /* Allow the form to take up more horizontal space */
-    margin: 100px auto 50px auto; /* Add a larger margin at the top (100px) to push the form down */
-    font-family: 'Press Start 2P', cursive; /* Retro 8-bit style font */
-    background-color: #111; /* Dark background to give contrast */
-    padding: 40px; /* Increase padding to give the form more space inside */
-    border: 4px solid #d39af2; /* Purple border */
-    border-radius: 8px; /* Slightly rounded corners for a more playful look */
-    box-shadow: 3px 3px 0 #621247, 6px 6px 0 #e364c4; /* 3D shadow to create depth */
-    min-height: 500px; /* Make the form take up a minimum height */
+    max-width: 1000px; 
+    width: 100vh; 
+    margin: 100px auto 50px auto; 
+    font-family: 'Press Start 2P', cursive; 
+    background-color: #111; 
+    padding: 40px; 
+    border: 4px solid #d39af2; 
+    border-radius: 8px; 
+    box-shadow: 3px 3px 0 #621247, 6px 6px 0 #e364c4; 
+    min-height: 500px; 
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Space out the content inside the form */
+    justify-content: space-between; 
 }
 
-/* Style inputs and textareas inside the ContactForm */
 .contactFormContainer input,
 .contactFormContainer textarea {
     width: 100%;
-    padding: 16px 20px; /* Increase padding to make inputs more prominent */
+    padding: 16px 20px;
     margin: 16px 0;
-    border: 4px solid #d39af2; /* Purple border */
-    border-radius: 8px; /* Slightly rounded corners for a more playful look */
-    box-shadow: 1px 1px 0 #621247, 3px 3px 0 #e364c4; /* 3D shadow to create depth */
-    background-color: #222; /* Dark background */
-    color: #fff; /* White text */
-    font-size: 18px; /* Increase font size for better readability */
-    font-family: 'Roboto Mono', monospace; /* Retro 8-bit font */
+    border: 4px solid #d39af2; 
+    border-radius: 8px; 
+    box-shadow: 1px 1px 0 #621247, 3px 3px 0 #e364c4; 
+    background-color: #222; 
+    color: #fff; 
+    font-size: 18px; 
+    font-family: 'Roboto Mono', monospace; 
     box-sizing: border-box;
 }
 
-/* Style for label inside the ContactForm */
 .contactFormContainer label {
     color: white;
-    font-size: 18px; /* Increase label font size */
-    font-family: 'Roboto Mono', monospace; /* Retro 8-bit font */
+    font-size: 18px; 
+    font-family: 'Roboto Mono', monospace; 
 }
 
-/* Style for h2 inside the ContactForm */
 .contactFormContainer h2 {
     color: white;
     font-family: "Press Start 2P", monospace;
-    font-size: 24px; /* Larger heading */
+    font-size: 24px; 
 }
 
-/* Style adjustments for the ContactButton */
 .contactFormContainer .contactButton {
     position: relative;
-    display: block; /* Ensures the button is on its own line */
-    width: 100%; /* Uniform width for the button */
-    max-width: 300px; /* Prevents the button from being too wide */
-    margin: 30px auto; /* Adds vertical spacing and centers the button */
-    padding: 15px 40px; /* Increase button padding for better visual appearance */
+    display: block; 
+    width: 100%; 
+    max-width: 300px; 
+    margin: 30px auto; 
+    padding: 15px 40px; 
     text-transform: uppercase;
-    font-size: 18px; /* Larger button text */
+    font-size: 18px; 
     font-family: 'Press Start 2P', monospace;
     background: #ecc1f6;
     color: #202020;
@@ -67,7 +62,6 @@
     transform-style: preserve-3d;
 }
 
-/* Style adjustments for hover and active states on the ContactButton */
 .contactFormContainer .contactButton::before {
     content: '';
     position: absolute;

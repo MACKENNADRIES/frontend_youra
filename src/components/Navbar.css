@@ -1,9 +1,9 @@
 /* Navbar Container */
 .navbar {
-    background: linear-gradient(135deg, #2a0337, #4b0a62); /* Retro gradient */
-    border-bottom: 4px solid #cc72fd; /* Vibrant bottom border */
+    background: linear-gradient(135deg, #2a0337, #4b0a62); 
+    border-bottom: 4px solid #cc72fd; 
     padding: 1rem 2rem;
-    font-family: 'Press Start 2P', monospace; /* 8-bit font */
+    font-family: 'Press Start 2P', monospace;
     text-align: center;
     position: fixed; /* Navbar sticks to the top */
     top: 5%; /* Move to the very top of the page */
@@ -27,7 +27,7 @@
 /* Navbar Links */
 .navbar-link {
     text-decoration: none;
-    color: #ecbdff; /* Bright retro purple */
+    color: #ecbdff; 
     text-transform: uppercase;
     font-size: 1rem;
     letter-spacing: 2px; /* 8-bit spacing */
@@ -36,12 +36,12 @@
 
 /* Hover Effects */
 .navbar-link:hover {
-    color: #ff66cc; /* Pink hover effect */
-    text-shadow: 1px 1px 2px #fff, 2px 2px 4px #ff66cc; /* Glow effect */
+    color: #ff66cc; 
+    text-shadow: 1px 1px 2px #fff, 2px 2px 4px #ff66cc;
 }
 
 /* Active Link */
 .navbar-link:active {
-    color: #ffa6d9; /* Softer pink on click */
+    color: #ffa6d9; 
     text-shadow: 0px 0px 4px #ffa6d9;
 }
