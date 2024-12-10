@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getRAKs } from "../api/get-my-raks"; // Updated API function import
+import { getPostedRAKs } from "../api/get-my-posted-raks"; // New API function import
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
 import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
 import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
@@ -17,9 +18,14 @@ const RAKList = () => {
   useEffect(() => {
     const fetchRAKs = async () => {
       try {
-        const data = await getRAKs(); // Use the centralized API function
+        let data = [];
+        if (filter === "my-posted") {
+          data = await getPostedRAKs(); // Use the new API function to get posted RAKs
+        } else {
+          data = await getRAKs(); // Use the existing API function to get claimed RAKs
+        }
         setRaks(data);
-        setFilteredRaks(data); // Initialize filtered RAKs with all RAKs
+        setFilteredRaks(data); // Initialize filtered RAKs with fetched RAKs
       } catch (err) {
         setError(err.message);
       } finally {
@@ -28,7 +34,7 @@ const RAKList = () => {
     };
 
     fetchRAKs();
-  }, []); // Empty dependency array ensures this runs once
+  }, [filter]); // Re-fetch whenever the filter changes
 
   useEffect(() => {
     const loadAuraData = async () => {
@@ -126,6 +132,7 @@ const RAKList = () => {
             <option value="unclaimed">Unclaimed</option>
             <option value="request">Request</option>
             <option value="offer">Offer</option>
+            <option value="my-posted">My Posted RAKs</option> {/* New filter option */}
           </select>
         </div>
 
@@ -213,22 +220,17 @@ const RAKList = () => {
             })}
           </ul>
         ) : (
-          <p>No RAKs available.</p>
+          <p>No RAKs found.</p>
         )}
       </section>
 
-      {/* Claim Modal */}
-      <ClaimModal
-        isOpen={showClaimModal}
-        onClose={() => setShowClaimModal(false)}
-        rakId={selectedRakId}
-        onClaimSuccess={handleClaimSuccess} // Pass handleClaimSuccess to the modal
-      />
-
-      {/* Pixel Canvas (Kept as per original structure) */}
-      <div className="pixel-canvas-container">
-        <pixel-canvas></pixel-canvas> {/* Your pixel canvas component goes here */}
-      </div>
+      {showClaimModal && (
+        <ClaimModal
+          rakId={selectedRakId}
+          onClose={() => setShowClaimModal(false)}
+          onClaimSuccess={handleClaimSuccess}
+        />
+      )}
     </div>
   );
 };

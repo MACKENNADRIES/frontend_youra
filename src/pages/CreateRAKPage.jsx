@@ -56,7 +56,7 @@ const CreateRAKPage = () => {
         e.preventDefault();
 
         try {
-            const token = localStorage.getItem("authToken");
+            const token = localStorage.getItem("token");
             const response = await fetch(`${API_URL}/rak/rak/`, {
                 method: "POST",
                 headers: {
