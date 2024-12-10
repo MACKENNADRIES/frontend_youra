@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: "/rak/:id", element: <RAKDetailsPage /> },
-            { path: "/rak/leaderboard", element: <LeaderboardPage /> },
+            { path: "/leaderboard", element: <LeaderboardPage /> },
             {
                 path: "/profile", // Dynamic route for user profile with 'id'
                 element: <UserProfilePage />,

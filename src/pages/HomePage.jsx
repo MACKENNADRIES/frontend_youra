@@ -15,15 +15,15 @@ const HomePage = () => {
   ];
 
   const cards = [
-    { text: "Discover", image: "src/assets/discover.png", route: "/discover" },
+    { text: "Discover", image: "src/assets/discover.png", route: "/all" },
     { text: "Create RAK", image: "src/assets/createrak.png", route: "/create-rak" },
     { text: "Leaderboard", image: "src/assets/leaderboard.png", route: "/leaderboard" },
     { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
-    { text: "Earn Points", image: "src/assets/Earn.png", route: "/" },
-    { text: "My Raks", image: "src/assets/myraks.png", route: "/create-rak" },
-    { text: "psy it forward", image: "src/assets/pif.png", route: "/leaderboard" },
-    { text: "ABout", image: "src/assets/logolarge.png", route: "/profile" },
-    { text: "Contact Us", image: "src/assets/contact.png", route: "/profile" },
+    { text: "Earn Points", image: "src/assets/Earn.png", route: "/earn-points" },
+    { text: "My Raks", image: "src/assets/myraks.png", route: "/my-raks" },
+    { text: "psy it forward", image: "src/assets/pif.png", route: "/pif" },
+    { text: "ABout", image: "src/assets/logolarge.png", route: "/about" },
+    { text: "Contact Us", image: "src/assets/contact.png", route: "/contact" },
   ];
 
   return (
