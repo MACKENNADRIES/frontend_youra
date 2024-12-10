@@ -162,7 +162,7 @@ const RAKList = () => {
     {rak.status === "claimed" && (
       <span className="rak-claimed">Claimed</span>
     )}
-    {rak.status === "in_progress" && (
+    {rak.status === "in progress" && (
       <span className="rak-in-progress">In Progress</span>
     )}
     {rak.status === "completed" && (
@@ -207,7 +207,7 @@ const RAKList = () => {
   <button className="claim-button" disabled>
     {rak.status === "claimed"
       ? "Already Claimed"
-      : rak.status === "in_progress"
+      : rak.status === "in progress"
       ? "In Progress"
       : "Completed"}
   </button>
