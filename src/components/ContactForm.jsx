@@ -48,15 +48,16 @@ const ContactForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <div className={styles.contactFormContainer}>
+        <h2>Contact Us</h2>
         <div>
-          <h2>Contact Us</h2>
           <label>Name</label>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleInputChange}
+            className={styles.input}
           />
         </div>
         <div>
@@ -66,6 +67,7 @@ const ContactForm = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
+            className={styles.input}
           />
         </div>
         <div>
@@ -74,10 +76,13 @@ const ContactForm = () => {
             name="message"
             value={formData.message}
             onChange={handleInputChange}
+            className={styles.textarea}
           />
         </div>
-        <button type="submit" className={styles.contactButton}>Send Message</button>
-      </form>
+        <button type="button" onClick={handleSubmit} className={styles.contactButton}>
+          Send Message
+        </button>
+      </div>
       {statusMessage && <p>{statusMessage}</p>}
     </div>
   );

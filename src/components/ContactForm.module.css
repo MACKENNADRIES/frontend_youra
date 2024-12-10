@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
-/* Style the form container */
-form {
+/* Style the ContactForm container */
+.contactFormContainer {
     max-width: 1000px; /* Increase the max width to make the form larger */
     width: 100vh; /* Allow the form to take up more horizontal space */
     margin: 100px auto 50px auto; /* Add a larger margin at the top (100px) to push the form down */
@@ -17,8 +17,9 @@ form {
     justify-content: space-between; /* Space out the content inside the form */
 }
 
-/* Style inputs and textareas */
-input, textarea {
+/* Style inputs and textareas inside the ContactForm */
+.contactFormContainer input,
+.contactFormContainer textarea {
     width: 100%;
     padding: 16px 20px; /* Increase padding to make inputs more prominent */
     margin: 16px 0;
@@ -32,22 +33,22 @@ input, textarea {
     box-sizing: border-box;
 }
 
-/* Style for label */
-label {
+/* Style for label inside the ContactForm */
+.contactFormContainer label {
     color: white;
     font-size: 18px; /* Increase label font size */
     font-family: 'Roboto Mono', monospace; /* Retro 8-bit font */
 }
 
-/* Style for h2 */
-h2 {
+/* Style for h2 inside the ContactForm */
+.contactFormContainer h2 {
     color: white;
     font-family: "Press Start 2P", monospace;
     font-size: 24px; /* Larger heading */
 }
 
-/* Adjusted Create Rak Button Styling */
-.create-rak-form button {
+/* Style adjustments for the ContactButton */
+.contactFormContainer .contactButton {
     position: relative;
     display: block; /* Ensures the button is on its own line */
     width: 100%; /* Uniform width for the button */
@@ -66,28 +67,8 @@ h2 {
     transform-style: preserve-3d;
 }
 
-/* Style adjustments for hover and active states */
-/* Contact Button Styling */
-.contactButton {
-    position: relative;
-    display: block; /* Ensures the button is on its own line */
-    width: 100%; /* Uniform width for the button */
-    max-width: 300px; /* Prevents the button from being too wide */
-    margin: 30px auto; /* Adds vertical spacing and centers the button */
-    padding: 15px 40px; /* Increase button padding for better visual appearance */
-    text-transform: uppercase;
-    font-size: 18px; /* Larger button text */
-    font-family: 'Press Start 2P', monospace;
-    background: #ecc1f6;
-    color: #202020;
-    border: 2px solid #dd57ff;
-    border-radius: 10px;
-    font-weight: 750;
-    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
-    transform-style: preserve-3d;
-}
-
-.contactButton::before {
+/* Style adjustments for hover and active states on the ContactButton */
+.contactFormContainer .contactButton::before {
     content: '';
     position: absolute;
     top: 0;
@@ -103,22 +84,22 @@ h2 {
     transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
 }
 
-.contactButton:hover {
+.contactFormContainer .contactButton:hover {
     background: #f1adf8;
     transform: translate(0, 0.25em);
 }
 
-.contactButton:hover::before {
+.contactFormContainer .contactButton:hover::before {
     box-shadow: 0 0 0 2px #ff57e9, 0 0.5em 0 0 #f8b5f5;
     transform: translate3d(0, 0.5em, -1em);
 }
 
-.contactButton:active {
+.contactFormContainer .contactButton:active {
     background: #f8adf8;
     transform: translate(0, 0.75em);
 }
 
-.contactButton:active::before {
+.contactFormContainer .contactButton:active::before {
     box-shadow: 0 0 0 2px #f157ff, 0 0 #f7b5f8;
     transform: translate3d(0, 0, -1em);
 }
