@@ -21,8 +21,8 @@ const HomePage = () => {
     { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
     { text: "Earn Points", image: "src/assets/Earn.png", route: "/earn-points" },
     { text: "My Raks", image: "src/assets/myraks.png", route: "/my-raks" },
-    { text: "psy it forward", image: "src/assets/pif.png", route: "/pif" },
-    { text: "ABout", image: "src/assets/logolarge.png", route: "/about" },
+    { text: "Pay it forward", image: "src/assets/pif.png", route: "/pif" },
+    { text: "About", image: "src/assets/logolarge.png", route: "/about" },
     { text: "Contact Us", image: "src/assets/contact.png", route: "/contact" },
   ];
 

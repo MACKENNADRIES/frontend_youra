@@ -13,6 +13,7 @@ import RAKList from "./pages/RAKList.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import ContactPage from './pages/ContactPage.jsx';
 import MyRaks from './pages/MyRakLists.jsx';
+import PIF from './pages/PIF.jsx';
 
 
 
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
             { path: "/create-rak", element: <CreateRAKPage /> },
             { path: "/all", element: <RAKList /> },
             { path: "/my-raks",element: <MyRaks/>},
+            { path: "/pif",element: <PIF/>},
             { path: "/contact", element: <ContactPage /> },
         ],
     },
