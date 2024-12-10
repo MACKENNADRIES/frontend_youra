@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getRAKs } from "../api/get-raks"; // Import the API function
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
-import "../components/PixelCanvas"; // Import the PixelCanvas component
+import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
+import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
 
 const RAKList = () => {
   const [raks, setRaks] = useState([]); // State to store fetched RAKs
@@ -10,6 +11,8 @@ const RAKList = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const [auraData, setAuraData] = useState({}); // State to store aura data
+  const [showClaimModal, setShowClaimModal] = useState(false); // To control modal visibility
+  const [selectedRakId, setSelectedRakId] = useState(null); // Store the RAK ID being claimed
 
   useEffect(() => {
     const fetchRAKs = async () => {
@@ -27,7 +30,6 @@ const RAKList = () => {
     fetchRAKs();
   }, []); // Empty dependency array ensures this runs once
 
-  // Load aura data asynchronously for each RAK
   useEffect(() => {
     const loadAuraData = async () => {
       const auraLevels = [
@@ -69,9 +71,8 @@ const RAKList = () => {
     if (raks.length > 0) {
       loadAuraData(); // Load aura data only after RAKs are fetched
     }
-  }, [raks]); // This useEffect depends on 'raks', so it will re-run when 'raks' changes
+  }, [raks]);
 
-  // Update filtered RAKs when the filter changes
   useEffect(() => {
     if (filter === "all") {
       setFilteredRaks(raks);
@@ -86,49 +87,33 @@ const RAKList = () => {
     }
   }, [filter, raks]);
 
-  const handleClaim = async (rakId) => {
-    try {
-      const response = await fetch(`/rak/${rakId}/claim/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Include user token
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error("Failed to claim RAK");
-      }
-  
-      const updatedRAK = await response.json(); // Get the updated RAK data from the backend
-  
-      // Update the local state with the updated RAK data
-      setRaks((prevRaks) =>
-        prevRaks.map((rak) =>
-          rak.id === rakId
-            ? {
-                ...rak,
-                status: updatedRAK.status, // Ensure status is updated
-                claimed_by_username: updatedRAK.claimed_by_username, // Update claimed user
-                claim_status: updatedRAK.claim_status, // Update claim status
-                collaborators: updatedRAK.collaborators || [], // Include collaborators
-              }
-            : rak
-        )
-      );
-    } catch (err) {
-      console.error("Failed to claim RAK:", err);
-      alert("Failed to claim RAK. Please try again.");
-    }
+  const handleClaimButtonClick = (rakId) => {
+    console.log("Claiming RAK with ID:", rakId); // Add log to check
+    setSelectedRakId(rakId);
+    setShowClaimModal(true);
   };
-  
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+
+  // Update the list of RAKs when a claim is successful
+  const handleClaimSuccess = (updatedRAK) => {
+    setRaks((prevRaks) =>
+      prevRaks.map((rak) =>
+        rak.id === updatedRAK.id
+          ? {
+              ...rak,
+              status: updatedRAK.status,
+              claimed_by_username: updatedRAK.claimed_by_username,
+            }
+          : rak
+      )
+    );
+    setShowClaimModal(false); // Close the modal after a successful claim
+  };
 
   return (
     <div id="app">
       <section className="container nes-container with-title">
         <h2 className="title">Random Acts of Kindness</h2>
+        
         {/* Filter Dropdown */}
         <div className="filter-container">
           <label htmlFor="filter">Filter by:</label>
@@ -199,11 +184,10 @@ const RAKList = () => {
                         </p>
                       )}
                     </div>
-                    
                     {!rak.claimed_by_username && rak.status === "open" ? (
                       <button
                         className="claim-button"
-                        onClick={() => handleClaim(rak.id)}
+                        onClick={() => handleClaimButtonClick(rak.id)}
                       >
                         Claim
                       </button>
@@ -221,11 +205,19 @@ const RAKList = () => {
           <p>No RAKs available.</p>
         )}
       </section>
-      <pixel-canvas
-        data-gap="20"
-        data-speed="15"
-        data-colors="#6a0dad, #ff4500, #ffd700, #87ceeb"
-      ></pixel-canvas>
+
+      {/* Claim Modal */}
+      <ClaimModal
+        isOpen={showClaimModal}
+        onClose={() => setShowClaimModal(false)}
+        rakId={selectedRakId}
+        onClaimSuccess={handleClaimSuccess} // Pass handleClaimSuccess to the modal
+      />
+
+      {/* Pixel Canvas (Kept as per original structure) */}
+      <div className="pixel-canvas-container">
+        <pixel-canvas></pixel-canvas> {/* Your pixel canvas component goes here */}
+      </div>
     </div>
   );
 };
