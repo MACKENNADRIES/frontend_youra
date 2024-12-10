@@ -11,6 +11,8 @@ import Navbar from "./components/NavBar.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import RAKList from "./pages/RAKList.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import ContactPage from './pages/ContactPage.jsx';
+
 
 
 
@@ -60,7 +62,8 @@ const router = createBrowserRouter([
             {
                 path: "/rak/rak/:id", 
                 element: <RAKDetailsPage /> 
-            }
+            },
+            { path: "/contact", element: <ContactPage /> },
             
         ],
     },
