@@ -179,6 +179,7 @@ const UserProfilePage = () => {
       <div className="profile-header">
         <div
           className="profile-picture-container"
+          style={{ "--glow-color": profileData?.aura_color }}
         >
           <img
             className="profile-picture"

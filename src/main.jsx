@@ -15,7 +15,6 @@ import ContactPage from './pages/ContactPage.jsx';
 
 
 
-
 // Layout for pages WITH Navbar
 const NavbarLayout = () => {
     return (
@@ -59,12 +58,7 @@ const router = createBrowserRouter([
             },
             { path: "/create-rak", element: <CreateRAKPage /> },
             { path: "/all", element: <RAKList /> },
-            {
-                path: "/rak/rak/:id", 
-                element: <RAKDetailsPage /> 
-            },
             { path: "/contact", element: <ContactPage /> },
-            
         ],
     },
 ]);
