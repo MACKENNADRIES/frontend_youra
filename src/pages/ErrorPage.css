@@ -133,6 +133,7 @@ body {
     background: black; /* Set the pixel color to black */
     animation: fall-bounce-tumble linear forwards;
     animation-duration: 6s; /* Combined duration for fall and bounce */
+    z-index: -1;
 }
 
 /* Falling, Bouncing, and Tumbling Animation */

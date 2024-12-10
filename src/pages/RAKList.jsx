@@ -154,48 +154,65 @@ const RAKList = () => {
                     <h3 className="rak-title">{rak.title}</h3>
                     <p className="rak-description">{rak.description}</p>
                     <div className="rak-details">
-                      <p className="rak-status">
-                        Status:{" "}
-                        {rak.status === "open" ? (
-                          <span className="rak-open">Open</span>
-                        ) : (
-                          <span className="rak-completed">Completed</span>
-                        )}
-                      </p>
-                      <p className="rak-claim-status">
-                        Claim Status:{" "}
-                        {rak.claimed_by_username ? (
-                          <span className="rak-claimed">
-                            Claimed by {rak.claimed_by_username}
-                          </span>
-                        ) : (
-                          <span className="rak-unclaimed">Unclaimed</span>
-                        )}
-                      </p>
-                      <p className="rak-aura-points">
-                        Aura Points: {rak.aura_points_value}
-                      </p>
-                      {rak.collaborators && rak.collaborators.length > 0 && (
-                        <p className="rak-collaborators">
-                          Collaborators:{" "}
-                          {rak.collaborators
-                            .map((collaborator) => collaborator.username)
-                            .join(", ")}
-                        </p>
-                      )}
-                    </div>
-                    {!rak.claimed_by_username && rak.status === "open" ? (
-                      <button
-                        className="claim-button"
-                        onClick={() => handleClaimButtonClick(rak.id)}
-                      >
-                        Claim
-                      </button>
-                    ) : (
-                      <button className="claim-button" disabled>
-                        Claimed
-                      </button>
-                    )}
+  <p className="rak-status">
+    Status:{" "}
+    {rak.status === "open" && (
+      <span className="rak-open">Open</span>
+    )}
+    {rak.status === "claimed" && (
+      <span className="rak-claimed">Claimed</span>
+    )}
+    {rak.status === "in_progress" && (
+      <span className="rak-in-progress">In Progress</span>
+    )}
+    {rak.status === "completed" && (
+      <span className="rak-completed">Completed</span>
+    )}
+  </p>
+  
+  <p className="rak-claim-status">
+    Claim Status:{" "}
+    {rak.claimed_by_username ? (
+      <span className="rak-claimed">
+        Claimed by {rak.claimed_by_username}
+      </span>
+    ) : (
+      <span className="rak-unclaimed">Unclaimed</span>
+    )}
+  </p>
+  
+  <p className="rak-aura-points">
+    Aura Points: {rak.aura_points_value}
+  </p>
+  
+  {rak.collaborators && rak.collaborators.length > 0 && (
+    <p className="rak-collaborators">
+      Collaborators:{" "}
+      {rak.collaborators
+        .map((collaborator) => collaborator.username)
+        .join(", ")}
+    </p>
+  )}
+</div>
+
+{/* Conditional Claim Button */}
+{rak.status === "open" && !rak.claimed_by_username ? (
+  <button
+    className="claim-button"
+    onClick={() => handleClaimButtonClick(rak.id)}
+  >
+    Claim
+  </button>
+) : (
+  <button className="claim-button" disabled>
+    {rak.status === "claimed"
+      ? "Already Claimed"
+      : rak.status === "in_progress"
+      ? "In Progress"
+      : "Completed"}
+  </button>
+)}
+
                   </div>
                 </li>
               );
