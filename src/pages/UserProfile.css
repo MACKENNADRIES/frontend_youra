@@ -65,11 +65,12 @@ body {
   border-radius: 50%;
   overflow: hidden;
   top: -80px;
-  border: 4px solid var(--glow-color, #ddd);
-  box-shadow: 0 0 15px 5px var(--glow-color, #ddd),
-              0 0 30px 10px var(--glow-color, #ddd);
+  border: 4px solid var(--glow-color, #ddd); /* Default glow color if not set */
+  box-shadow: 0 0 15px 5px var(--glow-color, #ddd), /* Default glow color if not set */
+              0 0 30px 10px var(--glow-color, #ddd); /* Default glow color if not set */
   transition: box-shadow 0.3s ease-in-out;
 }
+
 
 .profile-picture-container:hover {
   box-shadow: 0 0 20px 8px var(--glow-color, #ddd),
