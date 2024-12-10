@@ -100,10 +100,11 @@ body {
   margin: 1rem auto; /* Centers the card and adds space between them */
 }
   
-    .card:hover {
+.card:hover {
         transform: scale(1.05);
         border: 1px solid rgb(229, 159, 255); /* Juicy and thicker border */
         box-shadow: 0px 0px 20px 5px rgba(229, 159, 255, 0.7); /* Adds a glow effect */
+        background: rgb(0, 0, 0);
     }
   .card::before {
     content: "";

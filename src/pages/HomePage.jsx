@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import for navigation
-import "../styles.css";
 import "./HomePage.css";
 import "../components/PixelCanvas"; // Import the PixelCanvas component
 import Footer from "../components/FooterGame"; 
