@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import "./ContactForm.module.css";
+import styles from "./ContactForm.module.css"; // Ensure this is the correct import
 
 const ContactForm = () => {
-  // State to hold form values
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   });
 
-  // State for error and success messages
   const [statusMessage, setStatusMessage] = useState('');
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -21,18 +18,15 @@ const ContactForm = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Form validation (basic example)
     if (!formData.name || !formData.email || !formData.message) {
       setStatusMessage('All fields are required.');
       return;
     }
 
     try {
-      // Send form data to the server (adjust the URL to your backend)
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -43,7 +37,7 @@ const ContactForm = () => {
 
       if (response.ok) {
         setStatusMessage('Message sent successfully!');
-        setFormData({ name: '', email: '', message: '' }); // Reset form
+        setFormData({ name: '', email: '', message: '' });
       } else {
         setStatusMessage('There was an error sending your message.');
       }
@@ -56,7 +50,7 @@ const ContactForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-        <h2>Contact Us</h2>
+          <h2>Contact Us</h2>
           <label>Name</label>
           <input
             type="text"
@@ -82,7 +76,7 @@ const ContactForm = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className='contactButton'>Send Message</button>
+        <button type="submit" className={styles.contactButton}>Send Message</button>
       </form>
       {statusMessage && <p>{statusMessage}</p>}
     </div>
