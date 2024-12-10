@@ -196,21 +196,14 @@ const RAKList = () => {
                     </div>
 
                     {/* Conditional Claim Button */}
-                    {rak.status === "open" && !rak.claimed_by_username ? (
+                    {rak.status === "completed" (
                       <button
                         className="claim-button"
                         onClick={() => handleClaimButtonClick(rak.id)}
                       >
-                        Claim
+                        Pay it forward
                       </button>
-                    ) : (
-                      <button className="claim-button" disabled>
-                        {rak.status === "claimed"
-                          ? "Already Claimed"
-                          : rak.status === "in progress"
-                          ? "In Progress"
-                          : "Completed"}
-                      </button>
+
                     )}
                   </div>
                 </li>
