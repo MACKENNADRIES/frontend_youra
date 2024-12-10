@@ -206,11 +206,12 @@ const RAKList = () => {
                         Claim
                       </button>
                     ) : (
+                      // TODO WHEN COMPLETE ME IS PRESSED EXECUTE ENDPOINT TO COMPLETE THE RAK
                       <button className="claim-button" disabled>
                         {rak.status === "claimed"
                           ? "Already Claimed"
                           : rak.status === "in progress"
-                          ? "In Progress"
+                          ? "Complete me"
                           : "Completed"}
                       </button>
                     )}

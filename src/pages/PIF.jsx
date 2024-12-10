@@ -215,6 +215,7 @@ const RAKList = () => {
         )}
       </section>
 
+        {/* TODO: make pay it forward modal, this will then need to tie up to the "make pay it forward endpoint" */}
       {/* Claim Modal */}
       <ClaimModal
         isOpen={showClaimModal}
