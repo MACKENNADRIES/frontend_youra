@@ -1,7 +1,14 @@
+const API_URL = import.meta.env.VITE_API_URL; 
+
 export const completeRAKApiCall = async (rakId) => {
     try {
-      const response = await fetch(`/api/raks/${rakId}/complete`, { 
+      const response = await fetch(`${API_URL}/rak/rak/${rakId}/status/`, { 
         method: "POST",  // Assuming POST method for completing the RAK
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ "status":"completed" }),
       });
   
       if (!response.ok) {

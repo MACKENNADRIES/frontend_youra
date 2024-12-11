@@ -4,6 +4,7 @@ import { getPostedRAKs } from "../api/get-my-posted-raks"; // New API function i
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
 import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
 import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
+import { completeRAKApiCall } from "../api/complete-rak";
 
 const RAKList = () => {
   const [raks, setRaks] = useState([]); // State to store fetched RAKs
@@ -80,10 +81,8 @@ const RAKList = () => {
   }, [raks]);
 
   useEffect(() => {
-    if (filter === "all") {
+    if (filter === "claimed") {
       setFilteredRaks(raks);
-    } else if (filter === "claimed") {
-      setFilteredRaks(raks.filter((rak) => rak.status === "in progress"));
     } else if (filter === "unclaimed") {
       setFilteredRaks(raks.filter((rak) => rak.status === "open"));
     } else if (filter === "request") {
@@ -95,7 +94,7 @@ const RAKList = () => {
 
   const handleCompleteButtonClick = async (rakId) => {
     try {
-      const updatedRAK = await completeRAK(rakId);
+      const updatedRAK = await completeRAKApiCall(rakId);
       setRaks((prevRaks) =>
         prevRaks.map((rak) =>
           rak.id === updatedRAK.id ? { ...rak, status: updatedRAK.status } : rak
@@ -120,7 +119,6 @@ const RAKList = () => {
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           >
-            <option value="all">All</option>
             <option value="claimed">Claimed</option>
             <option value="unclaimed">Unclaimed</option>
             <option value="request">Request</option>
