@@ -93,31 +93,24 @@ const RAKList = () => {
     }
   }, [filter, raks]);
 
-  const handleClaimButtonClick = (rakId) => {
-    console.log("Claiming RAK with ID:", rakId); // Add log to check
-    setSelectedRakId(rakId);
-    setShowClaimModal(true);
-  };
-
-  const handleClaimSuccess = (updatedRAK) => {
-    setRaks((prevRaks) =>
-      prevRaks.map((rak) =>
-        rak.id === updatedRAK.id
-          ? {
-              ...rak,
-              status: updatedRAK.status,
-              claimed_by_username: updatedRAK.claimed_by_username,
-            }
-          : rak
-      )
-    );
-    setShowClaimModal(false); // Close the modal after a successful claim
+  const handleCompleteButtonClick = async (rakId) => {
+    try {
+      const updatedRAK = await completeRAK(rakId);
+      setRaks((prevRaks) =>
+        prevRaks.map((rak) =>
+          rak.id === updatedRAK.id ? { ...rak, status: updatedRAK.status } : rak
+        )
+      );
+    } catch (err) {
+      console.error("Error completing RAK:", err);
+    }
   };
 
   return (
     <div id="app">
       <section className="container nes-container with-title">
-        <h2 className="title">Random Acts of Kindness</h2>
+        <h2 className="title"> My Random Acts of Kindness</h2>
+        <h3 className="description">These are RAKs you have claimed or posted. </h3>
         
         {/* Filter Dropdown */}
         <div className="filter-container">
@@ -132,7 +125,7 @@ const RAKList = () => {
             <option value="unclaimed">Unclaimed</option>
             <option value="request">Request</option>
             <option value="offer">Offer</option>
-            <option value="my-posted">My Posted RAKs</option> {/* New filter option */}
+            <option value="my-posted">Created by me</option> {/* New filter option */}
           </select>
         </div>
 
@@ -197,22 +190,12 @@ const RAKList = () => {
                         </p>
                       )}
                     </div>
-                    {/* Conditional Claim Button */}
-                    {rak.status === "open" && !rak.claimed_by_username ? (
+                    {rak.status === "in progress" && (
                       <button
-                        className="claim-button"
-                        onClick={() => handleClaimButtonClick(rak.id)}
+                        className="complete-button"
+                        onClick={() => handleCompleteButtonClick(rak.id)}
                       >
-                        Claim
-                      </button>
-                    ) : (
-                      // TODO WHEN COMPLETE ME IS PRESSED EXECUTE ENDPOINT TO COMPLETE THE RAK
-                      <button className="claim-button" disabled>
-                        {rak.status === "claimed"
-                          ? "Already Claimed"
-                          : rak.status === "in progress"
-                          ? "Complete me"
-                          : "Completed"}
+                        Complete Me
                       </button>
                     )}
                   </div>
