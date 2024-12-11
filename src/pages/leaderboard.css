@@ -1,17 +1,26 @@
-/* General styles for the 8-bit retro look */
-body {
-  font-family: "Press Start 2P", cursive; /* Retro 8-bit font */
-  background-color: #0d0d0d; /* Slightly lighter dark background */
-  color: #f4f4f4; /* Softer white text for better contrast */
-  margin: 0;
-  padding: 0;
+/* Wrapper for both animation and leaderboard */
+.leaderboard-wrapper {
+  display: grid; /* Enable grid layout */
+  grid-template-columns: 2fr 3fr 3fr 3fr 2fr; /* Defines 5 columns: 1 for empty space, 3 for leaderboard, 1 for animation */
+  grid-template-rows: auto; /* Automatically size the rows */
+  justify-items: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  height: 100vh; /* Ensure the wrapper takes the full height of the viewport */
+  width: 100vw; /* Use full viewport width */
+  gap: 20px; /* Space between columns */
+  padding: 20px; /* Padding around the entire wrapper */
 }
 
-h1 {
-  text-align: center;
-  font-size: 32px;
-  color: #f6beff; /* Retro yellow */
-  margin: 20px 0; /* Space around the title */
+/* Leaderboard container styling */
+.leaderboard-container {
+  grid-column: 2 / 5; /* The leaderboard spans from column 2 to column 4 */
+  padding: 20px;
+  border: 4px solid #69065f; /* Highlighted border */
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a); /* Gradient container background */
+  box-shadow: 0 0 30px #f8bef2 inset; /* Glowing border effect */
+  border-radius: 10px; /* Slight rounding for smooth edges */
+  max-height: 90vh; /* Ensure it doesn't exceed viewport height */
+  overflow-y: auto; /* Add scrolling if the content is too long */
 }
 
 /* Table styling */
@@ -87,15 +96,141 @@ tr:hover {
   color: #000;
   transition: 0.2s ease-in-out;
 }
-
-/* Leaderboard container */
-.leaderboard-container {
-  max-width: 1200px; /* Wider container */
-  margin: 0 auto; /* Center the container horizontally */
-  padding: 10px; /* Add padding inside the container */
-  border: 4px solid #69065f; /* Highlighted border */
-  background: linear-gradient(135deg, #0d0d0d, #1a1a1a); /* Gradient container background */
-  box-shadow: 0 0 30px #f8bef2 inset; /* Glowing border effect */
-  border-radius: 10px; /* Add slight rounding for a polished look */
+/* Platform styling */
+.platform-left, .platform-middle, .platform-right {
+  position: absolute;
+  z-index: 1;
+  width: 150px; /* Set a fixed width for the images */
+  height: 50px; /* Set a fixed height for the images */
 }
 
+.platform-left img, .platform-middle img, .platform-right img {
+  width: 100%; /* Make the image fill its container */
+  height: 100%; /* Make the image fill its container */
+  object-fit: cover; /* Ensure the image covers the entire area without stretching */
+}
+
+.platform-left {
+  left: 55%; /* Adjust the left position */
+  bottom: 5%; /* Adjust the height from the bottom */
+}
+
+.platform-middle {
+  left: 75%; /* Position the middle platform further right */
+  bottom: 12%; /* Higher than the left platform */
+}
+
+.platform-right {
+  left: 90%; /* Position the right platform near the far right */
+  bottom: 30%; /* Higher than the middle platform */
+}
+
+/* Character styling */
+.character {
+  position: absolute;
+  bottom: 0; /* Initially at the floor level */
+  left: 0;
+  z-index: 2;
+  animation: run-and-jump 10s linear infinite; /* Continuous running and jumping animation */
+}
+
+.character-image {
+  width: 50px; /* Adjust character size */
+  height: auto;
+  animation: run 0.5s steps(3) infinite; /* Steps animation for character running */
+}
+
+
+
+/* Running animation (character image changes) */
+@keyframes run {
+  0% {
+    content: url("src/assets/run1.png");
+  }
+  25% {
+    content: url("src/assets/run2.png");
+  }
+  50% {
+    content: url("src/assets/run3.png");
+  }
+  75% {
+    content: url("src/assets/run2.png");
+  }
+  100% {
+    content: url("src/assets/run1.png");
+  }
+}
+
+/* Main running and jumping animation */
+@keyframes run-and-jump {
+  0% {
+    left: 0%; /* Start at the left edge of the screen */
+    bottom: 0; /* Start at the bottom */
+    animation: run 0.5s steps(3) infinite; /* Start running animation */
+  }
+  20% {
+    left: 52%; /* Stop sooner before the first platform */
+    bottom: 0; /* Stay at the bottom */
+    animation: run 0.5s steps(3) infinite; /* Continue running */
+  }
+  25% {
+    left: 52%; /* Pause before the first jump */
+    bottom: 0; /* Stay at the bottom */
+    animation: none; /* Stop running animation */
+  }
+  30% {
+    left: 54%; /* Jump upwards to the first platform */
+    bottom: 9%; /* Jump up by 5% (lower than before) */
+    animation: none; /* Stop running animation */
+  }
+  45% {
+    left: 54%; /* Stay on the first platform for 1 second */
+    bottom: 9%; /* Keep her on the first platform */
+    animation: none; /* Ensure the character remains still */
+  }
+  50% {
+    left: 63%; /* Move towards the second platform (half the distance) */
+    bottom: 9%; /* Stay at the first platform height */
+    animation: run 0.5s steps(3) infinite; /* Start running again */
+  }
+  55% {
+    left: 63%; /* Pause before the second jump */
+    bottom: 9%; /* Stay at the first platform height */
+    animation: none; /* Stop running animation */
+  }
+  60% {
+    left: 73%; /* Jump upwards and right to the second platform */
+    bottom: 16%; /* Jump up by 15% and over by 20% */
+    animation: none; /* Stop running animaion */
+  }
+  75% {
+    left: 75%; /* Stay at the second platform for 1 second */
+    bottom: 16%; /* Keep her on the second platform */
+    animation: none; /* Ensure the character remains still */
+  }
+  80% {
+    left: 80%; /* Move towards the third platform */
+    bottom: 16%; /* Stay at the second platform height */
+    animation: run 0.5s steps(3) infinite; /* Start running again */
+  }
+  85% {
+    left: 82%; /* Pause before the final jump */
+    bottom: 16%; /* Stay at the second platform height */
+    animation: none; /* Stop running animation */
+  }
+  90% {
+    left: 88%; /* Jump upwards and right to the last platform */
+    bottom: 34%; /* Jump up to the final platform */
+    animation: none; /* Stop running animation */
+  }
+  95% {
+    left: 99%; /* Pause on the final platform */
+    bottom: 34%; /* Stay at the final platform height */
+    animation: none; /* Ensure the character remains still */
+  }
+  100% {
+    left: 150%; /* Run off the screen */
+    bottom: -10; /* Move off-screen at the bottom */
+    animation: run 0.5s steps(3) infinite; /* Start running animation again */
+  }
+}
