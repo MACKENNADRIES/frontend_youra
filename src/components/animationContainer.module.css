@@ -1,0 +1,54 @@
+/* Container for the animation */
+.animation-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Basic styling for the platforms */
+.platform-left,
+.platform-middle,
+.platform-right {
+  position: absolute;
+  z-index: 1;
+  height: 50px;
+  width: 150px;
+}
+
+/* Character styling */
+.character {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 50px;
+  height: auto;
+}
+
+/* Dust effect styling */
+.dust {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(150, 150, 150, 0.5);
+  border-radius: 50%;
+  animation: dustAnimation 0.5s ease-out;
+  z-index: 1;
+}
+
+/* Dust animation */
+@keyframes dustAnimation {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* Responsiveness for smaller screens */
+@media screen and (max-width: 768px) {
+  .character {
+    width: 40px; /* Smaller character on small screens */
+  }
+}
