@@ -14,6 +14,7 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import ContactPage from './pages/ContactPage.jsx';
 import MyRaks from './pages/MyRakLists.jsx';
 import PIF from './pages/PIF.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 
 
 
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
         children: [
             { path: "/", element: <Login /> },
             { path: "/home", element: <HomePage /> },
+            { path: "/about", element: <AboutPage /> },
         ],
     },
     {

@@ -1,0 +1,126 @@
+/* General styling */
+.about-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .about-header {
+    margin-bottom: 40px;
+  }
+  
+  .about-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .about-header p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .about-content {
+    margin-bottom: 40px;
+  }
+  
+  .long-rectangle {
+    position: relative;
+    background-color: #000000; /* Dark background for contrast */
+    border-radius: 20px; /* Increase border radius for a softer look */
+    padding: 40px; /* Increase padding to make content more spacious */
+    margin: 40px auto; /* Add more spacing above and below */
+    max-width: 1000px; /* Widen the rectangle for more impact */
+    height: 300px; /* Set a fixed height to make it taller */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Slightly deeper shadow */
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .long-rectangle h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .long-rectangle p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Star effect */
+  .stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Make stars non-interactive */
+  }
+  
+  .star {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle infinite;
+  }
+  
+  @keyframes twinkle {
+    0% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+  }
+  
+  /* Grid layout */
+  .additional-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .grid-item {
+    background-color: #d9e7ff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .grid-item.large {
+    grid-column: span 3;
+    background-color: #cfe9e7;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .additional-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .additional-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+
+  .runner {
+    position: absolute;
+    bottom: 10px; /* Position the runner at the bottom */
+    left: 0;
+    width: 60px; /* Set the runner's width */
+    height: 60px; /* Set the runner's height */
+    background-size: contain; /* Ensure the image fits */
+    background-repeat: no-repeat; /* No repeating images */
+    transition: transform 0.1s linear; /* Smooth movement */
+  }
+  
