@@ -125,31 +125,31 @@ body {
     pointer-events: none; /* Prevent interaction with pixels */
 }
 
-/* Pixel Elements */
 .pixel {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: black; /* Set the pixel color to black */
-    animation: fall-bounce-tumble linear forwards;
-    animation-duration: 6s; /* Combined duration for fall and bounce */
-    z-index: -1;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: black;
+  animation: fall-bounce-tumble var(--fall-duration) linear forwards;
+  transform: rotate(var(--rotation)); /* Start with random rotation */
+  transition: transform 3.5s ease-out; /* Smooth transition for stacking */
+  z-index: -100
 }
-
 /* Falling, Bouncing, and Tumbling Animation */
+/* Tumbling Animation with Random Horizontal and Rotational Movements */
 @keyframes fall-bounce-tumble {
-    0% {
-        transform: translateY(-100px) translateX(0); /* Start above the screen */
-    }
-    80% {
-        transform: translateY(calc(100vh - 10px)) translateX(0); /* Reach the bottom */
-    }
-    90% {
-        transform: translateY(calc(100vh - 30px)) translateX(10px); /* Bounce up and shift right */
-    }
-    100% {
-        transform: translateY(calc(100vh - 10px)) translateX(20px); /* Settle slightly shifted */
-    }
+  0% {
+      transform: translateY(-100px) translateX(0) rotate(0deg); /* Start above the screen */
+  }
+  70% {
+      transform: translateY(calc(80vh)) translateX(20px) rotate(90deg); /* Randomized X and rotation */
+  }
+  80% {
+      transform: translateY(calc(100vh - 30px)) translateX(-10px) rotate(180deg); /* Bounce up */
+  }
+  100% {
+      transform: translateY(calc(100vh - 10px)) translateX(30px) rotate(360deg); /* Land at the bottom */
+  }
 }
 
   

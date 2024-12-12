@@ -137,7 +137,7 @@ tr:hover {
 .character-image {
   width: 50px; /* Adjust character size */
   height: auto;
-  animation: run 0.5s steps(3) infinite; /* Steps animation for character running */
+  animation: run 1s steps(3) infinite; /* Steps animation for character running */
 }
 
 
