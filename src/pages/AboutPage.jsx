@@ -1,8 +1,21 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AboutPage.css";
 
 const AboutPage = () => {
-  const runnerRef = useRef(null); // Reference for the runner
+    const runnerRef = useRef(null); // Reference for the runner
+    const featuredRef = useRef(null); // Reference for the featured section
+    const [runnerPosition, setRunnerPosition] = useState(0); // State for runner's position
+    const [isFacingRight, setIsFacingRight] = useState(true); // State to track direction
+    const runnerImages = [
+      "src/assets/run1.png",
+      "src/assets/run2.png",
+      "src/assets/run3.png",
+      "src/assets/run2.png",
+      "src/assets/run1.png",
+      "src/assets/run2.png",
+      "src/assets/run3.png",
+    ];
+    const [frameIndex, setFrameIndex] = useState(0); // Track current image frame
 
   useEffect(() => {
     const starContainer = document.querySelector(".stars");
@@ -19,57 +32,48 @@ const AboutPage = () => {
       star.style.animationDuration = `${Math.random() * 2 + 1}s`; // Random animation duration
       starContainer.appendChild(star);
     }
+  }, []);
 
-    const featuredSection = document.querySelector(".long-rectangle");
+  useEffect(() => {
+    // Set the initial runner image
     const runner = runnerRef.current;
-    const runnerImages = [
-      "src/assets/run1.png",
-      "src/assets/run2.png",
-      "src/assets/run3.png",
-      "src/assets/run2.png",
-      "src/assets/run1.png",
-    ];
-    let frameIndex = 0;
+    if (runner) {
+      runner.style.backgroundImage = `url(${runnerImages[frameIndex]})`;
+    }
+  }, [frameIndex, runnerImages]);
 
-    const updateRunnerAnimation = () => {
-      if (runner) {
-        runner.style.backgroundImage = `url(${runnerImages[frameIndex]})`;
-        frameIndex = (frameIndex + 1) % runnerImages.length; // Loop through images
-      }
-    };
+  // Function to handle runner movement
+  const moveRunner = (direction) => {
+    const runner = runnerRef.current;
+    const featuredSection = featuredRef.current;
 
-    const runnerInterval = setInterval(updateRunnerAnimation, 150); // Switch every 150ms
+    // Get the width of the featured section
+    const sectionWidth = featuredSection.offsetWidth;
 
-    const handleScroll = () => {
-      const rect = featuredSection.getBoundingClientRect();
-      const runnerWidth = runner.offsetWidth;
+    // Immediately flip the runner if direction changes
+    if ((direction === "right" && !isFacingRight) || (direction === "left" && isFacingRight)) {
+      setIsFacingRight(direction === "right");
+      const scaleX = direction === "right" ? 1 : -1;
+      runner.style.transform += ` scaleX(${scaleX})`; // Update scaleX
+    }
 
-      // Calculate how far the runner should move based on scroll
-      const scrollProgress = Math.min(
-        Math.max(0, window.scrollY - rect.top + window.innerHeight / 2),
-        rect.height
-      );
+    // Update the runner's position
+    setRunnerPosition((prevPosition) => {
+      let newPosition = prevPosition + (direction === "right" ? 20 : -20);
 
-      // Move the runner proportionally along the bottom of the featured section
-      runner.style.transform = `translateX(${
-        (scrollProgress / rect.height) * (featuredSection.offsetWidth - runnerWidth)
-      }px)`;
+      // Clamp the position to stay within the bounds of the section
+      newPosition = Math.max(0, Math.min(newPosition, sectionWidth - 60)); // 60 = runner width
 
-      // Pause the animation when scrolling stops
-      if (scrollProgress >= 0 && scrollProgress < rect.height) {
-        runner.style.animationPlayState = "running";
-      } else {
-        runner.style.animationPlayState = "paused";
-      }
-    };
+      // Update the horizontal movement (translateX)
+      const transform = `translateX(${newPosition}px) scaleX(${isFacingRight ? 1 : -1})`;
+      runner.style.transform = transform;
 
-    window.addEventListener("scroll", handleScroll);
+      // Update the runner image frame to simulate running animation
+      setFrameIndex((prevFrameIndex) => (prevFrameIndex + 1) % runnerImages.length);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearInterval(runnerInterval); // Clear interval on unmount
-    };
-  }, []); // Empty dependency array ensures this runs once after the initial render
+      return newPosition;
+    });
+  };
 
   return (
     <div className="about-container">
@@ -90,15 +94,23 @@ const AboutPage = () => {
       </section>
 
       {/* Long rectangle section */}
-      <section className="long-rectangle">
+      <section ref={featuredRef} className="long-rectangle">
         <div className="stars"></div>
         <h3>Featured Section</h3>
-        <p>
-          This long rectangle showcases important information or a feature highlight.
-        </p>
+        <p>This long rectangle showcases important information or a feature highlight.</p>
         {/* Runner animation */}
         <div ref={runnerRef} className="runner"></div>
       </section>
+
+      {/* Controls below the featured section */}
+      <div className="runner-controls">
+        <button onClick={() => moveRunner("left")} className="control-button">
+          ← Move Left
+        </button>
+        <button onClick={() => moveRunner("right")} className="control-button">
+          Move Right →
+        </button>
+      </div>
 
       {/* Grid layout */}
       <section className="additional-grid">
