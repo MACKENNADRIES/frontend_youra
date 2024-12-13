@@ -46,7 +46,6 @@ const router = createBrowserRouter([
         children: [
             { path: "/", element: <Login /> },
             { path: "/home", element: <HomePage /> },
-            { path: "/about", element: <AboutPage /> },
         ],
     },
     {
@@ -65,6 +64,7 @@ const router = createBrowserRouter([
             { path: "/my-raks",element: <MyRaks/>},
             { path: "/pif",element: <PIF/>},
             { path: "/contact", element: <ContactPage /> },
+            { path: "/about", element: <AboutPage /> },
         ],
     },
 ]);

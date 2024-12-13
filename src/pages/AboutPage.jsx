@@ -23,43 +23,43 @@ const AboutPage = () => {
   // Waypoints configuration
   const waypoints = [
     { 
-      position: 100, 
+      position: 50, 
       content: "Welcome to YOURA", 
       effect: "pop", 
       image: "src/assets/pixelLogo.png" // Replace with the actual path to your image
     },
     { 
-      position: 250, 
+      position: 150, 
       content: "Create a Random Act of Kindness", 
       effect: "pop", 
       image: "src/assets/createrak.png" 
     },
     { 
-      position: 300, 
+      position: 250, 
       content: "Offer kindness to someone in need", 
       effect: "pop", 
       image: "src/assets/offer.png"
     },
     { 
-      position: 450, 
+      position: 300, 
       content: "Request kindness when you need help", 
       effect: "pop", 
       image: "src/assets/speechbubble.png" 
     },
     { 
-      position: 550, 
+      position: 400, 
       content: "Track claims and progress", 
       effect: "pop", 
       image: "src/assets/stat-icon.png" 
     },
     { 
-      position: 700, 
+      position: 500, 
       content: "Earn points!", 
       effect: "glow", 
       image: "src/assets/leaderboard.png" 
     },
     { 
-      position: 900, 
+      position: 750, 
       content: "Spread kindness and grow your aura", 
       effect: "glow", 
       image: "src/assets/harmoniser.png" 
@@ -138,16 +138,17 @@ const AboutPage = () => {
     <div className="about-container">
       <header className="about-header">
         <h1>About Us</h1>
-        <p>Learn more about our app and what we do.</p>
       </header>
 
       <section className="about-content">
         <div className="about-text">
-          <h2>Our Mission</h2>
           <p>
             Our mission is to make the world a better place through small acts
             of kindness. We believe that every little bit counts and that helping
             each other can create a ripple effect of positivity.
+<br></br>
+<br></br>
+            Want to learn about the YOURA journey? Explore below...
           </p>
         </div>
       </section>

@@ -1,27 +1,4 @@
-/* General Container Styling */
-.about-container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .about-header {
-    margin-bottom: 40px;
-  }
-  
-  .about-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .about-header p {
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  .about-content {
-    margin-bottom: 40px;
-  }
+
   
 /* Featured Section */
 .long-rectangle {
@@ -247,27 +224,6 @@
   }
   
 
-/* Grid Layout */
-.additional-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  
-  .grid-item {
-    background-color: #d9e7ff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .grid-item.large {
-    grid-column: span 3;
-    background-color: #cfe9e7;
-  }
-  
-
 
   /* Responsive Design */
 @media (max-width: 768px) {
@@ -282,3 +238,119 @@
     }
   }
   
+
+  /* General 8-bit Font */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+/* General Container Styling */
+.about-container {
+  font-family: "Press Start 2P", monospace;
+  padding: 20px;
+  text-align: center;
+  color: #ffffff; /* White text for readability */
+  margin-top: 100px;
+}
+
+/* Header Styling */
+.about-header {
+  margin-bottom: 40px;
+}
+
+.about-header h1 {
+  font-size: 2.5rem;
+  color: #ffffff; /* Vibrant header text */
+  text-shadow: 3px 3px #2e276f;
+}
+
+.about-header p {
+  font-size: 1.2rem;
+  color: #ecc1f6;
+}
+
+/* About Content Section */
+.about-content {
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.about-text h2 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  text-shadow: 2px 2px #0e000d;
+  margin-bottom: 15px;
+}
+
+.about-text p {
+  font-size: 1rem;
+  font-family: "Roboto Mono";
+  line-height: 1.8;
+  color: #ffffff;
+}
+
+/* Grid Layout (8-bit Style) */
+.additional-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.grid-item {
+  background: #ffffff;
+  color: #450956;
+  padding: 20px;
+  text-align: center;
+  border: 4px solid #ecc1f6;
+  box-shadow: 0 4px 0 #2e276f;
+  font-size: 14px;
+}
+
+.grid-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.grid-item.large {
+  grid-column: span 3;
+  background: #ffffff;
+  color: #202020;
+  border: 4px solid #7a57ad;
+}
+
+/* Buttons in Grid Items */
+.grid-item button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  background: #ecc1f6;
+  color: #202020;
+  border: 3px solid #7a57ad;
+  box-shadow: 0 3px 0 #7a57ad;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.grid-item button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 #7a57ad;
+}
+
+.grid-item button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #7a57ad;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .additional-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .additional-grid {
+    grid-template-columns: 1fr;
+  }
+}
