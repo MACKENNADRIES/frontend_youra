@@ -1,5 +1,4 @@
-/* General styling */
-/* General container styling */
+/* General Container Styling */
 .about-container {
     font-family: Arial, sans-serif;
     padding: 20px;
@@ -24,39 +23,32 @@
     margin-bottom: 40px;
   }
   
-/* Featured section (long rectangle) */
+/* Featured Section */
 .long-rectangle {
     position: relative;
     background-color: #000;
+    background: radial-gradient(circle, #7a57ad, #2e276f, #0e000d);
     border-radius: 20px;
     padding: 40px;
     margin: 40px auto;
     max-width: 1000px;
     height: 300px;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    overflow: visible; /* Ensure runner isn't clipped */
+    overflow: visible;
     color: #fff;
     text-align: center;
   }
   
-  .long-rectangle h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
   
-  .long-rectangle p {
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  /* Star effect */
-  .stars {
+
+  /* Stars Effect */
+.stars {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Make stars non-interactive */
+    pointer-events: none;
   }
   
   .star {
@@ -82,8 +74,181 @@
     }
   }
   
-  /* Grid layout */
-  .additional-grid {
+
+  /* Waypoint Popup */
+.waypoint-popup {
+    position: absolute;
+    top: 20px;
+    color: white;
+    transition: opacity 0.5s ease-in-out;
+    text-align: center;
+    font-family: "Press Start 2P", cursive;
+    font-size: 12px;
+    max-width: 200px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+
+  
+/* Waypoint Popup Image Bobbing Animation */
+.waypoint-popup img {
+    max-width: 100px;
+    margin-top: 5px;
+  
+    /* Apply animation */
+    animation: bobbing 2s ease-in-out infinite;
+  }
+  
+  /* Keyframes for Bobbing */
+  @keyframes bobbing {
+    0%, 100% {
+      transform: translateY(0); /* Starting and ending position */
+    }
+    50% {
+      transform: translateY(-10px); /* Move up slightly */
+    }
+  }
+  
+  
+  
+  .waypoint-popup::after {
+    content: "";
+    position: absolute;
+    color: white;
+    top: -4px;
+    left: -4px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+
+  /* Runner */
+.runner {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: translateX(0) scaleX(1);
+    transition: transform 0.1s linear;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+
+  /* Background Images */
+.background-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  
+  .bg-image {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    max-width: 300px;
+  }
+  
+  .bg1 {
+    top: 210px;
+    left: 70px;
+  }
+  
+  .bg2 {
+    bottom: 50px;
+    right: 80px;
+  }
+  
+  .bg3 {
+    top: 300px;
+    right: 400px;
+  }
+/* END OF FEATURE BOX    */
+
+/* Runner Controls */
+.runner-controls {
+    margin-top: 20px;
+    text-align: center;
+    display: flex; /* Arrange buttons side by side */
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 20px; /* Add spacing between buttons */
+  }
+  
+  /* Styled Buttons */
+  .runner-controls button {
+    position: relative;
+    display: inline-block; /* Ensure the buttons remain inline */
+    width: auto; /* Remove full-width styling */
+    max-width: 300px; /* Optional: Prevent overly wide buttons */
+    padding: 10px 30px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-family: 'Press Start 2P', monospace;
+    background: #ecc1f6;
+    color: #202020;
+    border: 2px solid #dd57ff;
+    border-radius: 10px;
+    font-weight: 750;
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+    transform-style: preserve-3d;
+  }
+  
+  /* Button Hover and Active States */
+  .runner-controls button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ec87f7;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #e957ff, 0 0.625em 0 0 #f7b5f8;
+    transform: translate3d(0, 0.75em, -1em);
+    transition: 0.15s cubic-bezier(0, 0, 0.6, 1);
+  }
+  
+  .runner-controls button:hover {
+    background: #f1adf8;
+    transform: translate(0, 0.25em);
+  }
+  
+  .runner-controls button:hover::before {
+    box-shadow: 0 0 0 2px #ff57e9, 0 0.5em 0 0 #f8b5f5;
+    transform: translate3d(0, 0.5em, -1em);
+  }
+  
+  .runner-controls button:active {
+    background: #f8adf8;
+    transform: translate(0, 0.75em);
+  }
+  
+  .runner-controls button:active::before {
+    box-shadow: 0 0 0 2px #f157ff, 0 0 #f7b5f8;
+    transform: translate3d(0, 0, -1em);
+  }
+  
+
+/* Grid Layout */
+.additional-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -102,8 +267,10 @@
     background-color: #cfe9e7;
   }
   
+
+
   /* Responsive Design */
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .additional-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -112,113 +279,6 @@
   @media (max-width: 480px) {
     .additional-grid {
       grid-template-columns: 1fr;
-    }
-  }
-  
-
-/* Runner animation */
-/* Runner styling */
-
-  
-  /* Controls styling */
-.runner-controls {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .control-button {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .control-button:hover {
-    background-color: #0056b3;
-  }
-
-/* Waypoint Popup */
-.waypoint-popup {
-    position: absolute;
-    top: 20px; /* Fixed above the runner */
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 4px solid #000; /* Add thick black border for pixelated feel */
-    font-family: "Press Start 2P", cursive; /* Use a retro pixel font */
-    font-size: 12px;
-    max-width: 200px;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  
-  /* Glow effect for special waypoints */
-  .waypoint-popup.glow {
-    animation: glow 1s infinite alternate;
-  }
-  
-  /* 8-bit pixelated style for images */
-  .waypoint-popup img {
-    max-width: 60px;
-    margin-top: 10px;
-    image-rendering: pixelated; /* Ensures the pixel art style */
-    image-rendering: crisp-edges;
-  }
-  
-  /* Keyframes for Glow Effect */
-  @keyframes glow {
-    from {
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    }
-    to {
-      box-shadow: 0 0 20px rgba(255, 255, 255, 1);
-    }
-  }
-  
-  /* Pixelated edges for popup */
-  .waypoint-popup::after {
-    content: "";
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: -1;
-    border: 4px solid #000; /* Adds blocky shadow */
-  }
-  
-  /* Retro pixel font import */
-  @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
-  
-  /* Runner Styling */
-  .runner {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 60px;
-    height: 60px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    transform: translateX(0) scaleX(1);
-    transition: transform 0.1s linear;
-  }
-  
-  /* Keyframes for Animation */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
     }
   }
   
