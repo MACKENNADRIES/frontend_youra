@@ -239,7 +239,7 @@
   }
   
 
-  /* General 8-bit Font */
+/* General 8-bit Font */
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 /* General Container Styling */
@@ -247,7 +247,7 @@
   font-family: "Press Start 2P", monospace;
   padding: 20px;
   text-align: center;
-  color: #ffffff; /* White text for readability */
+  color: #ffffff;
   margin-top: 100px;
 }
 
@@ -258,7 +258,7 @@
 
 .about-header h1 {
   font-size: 2.5rem;
-  color: #ffffff; /* Vibrant header text */
+  color: #ffffff;
   text-shadow: 3px 3px #2e276f;
 }
 
@@ -273,16 +273,9 @@
   padding: 20px;
 }
 
-.about-text h2 {
-  font-size: 1.8rem;
-  color: #ffffff;
-  text-shadow: 2px 2px #0e000d;
-  margin-bottom: 15px;
-}
-
 .about-text p {
   font-size: 1rem;
-  font-family: "Roboto Mono";
+  font-family: "Roboto Mono", monospace;
   line-height: 1.8;
   color: #ffffff;
 }
@@ -298,7 +291,7 @@
 
 .grid-item {
   background: #ffffff;
-  color: #450956;
+  color: #9763a5;
   padding: 20px;
   text-align: center;
   border: 4px solid #ecc1f6;
@@ -318,31 +311,15 @@
   border: 4px solid #7a57ad;
 }
 
-/* Buttons in Grid Items */
-.grid-item button {
-  display: inline-block;
-  padding: 10px 20px;
-  font-family: "Press Start 2P", monospace;
-  font-size: 12px;
-  background: #ecc1f6;
-  color: #202020;
-  border: 3px solid #7a57ad;
-  box-shadow: 0 3px 0 #7a57ad;
-  cursor: pointer;
-  transition: transform 0.2s;
+.grid-item.large p {
+  font-family: "Roboto Mono", monospace;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #000000;
+  text-align: justify;
 }
 
-.grid-item button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 0 #7a57ad;
-}
-
-.grid-item button:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #7a57ad;
-}
-
-/* Responsive Design */
+/* Responsive Design for Grid */
 @media (max-width: 768px) {
   .additional-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -352,5 +329,136 @@
 @media (max-width: 480px) {
   .additional-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Aura Levels Section */
+.aura-levels {
+  margin-top: 40px;
+  padding: 20px;
+  text-align: center;
+}
+
+.aura-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.aura-header h3 {
+  font-size: 1.8rem;
+  color: #000000;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px #ffffff;
+}
+
+.aura-toggle {
+  display: inline-block;
+  padding: 10px 30px;
+  font-family: "Press Start 2P", monospace;
+  text-transform: uppercase;
+  font-size: 16px;
+  background: #ecc1f6;
+  color: #202020;
+  border: 4px solid #dd57ff;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0 4px 0 #2e276f;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.aura-toggle:hover {
+  background: #f1adf8;
+  transform: translateY(-3px);
+}
+
+.aura-toggle:active {
+  background: #f8adf8;
+  transform: translateY(2px);
+}
+
+/* Aura List */
+.aura-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.aura-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: #450956;
+  color: #ffffff;
+  border: 4px solid #ecc1f6;
+  border-radius: 10px;
+  box-shadow: 0 4px 0 #2e276f;
+}
+
+.aura-item:last-child {
+  margin-bottom: 0;
+}
+
+.aura-image {
+  max-width: 80px;
+  image-rendering: pixelated;
+  animation: bobbing 2s ease-in-out infinite, glowing 1.5s infinite alternate;
+}
+
+/* Bobbing Animation */
+@keyframes bobbing {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Glowing Animation */
+@keyframes glowing {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))
+            drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+  }
+  100% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1))
+            drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+  }
+}
+
+/* Aura Info Styling */
+.aura-info h4 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.aura-info p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: "Roboto Mono", monospace;
+}
+
+.aura-points {
+  font-size: 1rem;
+  color: #f7b5f8;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+/* Responsive Design for Aura Items */
+@media (max-width: 768px) {
+  .aura-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .aura-image {
+    margin-bottom: 10px;
   }
 }

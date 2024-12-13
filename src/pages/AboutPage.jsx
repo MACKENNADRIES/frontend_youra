@@ -9,6 +9,12 @@ const AboutPage = () => {
   const [isFacingRight, setIsFacingRight] = useState(true); // State to track direction
   const [activeWaypoint, setActiveWaypoint] = useState(null); // Currently active waypoint
 
+  const [isAuraOpen, setIsAuraOpen] = useState(false);
+
+const toggleAuraLevels = () => {
+  setIsAuraOpen(!isAuraOpen);
+};
+
   const runnerImages = [
     "src/assets/run1.png",
     "src/assets/run2.png",
@@ -198,22 +204,114 @@ const AboutPage = () => {
 
       <section className="additional-grid">
         <div className="grid-item large">
-          <h3>Big Grid Item</h3>
-          <p>This item spans multiple rows and columns.</p>
-        </div>
-        <div className="grid-item">
-          <h3>Square Item</h3>
-          <p>Small square grid item.</p>
-        </div>
-        <div className="grid-item">
-          <h3>Long Item</h3>
-          <p>This item spans across more columns.</p>
-        </div>
-        <div className="grid-item">
-          <h3>Another Square</h3>
-          <p>Another small square grid item.</p>
-        </div>
-      </section>
+          <h3>How can you make a difference with YOURA?</h3>
+          <p>Imagine a world where kindness spreads like ripples in a pond—one small act creating waves of positivity that touch countless lives. <br></br> <br></br> That’s the power of a Random Act of Kindness (RAK). Whether it's offering a helping hand, sharing an encouraging word, or simply listening to someone in need, these small, selfless actions have the potential to spark something extraordinary.
+
+But kindness doesn’t just transform the world around you—it transforms you. Each act of kindness adds a little glow to your Aura, a representation of your positivity, empathy, and impact on others. <br></br> <br></br>As you embark on your kindness journey, your Aura grows brighter and more powerful with every compassionate action. It’s not just about what you give; it’s about how you inspire, heal, and connect with others.
+
+With YOURA, your Aura becomes a visual story of your kindness. </p>
+      <section className="aura-levels">
+  <div className="aura-header">
+    <button className="aura-toggle" onClick={toggleAuraLevels}>
+      {isAuraOpen ? "Hide Aura Levels" : "Explore Aura Levels"}
+    </button>
+  </div>
+  {isAuraOpen && (
+    <ul className="aura-list">
+      {[
+        {
+          level: 1,
+          name: "Initiator",
+          points: "0 - 100",
+          description: "The beginning of your kindness journey.",
+          image: "src/assets/initiator.png",
+        },
+        {
+          level: 2,
+          name: "Sustainer",
+          points: "101 - 200",
+          description: "You maintain positive energy and kindness.",
+          image: "src/assets/sustainer.png",
+        },
+        {
+          level: 3,
+          name: "Visionary",
+          points: "201 - 300",
+          description: "You inspire others with your forward-thinking acts.",
+          image: "src/assets/visionary.png",
+        },
+        {
+          level: 4,
+          name: "Creator",
+          points: "301 - 400",
+          description: "You actively create opportunities for kindness.",
+          image: "src/assets/creator.png",
+        },
+        {
+          level: 5,
+          name: "Innovator",
+          points: "401 - 500",
+          description: "You bring new ideas to promote kindness.",
+          image: "src/assets/Innovator.png",
+        },
+        {
+          level: 6,
+          name: "Accelerator",
+          points: "501 - 600",
+          description: "You accelerate positivity in your community.",
+          image: "src/assets/accelerator.png",
+        },
+        {
+          level: 7,
+          name: "Transformer",
+          points: "601 - 700",
+          description: "You transform the lives of those around you.",
+          image: "src/assets/transformer.png",
+        },
+        {
+          level: 8,
+          name: "Healer",
+          points: "701 - 800",
+          description: "You bring peace and healing to others.",
+          image: "src/assets/healer.png",
+        },
+        {
+          level: 9,
+          name: "Orchestrator",
+          points: "801 - 900",
+          description: "You lead efforts to spread kindness.",
+          image: "src/assets/orchestrator.png",
+        },
+        {
+          level: 10,
+          name: "Harmoniser",
+          points: "901 - 1000",
+          description: "You bring balance and harmony to the world.",
+          image: "src/assets/harmoniser.png",
+        },
+      ].map((level) => (
+        <li key={level.level} className="aura-item">
+          <img
+            src={level.image}
+            alt={`Level ${level.level} - ${level.name}`}
+            className="aura-image"
+          />
+          <div className="aura-info">
+            <h4>Level {level.level}: {level.name}</h4>
+            <p>{level.description}</p>
+            <p className="aura-points">Points: {level.points}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</section>
+</div>
+
+</section>
+
+
+
     </div>
   );
 };
