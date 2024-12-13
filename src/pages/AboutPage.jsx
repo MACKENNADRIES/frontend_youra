@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AboutPage.css";
 
+
 const AboutPage = () => {
   const runnerRef = useRef(null); // Reference for the runner
   const featuredRef = useRef(null); // Reference for the featured section
@@ -21,14 +22,50 @@ const AboutPage = () => {
 
   // Waypoints configuration
   const waypoints = [
-    { position: 100, content: "Welcome to YOURA", effect: "pop" },
-    { position: 250, content: "Create a Random Act of Kindness", effect: "pop" },
-    { position: 300, content: "Offer kindness to someone in need", effect: "pop" },
-    { position: 450, content: "Request kindness when you need help", effect: "pop" },
-    { position: 550, content: "Track claims and progress", effect: "pop" },
-    { position: 700, content: "Spread kindness and grow your aura", effect: "glow" },
+    { 
+      position: 100, 
+      content: "Welcome to YOURA", 
+      effect: "pop", 
+      image: "src/assets/pixelLogo.png" // Replace with the actual path to your image
+    },
+    { 
+      position: 250, 
+      content: "Create a Random Act of Kindness", 
+      effect: "pop", 
+      image: "src/assets/createrak.png" 
+    },
+    { 
+      position: 300, 
+      content: "Offer kindness to someone in need", 
+      effect: "pop", 
+      image: "src/assets/offer.png"
+    },
+    { 
+      position: 450, 
+      content: "Request kindness when you need help", 
+      effect: "pop", 
+      image: "src/assets/speechbubble.png" 
+    },
+    { 
+      position: 550, 
+      content: "Track claims and progress", 
+      effect: "pop", 
+      image: "src/assets/stat-icon.png" 
+    },
+    { 
+      position: 700, 
+      content: "Earn points!", 
+      effect: "glow", 
+      image: "src/assets/leaderboard.png" 
+    },
+    { 
+      position: 900, 
+      content: "Spread kindness and grow your aura", 
+      effect: "glow", 
+      image: "src/assets/harmoniser.png" 
+    },
   ];
-
+  
   // Add stars in the background
   useEffect(() => {
     const starContainer = document.querySelector(".stars");
@@ -56,13 +93,22 @@ const AboutPage = () => {
 
   const moveRunner = (direction) => {
     const runner = runnerRef.current;
+    const featureBounds = featuredRef.current.getBoundingClientRect(); // Get feature box bounds
+    const featureLeft = featureBounds.left;
+    const featureRight = featureBounds.right;
 
     setRunnerPosition((prevPosition) => {
       const step = direction === "right" ? 20 : -20;
-      const newPosition = prevPosition + step;
+      let newPosition = prevPosition + step;
+
+      // Clamp the runner position within the feature box
+      const clampedPosition = Math.max(
+        featureLeft,
+        Math.min(featureRight - 60, newPosition) // 60 = runner width
+      );
 
       // Update runner's position and direction
-      runner.style.transform = `translateX(${newPosition}px) scaleX(${direction === "right" ? 1 : -1})`;
+      runner.style.transform = `translateX(${clampedPosition - featureLeft}px) scaleX(${direction === "right" ? 1 : -1})`;
       setIsFacingRight(direction === "right");
 
       // Update frame index for running animation
@@ -71,7 +117,7 @@ const AboutPage = () => {
       // Trigger waypoint visibility
       const currentWaypoint = waypoints.find(
         (waypoint) =>
-          Math.abs(newPosition - waypoint.position) < 20 && // Trigger waypoint within range
+          Math.abs(clampedPosition - (featureLeft + waypoint.position)) < 20 && // Trigger waypoint within range
           (!activeWaypoint || activeWaypoint.position !== waypoint.position) // Avoid retriggering
       );
 
@@ -84,7 +130,7 @@ const AboutPage = () => {
         }, 5000);
       }
 
-      return newPosition;
+      return clampedPosition;
     });
   };
 
@@ -120,6 +166,7 @@ const AboutPage = () => {
             }}
           >
             <p>{activeWaypoint.content}</p>
+            <img src={activeWaypoint.image} alt={activeWaypoint.content} />
           </div>
         )}
 
