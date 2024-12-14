@@ -177,85 +177,91 @@ const UserProfilePage = () => {
     <div className="profile-container">
       {/* Section 1: Profile Header */}
       <div className="profile-header">
-        <div
-          className="profile-picture-container"
-          style={{ "--glow-color": profileData?.aura_color }}
-        >
-          <img
-            className="profile-picture"
-            src={
-              uploadedImage ||
-              profileData.profile_image ||
-              "default-profile.png"
-            }
-            alt="User Profile"
-          />
-        </div>
-        <label htmlFor="upload-image" className="upload-label">
-            Upload
-          </label>
-          <input
-            id="upload-image"
-            type="file"
-            onChange={handleImageUpload}
-            className="upload-input"
-            accept="image/*"
-          />
-        <div className="user-info">
-          {editMode ? (
-            <form onSubmit={handleFormSubmit} className="edit-form">
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleInputChange}
-                placeholder="Username"
-                required
-              />
-              <input
-                type="text"
-                name="first_name"
-                value={formData.first_name}
-                onChange={handleInputChange}
-                placeholder="First Name"
-                required
-              />
-              <input
-                type="text"
-                name="last_name"
-                value={formData.last_name}
-                onChange={handleInputChange}
-                placeholder="Last Name"
-              />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="Email"
-                required
-              />
-              <button type="submit">Save</button>
-              <button type="button" onClick={handleEditToggle}>
-                Cancel
-              </button>
-            </form>
-          ) : (
-            <>
-              <h2 className="username">{profileData.user.username}</h2>
-              <p className="name">{profileData.user.first_name}</p>
-              <p className="surname">{profileData.user.last_name}</p>
-              <p className="email">{profileData.user.email}</p>
-              <button className="edit-button" onClick={handleEditToggle}>
-                Edit
-              </button>
-            </>
-          )}
-        </div>
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
-      </div>
+  <div
+    className="profile-picture-container"
+    style={{ "--glow-color": profileData?.aura_color }}
+  >
+    <img
+      className="profile-picture"
+      src={uploadedImage || profileData.profile_image || "default-profile.png"}
+      alt="User Profile"
+    />
+  </div>
+  
+  <div className="user-info">
+  {editMode ? (
+    <form onSubmit={handleFormSubmit} className="edit-form">
+      <input
+        type="text"
+        name="username"
+        value={formData.username || ''}
+        onChange={handleInputChange}
+        placeholder={formData.username ? '' : 'Enter your username'}
+        required
+      />
+      <input
+        type="text"
+        name="first_name"
+        value={formData.first_name || ''}
+        onChange={handleInputChange}
+        placeholder={formData.first_name ? '' : 'Enter your first name'}
+        required
+      />
+      <input
+        type="text"
+        name="last_name"
+        value={formData.last_name || ''}
+        onChange={handleInputChange}
+        placeholder={formData.last_name ? '' : 'Enter your last name'}
+      />
+      <input
+        type="email"
+        name="email"
+        value={formData.email || ''}
+        onChange={handleInputChange}
+        placeholder={formData.email ? '' : 'Enter your email'}
+        required
+      />
+      <button type="submit" className="edit-button">Save</button>
+      <button type="button" onClick={handleEditToggle} className="edit-button">
+        Cancel
+      </button>
+    </form>
+) : (
+  <>
+    <h2 className="username">
+      {profileData.user.username || 'No username provided'}
+    </h2>
+    <p className="name">
+      {profileData.user.first_name || 'First name not provided'}
+    </p>
+    <p className="surname">
+      {profileData.user.last_name || 'Last name not provided'}
+    </p>
+    <p className="email">
+      {profileData.user.email || 'Email not provided'}
+    </p>
+  </>
+)}
+</div>
+
+  {/* Button Group */}
+  <div className="button-group">
+    <label htmlFor="upload-image" className="upload-label">Upload Image</label>
+    <input
+      id="upload-image"
+      type="file"
+      onChange={handleImageUpload}
+      className="upload-input"
+      accept="image/*"
+    />
+    <button className="edit-button" onClick={handleEditToggle}>
+      {editMode ? "Cancel" : "Edit Profile"}
+    </button>
+    <button onClick={handleLogout} className="logout-button">Logout</button>
+  </div>
+</div>
+
 
       {/* Section 2: Current Level */}
       <div className="current-level">
