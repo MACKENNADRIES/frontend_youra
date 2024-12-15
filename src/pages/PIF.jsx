@@ -3,6 +3,7 @@ import { getCompletedRequestRAKs } from "../api/get-pay-it-forward"; // Import t
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
 import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
 import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
+import PayItForwardModal from "../components/PayItForwardModal"; // Import the PayItForwardModal component
 
 const RAKList = () => {
   const [raks, setRaks] = useState([]); // State to store fetched RAKs
@@ -11,12 +12,19 @@ const RAKList = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const [auraData, setAuraData] = useState({}); // State to store aura data
-  const [showClaimModal, setShowClaimModal] = useState(false); // To control modal visibility
-  const [selectedRakId, setSelectedRakId] = useState(null); // Store the RAK ID being claimed
+  const [showClaimModal, setShowClaimModal] = useState(false); // To control ClaimModal visibility
+  const [showPayItForwardModal, setShowPayItForwardModal] = useState(false); // To control PayItForwardModal visibility
+  const [selectedRakId, setSelectedRakId] = useState(null); // Store the RAK ID being claimed or paid forward
 
   const handlePayItForwardClick = (rakId) => {
     console.log(`Pay it Forward clicked for RAK ID: ${rakId}`);
-    // Add logic for Pay it Forward functionality here
+    setSelectedRakId(rakId);
+    setShowPayItForwardModal(true);
+  };
+
+  const handlePayItForwardSuccess = (updatedRAK) => {
+    console.log("Pay it Forward created successfully:", updatedRAK);
+    setShowPayItForwardModal(false);
   };
 
   useEffect(() => {
@@ -74,7 +82,7 @@ const RAKList = () => {
     <div id="app">
       <section className="container nes-container with-title">
         <h2 className="title">Random Acts of Kindness</h2>
-        
+
         {/* Sort Option */}
         <div className="filter-container"> {/* Retaining the same CSS class */}
           <label htmlFor="sortOrder">Sort by:</label>
@@ -155,6 +163,14 @@ const RAKList = () => {
         onClose={() => setShowClaimModal(false)}
         rakId={selectedRakId}
         onClaimSuccess={handleClaimSuccess} // Pass handleClaimSuccess to the modal
+      />
+
+      {/* Pay It Forward Modal */}
+      <PayItForwardModal
+        isOpen={showPayItForwardModal}
+        onClose={() => setShowPayItForwardModal(false)}
+        rakId={selectedRakId}
+        onPayItForwardSuccess={handlePayItForwardSuccess} // Pass success handler
       />
 
       {/* Pixel Canvas (Kept as per original structure) */}
