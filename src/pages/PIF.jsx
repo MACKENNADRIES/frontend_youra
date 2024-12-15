@@ -14,6 +14,11 @@ const RAKList = () => {
   const [showClaimModal, setShowClaimModal] = useState(false); // To control modal visibility
   const [selectedRakId, setSelectedRakId] = useState(null); // Store the RAK ID being claimed
 
+  const handlePayItForwardClick = (rakId) => {
+    console.log(`Pay it Forward clicked for RAK ID: ${rakId}`);
+    // Add logic for Pay it Forward functionality here
+  };
+
   useEffect(() => {
     const fetchRAKs = async () => {
       try {
@@ -125,6 +130,14 @@ const RAKList = () => {
                       <p className="rak-aura-points">
                         Aura Points: {rak.aura_points_value}
                       </p>
+                      {rak.status === "completed" && (
+                        <button
+                          className="claim-button" // Same styling as other buttons
+                          onClick={() => handlePayItForwardClick(rak.id)}
+                        >
+                          Pay it Forward
+                        </button>
+                      )}
                     </div>
                   </div>
                 </li>
