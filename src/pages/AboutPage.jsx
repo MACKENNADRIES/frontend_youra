@@ -132,7 +132,7 @@ const toggleAuraLevels = () => {
   return (
     <div className="about-container">
       <header className="about-header">
-        <h1>About Us</h1>
+        <h1>About</h1>
       </header>
 
       <section className="about-content">
