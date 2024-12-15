@@ -53,7 +53,7 @@ const RAKList = () => {
           if (aura_points_value >= range[0] && aura_points_value <= range[1]) {
             try {
               const image = await import(
-                `../assets/${level.toLowerCase().replace(" ", "-")}.png`
+                `/public/assets/${level.toLowerCase().replace(" ", "-")}.png`
               );
               auraDataObj[rak.id] = { level, badgeImage: image.default };
             } catch (error) {

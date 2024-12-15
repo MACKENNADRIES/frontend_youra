@@ -76,7 +76,7 @@ const UserProfilePage = () => {
         if (auraPoints >= range[0] && auraPoints <= range[1]) {
           try {
             const image = await import(
-              `../assets/${level.toLowerCase().replace(" ", "-")}.png`
+              `/public/assets/${level.toLowerCase().replace(" ", "-")}.png`
             );
             setAuraBadge(image.default);
           } catch (error) {

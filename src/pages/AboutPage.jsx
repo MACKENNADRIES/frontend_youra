@@ -62,7 +62,7 @@ const toggleAuraLevels = () => {
       position: 980, 
       content: "Grow your aura", 
       effect: "glow", 
-      image: "/assets/harmoniser.png" 
+      image: "/assets/Harmoniser.png" 
     },
   ];
   
@@ -82,6 +82,22 @@ const toggleAuraLevels = () => {
       starContainer.appendChild(star);
     }
   }, []);
+// Add Arrow Key Navigation
+useEffect(() => {
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowLeft") {
+      moveRunner("left");
+    } else if (e.key === "ArrowRight") {
+      moveRunner("right");
+    }
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+
+  return () => {
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+}, []); // Empty dependency array ensures this runs only once
 
   // Update runner image frame
   useEffect(() => {
@@ -278,7 +294,7 @@ With YOURA, your Aura becomes a visual story of your kindness. </p>
           name: "Harmoniser",
           points: "901 - 1000",
           description: "You bring balance and harmony to the world.",
-          image: "/assets/harmoniser.png",
+          image: "/assets/Harmoniser.png",
         },
       ].map((level) => (
         <li key={level.level} className="aura-item">
