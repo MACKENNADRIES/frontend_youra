@@ -171,16 +171,19 @@ const RAKList = () => {
   </p>
   
   <p className="rak-claim-status">
-    Claim Status:{" "}
-    {rak.claimed_by_username ? (
+  Claim Status:{" "}
+    {rak.claims && rak.claims.length > 0 ? (
       <span className="rak-claimed">
-        Claimed by {rak.claimed_by_username}
+        Claimed by{" "}
+        {rak.claims[0].anonymous_claimant
+          ? "Anonymous"
+          : rak.claims[0].claimer_username}
       </span>
     ) : (
       <span className="rak-unclaimed">Unclaimed</span>
     )}
   </p>
-  
+
   <p className="rak-aura-points">
     Aura Points: {rak.aura_points_value}
   </p>

@@ -142,6 +142,9 @@ const RAKList = () => {
                 rak.rak_type === "request" &&
                 rak.created_by_username !== user.username;
 
+              // Get the first claim or display a message if there are no claims
+              const claim = rak.claims.length > 0 ? rak.claims[0] : null;
+
               return (
                 <li key={rak.id} className="rak-item">
                   <div className="rak-header">
@@ -166,8 +169,8 @@ const RAKList = () => {
                       </p>
                       <p className="rak-claim-status">
                         Claim Status:{" "}
-                        {rak.claimed_by_username ? (
-                          <span>Claimed by {rak.claimed_by_username}</span>
+                        {claim ? (
+                          <span>Claimed by {claim.claimer_username}</span>
                         ) : (
                           <span>Unclaimed</span>
                         )}
