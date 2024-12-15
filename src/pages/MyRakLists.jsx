@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getRAKs } from "../api/get-my-raks"; // API function for claimed RAKs
+import { getRAKs } from "../api/get-my-claimed-raks"; // API function for claimed RAKs
 import { getPostedRAKs } from "../api/get-my-posted-raks"; // API function for posted RAKs
 import "./RAKList.css"; // CSS for 8-bit styling
 import "../components/PixelCanvas"; // PixelCanvas component
