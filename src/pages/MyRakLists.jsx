@@ -178,7 +178,6 @@ const RAKList = () => {
                     </div>
                     {showRestrictedMessage && (
                       <p className="restricted-message">
-                        Only the requester can complete this RAK.
                       </p>
                     )}
                     {!showRestrictedMessage && rak.status === "in progress" && (
