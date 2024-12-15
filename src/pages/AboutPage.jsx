@@ -152,7 +152,7 @@ const toggleAuraLevels = () => {
       <section ref={featuredRef} className="long-rectangle">
       <div className="background-images">
     <img src="/assets/jumpplatform.png" alt="platform 1" className="bg-image bg1" />
-    <img src="//assets/jumpplatform.png" alt="platform 2" className="bg-image bg2" />
+    <img src="/assets/jumpplatform.png" alt="platform 2" className="bg-image bg2" />
     <img src="/assets/jumpplatform.png" alt="platform 3" className="bg-image bg3" />
   </div>
         <div className="stars"></div>
