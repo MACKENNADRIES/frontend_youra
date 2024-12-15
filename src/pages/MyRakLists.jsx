@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { getRAKs } from "../api/get-my-raks"; // Updated API function import
-import { getPostedRAKs } from "../api/get-my-posted-raks"; // New API function import
-import "./RAKList.css"; // Import the CSS file for 8-bit styling
-import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
-import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
+import { getRAKs } from "../api/get-my-raks"; // API function for claimed RAKs
+import { getPostedRAKs } from "../api/get-my-posted-raks"; // API function for posted RAKs
+import "./RAKList.css"; // CSS for 8-bit styling
+import "../components/PixelCanvas"; // PixelCanvas component
+import ClaimModal from "../components/ClaimModal"; // ClaimModal component
 import { completeRAKApiCall } from "../api/complete-rak";
 
 const RAKList = () => {
-  const [raks, setRaks] = useState([]); // State to store fetched RAKs
-  const [filteredRaks, setFilteredRaks] = useState([]); // State for filtered RAKs
-  const [filter, setFilter] = useState("all"); // Filter state
+  const [raks, setRaks] = useState([]); // Store RAKs
+  const [filteredRaks, setFilteredRaks] = useState([]); // Filtered RAKs
+  const [filter, setFilter] = useState("claimed"); // Default filter
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
-  const [auraData, setAuraData] = useState({}); // State to store aura data
-  const [showClaimModal, setShowClaimModal] = useState(false); // To control modal visibility
-  const [selectedRakId, setSelectedRakId] = useState(null); // Store the RAK ID being claimed
+  const [auraData, setAuraData] = useState({}); // Aura data
+  const [showClaimModal, setShowClaimModal] = useState(false); // ClaimModal visibility
+  const [selectedRakId, setSelectedRakId] = useState(null); // Selected RAK ID
 
   useEffect(() => {
     const fetchRAKs = async () => {
       try {
+        setLoading(true);
         let data = [];
+
         if (filter === "my-posted") {
-          data = await getPostedRAKs(); // Use the new API function to get posted RAKs
+          data = await getPostedRAKs(); // Fetch posted RAKs
         } else {
-          data = await getRAKs(); // Use the existing API function to get claimed RAKs
+          data = await getRAKs(); // Fetch claimed RAKs
         }
+
         setRaks(data);
-        setFilteredRaks(data); // Initialize filtered RAKs with fetched RAKs
+        setFilteredRaks(data); // Initialize filtered RAKs
       } catch (err) {
         setError(err.message);
       } finally {
@@ -35,7 +38,7 @@ const RAKList = () => {
     };
 
     fetchRAKs();
-  }, [filter]); // Re-fetch whenever the filter changes
+  }, [filter]); // Refetch RAKs when the filter changes
 
   useEffect(() => {
     const loadAuraData = async () => {
@@ -65,32 +68,20 @@ const RAKList = () => {
               auraDataObj[rak.id] = { level, badgeImage: image.default };
             } catch (error) {
               console.error(`Error loading image for ${level}:`, error);
-              auraDataObj[rak.id] = { level, badgeImage: null }; // Fallback if image fails to load
+              auraDataObj[rak.id] = { level, badgeImage: null };
             }
-            break; // Once the correct level is found, stop checking further levels
+            break;
           }
         }
       }
 
-      setAuraData(auraDataObj); // Update auraData with loaded data
+      setAuraData(auraDataObj);
     };
 
     if (raks.length > 0) {
-      loadAuraData(); // Load aura data only after RAKs are fetched
+      loadAuraData();
     }
   }, [raks]);
-
-  useEffect(() => {
-    if (filter === "claimed") {
-      setFilteredRaks(raks);
-    } else if (filter === "unclaimed") {
-      setFilteredRaks(raks.filter((rak) => rak.status === "open"));
-    } else if (filter === "request") {
-      setFilteredRaks(raks.filter((rak) => rak.rak_type === "request"));
-    } else if (filter === "offer") {
-      setFilteredRaks(raks.filter((rak) => rak.rak_type === "offer"));
-    }
-  }, [filter, raks]);
 
   const handleCompleteButtonClick = async (rakId) => {
     try {
@@ -108,9 +99,11 @@ const RAKList = () => {
   return (
     <div id="app">
       <section className="container nes-container with-title">
-        <h2 className="title"> My Random Acts of Kindness</h2>
-        <h3 className="description">These are RAKs you have claimed or posted. </h3>
-        
+        <h2 className="title">My Random Acts of Kindness</h2>
+        <h3 className="description">
+          These are RAKs you have claimed or posted.
+        </h3>
+
         {/* Filter Dropdown */}
         <div className="filter-container">
           <label htmlFor="filter">Filter by:</label>
@@ -119,19 +112,20 @@ const RAKList = () => {
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           >
-            <option value="claimed">Claimed</option>
-            <option value="unclaimed">Unclaimed</option>
-            <option value="request">Request</option>
-            <option value="offer">Offer</option>
-            <option value="my-posted">Created by me</option> {/* New filter option */}
+            <option value="claimed">Claimed by me</option>
+            <option value="my-posted">Created by me</option>
           </select>
         </div>
 
         {/* RAK List */}
-        {filteredRaks.length > 0 ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : filteredRaks.length > 0 ? (
           <ul className="rak-list">
             {filteredRaks.map((rak) => {
-              const aura = auraData[rak.id]; // Get the aura data for each RAK
+              const aura = auraData[rak.id];
               return (
                 <li key={rak.id} className="rak-item">
                   <div className="rak-header">
@@ -152,41 +146,19 @@ const RAKList = () => {
                     <p className="rak-description">{rak.description}</p>
                     <div className="rak-details">
                       <p className="rak-status">
-                        Status:{" "}
-                        {rak.status === "open" && (
-                          <span className="rak-open">Open</span>
-                        )}
-                        {rak.status === "claimed" && (
-                          <span className="rak-claimed">Claimed</span>
-                        )}
-                        {rak.status === "in progress" && (
-                          <span className="rak-in-progress">In Progress</span>
-                        )}
-                        {rak.status === "completed" && (
-                          <span className="rak-completed">Completed</span>
-                        )}
+                        Status: <span>{rak.status}</span>
                       </p>
                       <p className="rak-claim-status">
                         Claim Status:{" "}
                         {rak.claimed_by_username ? (
-                          <span className="rak-claimed">
-                            Claimed by {rak.claimed_by_username}
-                          </span>
+                          <span>Claimed by {rak.claimed_by_username}</span>
                         ) : (
-                          <span className="rak-unclaimed">Unclaimed</span>
+                          <span>Unclaimed</span>
                         )}
                       </p>
                       <p className="rak-aura-points">
                         Aura Points: {rak.aura_points_value}
                       </p>
-                      {rak.collaborators && rak.collaborators.length > 0 && (
-                        <p className="rak-collaborators">
-                          Collaborators:{" "}
-                          {rak.collaborators
-                            .map((collaborator) => collaborator.username)
-                            .join(", ")}
-                        </p>
-                      )}
                     </div>
                     {rak.status === "in progress" && (
                       <button
@@ -210,7 +182,7 @@ const RAKList = () => {
         <ClaimModal
           rakId={selectedRakId}
           onClose={() => setShowClaimModal(false)}
-          onClaimSuccess={handleClaimSuccess}
+          onClaimSuccess={() => setFilter(filter)} // Refresh data after claiming
         />
       )}
     </div>
