@@ -23,9 +23,9 @@ const Dust = ({ position, jumpHeight }) => {
 // Character Component
 const Character = ({ position, jumpHeight, characterFrame }) => {
   const characterImages = [
-    "src/assets/run1.png",  // Frame 1
-    "src/assets/run2.png",  // Frame 2
-    "src/assets/run3.png",  // Frame 3
+    "/assets/run1.png",  // Frame 1
+    "/assets/run2.png",  // Frame 2
+    "/assets/run3.png",  // Frame 3
   ];
 
   return (
@@ -143,13 +143,13 @@ const AnimationContainer = () => {
   return (
     <div className="animation-container">
       <div className="platform-left">
-        <img src="src/assets/jumpplatform.png" alt="Left Platform" />
+        <img src="/assets/jumpplatform.png" alt="Left Platform" />
       </div>
       <div className="platform-middle">
-        <img src="src/assets/jumpplatform.png" alt="Middle Platform" />
+        <img src="/assets/jumpplatform.png" alt="Middle Platform" />
       </div>
       <div className="platform-right">
-        <img src="src/assets/jumpplatform.png" alt="Right Platform" />
+        <img src="/assets/jumpplatform.png" alt="Right Platform" />
       </div>
       {dustEffect && <Dust position={dustEffect.position} jumpHeight={dustEffect.height} />}
       <Character position={characterPosition} jumpHeight={jumpHeight} characterFrame={characterFrame} />

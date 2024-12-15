@@ -15,6 +15,17 @@ html {
   scroll-behavior: smooth;
 }
 
+button:disabled {
+  pointer-events: none; /* Disable all pointer interactions */
+  cursor: not-allowed; /* Change cursor to indicate the button is not clickable */
+  background-color: #e0a2ff;
+  color: #ffffff; /* Ensure text remains readable */
+  animation: none; /* Remove any click or hover animations */
+  transform: none; /* Reset any transform animations */
+  opacity: 0.8; /* Optional: Slight transparency for a softer look */
+}
+
+
 /* App Container */
 #app {
   width: 100%;

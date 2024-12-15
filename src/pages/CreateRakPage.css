@@ -88,17 +88,6 @@ body {
     animation-fill-mode: forwards;
 }
 
-.rectangle.dots-falling .dot {
-    animation-name: dotFallOff; /* Use dotFallOff after RAK is created */
-    animation-fill-mode: forwards;
-}
-
-/* Optional: Add transition effects to improve the overall experience */
-.rectangle.dots-falling {
-    transition: opacity 4s ease-in-out;
-    opacity: 1;
-}
-
 
 /* Apply animation to the header-bar */
 .header-bar {
@@ -297,21 +286,6 @@ body {
     }
 }
 
-@keyframes formFadeOut {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-}
-
-.form-fading {
-    animation: formFadeOut 0.4s forwards; /* Apply fade-out animation */
-}
-
 /* Adjusted Create Rak Button Styling */
 .create-rak-form button {
     position: relative;
@@ -377,4 +351,66 @@ body {
     animation-fill-mode: forwards;
     animation-duration: 0.5s;
     animation-timing-function: ease-out;
+}
+/* Toast Container */
+.Toastify__toast-container {
+    z-index: 9999;
+}
+
+/* Success Toast Styling */
+.toast-success {
+    background: linear-gradient(135deg, #2a0337, #4b0a62);
+    color: #ffffff;
+    font-family: "Press Start 2P", monospace;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Error Toast Styling */
+.toast-error {
+    background: linear-gradient(135deg, #8b0000, #4b0a62);
+    color: #ffffff;
+    font-family: "Press Start 2P", monospace;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Floating and Fade Animation */
+.Toastify__toast {
+    animation: float-down 1.5s ease-in-out forwards, fade-out 3s ease-in-out 1.5s forwards;
+    position: absolute;
+    top: 10%;
+    transform: translateY(-100%);
+}
+
+/* Keyframes for Floating Down */
+@keyframes float-down {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    40% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Keyframes for Fading Out */
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

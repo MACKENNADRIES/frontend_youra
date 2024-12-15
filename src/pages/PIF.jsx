@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getCompletedRequestRAKs } from "../api/get-pay-it-forward"; // Import the updated API function
+import { getRAKs } from "../api/get-raks"; // Import the API function
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
-import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
+import "../components/PixelCanvas"; // Import the PixelCanvas component
 import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
 
 const RAKList = () => {
@@ -17,7 +17,7 @@ const RAKList = () => {
   useEffect(() => {
     const fetchRAKs = async () => {
       try {
-        const data = await getCompletedRequestRAKs(); // Use the updated API function for completed requests
+        const data = await getRAKs(); // Use the centralized API function
         setRaks(data);
         setFilteredRaks(data); // Initialize filtered RAKs with all RAKs
       } catch (err) {
@@ -101,7 +101,7 @@ const RAKList = () => {
           ? {
               ...rak,
               status: updatedRAK.status,
-              claimed_by_username: updatedRAK.claimed_by_username,
+              claims: updatedRAK.claims,
             }
           : rak
       )
@@ -113,7 +113,7 @@ const RAKList = () => {
     <div id="app">
       <section className="container nes-container with-title">
         <h2 className="title">Random Acts of Kindness</h2>
-        
+
         {/* Filter Dropdown */}
         <div className="filter-container">
           <label htmlFor="filter">Filter by:</label>
@@ -135,6 +135,8 @@ const RAKList = () => {
           <ul className="rak-list">
             {filteredRaks.map((rak) => {
               const aura = auraData[rak.id]; // Get the aura data for each RAK
+              const claim = rak.claims.length > 0 ? rak.claims[0] : null; // Get the first claim
+
               return (
                 <li key={rak.id} className="rak-item">
                   <div className="rak-header">
@@ -159,9 +161,6 @@ const RAKList = () => {
                         {rak.status === "open" && (
                           <span className="rak-open">Open</span>
                         )}
-                        {rak.status === "claimed" && (
-                          <span className="rak-claimed">Claimed</span>
-                        )}
                         {rak.status === "in progress" && (
                           <span className="rak-in-progress">In Progress</span>
                         )}
@@ -169,41 +168,40 @@ const RAKList = () => {
                           <span className="rak-completed">Completed</span>
                         )}
                       </p>
-                      
+
                       <p className="rak-claim-status">
                         Claim Status:{" "}
-                        {rak.claimed_by_username ? (
-                          <span className="rak-claimed">
-                            Claimed by {rak.claimed_by_username}
+                        {claim ? (
+                          <span>
+                            Claimed by{" "}
+                            {claim.anonymous_claimant
+                              ? "Anonymous"
+                              : claim.claimer_username}
                           </span>
                         ) : (
                           <span className="rak-unclaimed">Unclaimed</span>
                         )}
                       </p>
-                      
+
                       <p className="rak-aura-points">
                         Aura Points: {rak.aura_points_value}
                       </p>
-                      
-                      {rak.collaborators && rak.collaborators.length > 0 && (
-                        <p className="rak-collaborators">
-                          Collaborators:{" "}
-                          {rak.collaborators
-                            .map((collaborator) => collaborator.username)
-                            .join(", ")}
-                        </p>
-                      )}
                     </div>
 
                     {/* Conditional Claim Button */}
-                    {rak.status === "completed" (
+                    {rak.status === "open" && !claim ? (
                       <button
                         className="claim-button"
                         onClick={() => handleClaimButtonClick(rak.id)}
                       >
-                        Pay it forward
+                        Claim
                       </button>
-
+                    ) : (
+                      <button className="claim-button" disabled>
+                        {rak.status === "in progress"
+                          ? "In Progress"
+                          : "Completed"}
+                      </button>
                     )}
                   </div>
                 </li>
@@ -215,7 +213,6 @@ const RAKList = () => {
         )}
       </section>
 
-        {/* TODO: make pay it forward modal, this will then need to tie up to the "make pay it forward endpoint" */}
       {/* Claim Modal */}
       <ClaimModal
         isOpen={showClaimModal}
@@ -224,9 +221,9 @@ const RAKList = () => {
         onClaimSuccess={handleClaimSuccess} // Pass handleClaimSuccess to the modal
       />
 
-      {/* Pixel Canvas (Kept as per original structure) */}
+      {/* Pixel Canvas */}
       <div className="pixel-canvas-container">
-        <pixel-canvas></pixel-canvas> {/* Your pixel canvas component goes here */}
+        <pixel-canvas></pixel-canvas>
       </div>
     </div>
   );

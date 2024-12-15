@@ -145,19 +145,19 @@ tr:hover {
 /* Running animation (character image changes) */
 @keyframes run {
   0% {
-    content: url("src/assets/run1.png");
+    content: url("/assets/run1.png");
   }
   25% {
-    content: url("src/assets/run2.png");
+    content: url("/assets/run2.png");
   }
   50% {
-    content: url("src/assets/run3.png");
+    content: url("/assets/run3.png");
   }
   75% {
-    content: url("src/assets/run2.png");
+    content: url("/assets/run2.png");
   }
   100% {
-    content: url("src/assets/run1.png");
+    content: url("/assets/run1.png");
   }
 }
 

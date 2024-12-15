@@ -15,25 +15,25 @@ const HomePage = () => {
   ];
 
   const cards = [
-    { text: "Discover", image: "src/assets/discover.png", route: "/all" },
-    { text: "Create RAK", image: "src/assets/createrak.png", route: "/create-rak" },
-    { text: "Leaderboard", image: "src/assets/leaderboard.png", route: "/leaderboard" },
-    { text: "Profile", image: "src/assets/profile.png", route: "/profile" },
-    { text: "Earn Points", image: "src/assets/Earn.png", route: "/earn-points" },
-    { text: "My Raks", image: "src/assets/myraks.png", route: "/my-raks" },
-    { text: "Pay it forward", image: "src/assets/pif.png", route: "/pif" },
-    { text: "About", image: "src/assets/logolarge.png", route: "/about" },
-    { text: "Contact Us", image: "src/assets/contact.png", route: "/contact" },
+    { text: "Discover", image: "/assets/discover.png", route: "/all" },
+    { text: "Create RAK", image: "/assets/createrak.png", route: "/create-rak" },
+    { text: "Leaderboard", image: "/assets/leaderboard.png", route: "/leaderboard" },
+    { text: "Profile", image: "/assets/profile.png", route: "/profile" },
+    { text: "Earn Points", image: "/assets/Earn.png", route: "/earn-points" },
+    { text: "My Raks", image: "/assets/myraks.png", route: "/my-raks" },
+    { text: "Pay it forward", image: "/assets/pif.png", route: "/pif" },
+    { text: "About", image: "/assets/logolarge.png", route: "/about" },
+    { text: "Contact Us", image: "/assets/contact.png", route: "/contact" },
   ];
 
   return (
     <div>
-<div class="hero-section">
-    <div class="hero-content">
-        <h1 class="hero-title">YOURA<br></br>Your Aura</h1>
-        <p class="hero-description">Spread kindness, expand your aura!</p>
+<div className="hero-section">
+    <div className="hero-content">
+        <h1 className="hero-title">YOURA<br></br>Your Aura</h1>
+        <p className="hero-description">Spread kindness, expand your aura!</p>
     </div>
-    <div class="hero-overlay"></div>
+    <div className="hero-overlay"></div>
 </div>
 
 

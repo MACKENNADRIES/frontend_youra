@@ -38,16 +38,16 @@ const LeaderboardPage = () => {
     <div className="leaderboard-wrapper">
       <div className="animation-container">
         <div className="platform-left">
-          <img src="src/assets/jumpplatform.png" alt="Left Platform" />
+          <img src="/assets/jumpplatform.png" alt="Left Platform" />
         </div>
         <div className="platform-middle">
-          <img src="src/assets/jumpplatform.png" alt="Middle Platform" />
+          <img src="/assets/jumpplatform.png" alt="Middle Platform" />
         </div>
         <div className="platform-right">
-          <img src="src/assets/jumpplatform.png" alt="Right Platform" />
+          <img src="/assets/jumpplatform.png" alt="Right Platform" />
         </div>
         <div className="character" ref={characterRef}>
-          <img src="src/assets/run1.png" alt="Character Running" className="character-image" />
+          <img src="/assets/run1.png" alt="Character Running" className="character-image" />
         </div>
       </div>
       <div className="leaderboard-container">

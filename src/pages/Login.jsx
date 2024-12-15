@@ -110,17 +110,17 @@ const LoginPage = () => {
       <div className="login-box">
         <div className="logo">
           <img
-            src="src/assets/starslogo.png"
+            src="/assets/starslogo.png"
             alt="Logo Stars"
             className="logo-stars"
           />
           <img
-            src="src/assets/outerlogo.png"
+            src="/assets/outerlogo.png"
             alt="Logo Outer Ring"
             className="logo-outer"
           />
           <img
-            src="src/assets/innerlogo.png"
+            src="/assets/innerlogo.png"
             alt="Logo Inner Ring"
             className="logo-inner"
           />

@@ -299,7 +299,7 @@ const UserProfilePage = () => {
 {/* Section 4: RAK Statistics */}
 <div className="rak-statistics">
   <div className="stat-icon-container">
-    <img src="src/assets/stat-icon.png" alt="RAK Icon" className="stat-icon" />
+    <img src="/assets/stat-icon.png" alt="RAK Icon" className="stat-icon" />
   </div>
   <h3 className="section-title">RAK Statistics</h3>
   

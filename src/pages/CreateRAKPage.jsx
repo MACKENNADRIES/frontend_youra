@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateRakPage.css";
+import { toast, ToastContainer } from "react-toastify"; // Import toast and container
+import "react-toastify/dist/ReactToastify.css"; // Import toast styles
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -69,37 +71,24 @@ const CreateRAKPage = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error("Error creating RAK:", errorData);
-                alert(`Failed to create RAK: ${errorData.detail || "Unknown error"}`);
+                toast.error(`Failed to create RAK: ${errorData.detail || "Unknown error"}`);
                 return;
             }
 
-            // 1. First fade out the form
-            setFormFadeOut(true);
-            
-            // 2. After form fades out, expand dots margin
+            toast.success("RAK successfully created!"); // Show success toast
             setTimeout(() => {
-                setDotsState("dots-expand");
-                
-                // 3. After margin expansion, make dots fall
-                setTimeout(() => {
-                    setDotsState("dots-expand dots-falling");
-                    
-                    // 4. Navigate after falling animation completes
-                    setTimeout(() => {
-                        navigate("/home");
-                    }, 3000); // Duration of falling animation
-                }, 1000); // Wait for margin expansion
-            }, 400); // Wait for form fade-out
-
+                navigate("/home"); // Navigate after showing the toast
+            }, 1000); // Delay to allow toast to display
         } catch (error) {
             console.error("Error submitting the form:", error);
-            alert("An error occurred while creating the RAK.");
+            toast.error("An error occurred while creating the RAK.");
         }
     };
-    
 
     return (
         <div className="create-rak-page">
+            {/* ToastContainer for showing toasts */}
+            <ToastContainer position="top-center" />
             {/* Form Container */}
             <div className="form-container" ref={formRef}>
             {/* Independent Form Box */}
