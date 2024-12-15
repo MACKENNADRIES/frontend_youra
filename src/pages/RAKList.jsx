@@ -42,7 +42,7 @@ const RAKList = () => {
         { range: [601, 700], level: "Transformer" },
         { range: [701, 800], level: "Healer" },
         { range: [801, 900], level: "Orchestrator" },
-        { range: [901, 10000], level: "Harmonizer" },
+        { range: [901, 10000], level: "Harmoniser" },
       ];
 
       const auraDataObj = {};

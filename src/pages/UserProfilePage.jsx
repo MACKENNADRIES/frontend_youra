@@ -67,7 +67,7 @@ const UserProfilePage = () => {
         { range: [601, 700], level: "Transformer" },
         { range: [701, 800], level: "Healer" },
         { range: [801, 900], level: "Orchestrator" },
-        { range: [901, 10000], level: "Harmonizer" },
+        { range: [901, 10000], level: "Harmoniser" },
       ];
 
       const auraPoints = profileData.aura_points;
@@ -81,7 +81,7 @@ const UserProfilePage = () => {
             setAuraBadge(image.default);
           } catch (error) {
             console.error(`Error loading image for ${level}:`, error);
-            setAuraBadge("/assets/default-badge.png");
+            setAuraBadge("/public/assets/default-badge.png");
           }
           break;
         }
