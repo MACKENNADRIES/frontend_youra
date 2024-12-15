@@ -16,27 +16,27 @@ const RAKList = () => {
   const [showClaimModal, setShowClaimModal] = useState(false); // ClaimModal visibility
   const [selectedRakId, setSelectedRakId] = useState(null); // Selected RAK ID
 
-  useEffect(() => {
-    const fetchRAKs = async () => {
-      try {
-        setLoading(true);
-        let data = [];
+  const fetchRAKs = async () => {
+    try {
+      setLoading(true);
+      let data = [];
 
-        if (filter === "my-posted") {
-          data = await getPostedRAKs(); // Fetch posted RAKs
-        } else {
-          data = await getRAKs(); // Fetch claimed RAKs
-        }
-
-        setRaks(data);
-        setFilteredRaks(data); // Initialize filtered RAKs
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      if (filter === "my-posted") {
+        data = await getPostedRAKs(); // Fetch posted RAKs
+      } else {
+        data = await getRAKs(); // Fetch claimed RAKs
       }
-    };
 
+      setRaks(data);
+      setFilteredRaks(data); // Initialize filtered RAKs
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchRAKs();
   }, [filter]); // Refetch RAKs when the filter changes
 
@@ -85,9 +85,17 @@ const RAKList = () => {
 
   const handleCompleteButtonClick = async (rakId) => {
     try {
-      const updatedRAK = await completeRAKApiCall(rakId);
+      const updatedRAK = await completeRAKApiCall(rakId); // API call to complete the RAK
+      fetchRAKs(); // Refetch the RAKs after completing one
       setRaks((prevRaks) =>
         prevRaks.map((rak) =>
+          rak.id === updatedRAK.id ? { ...rak, status: updatedRAK.status } : rak
+        )
+      );
+
+      // Update the filtered list to reflect the changes
+      setFilteredRaks((prevFilteredRaks) =>
+        prevFilteredRaks.map((rak) =>
           rak.id === updatedRAK.id ? { ...rak, status: updatedRAK.status } : rak
         )
       );
@@ -162,7 +170,7 @@ const RAKList = () => {
                     </div>
                     {rak.status === "in progress" && (
                       <button
-                        className="complete-button"
+                        className="claim-button"
                         onClick={() => handleCompleteButtonClick(rak.id)}
                       >
                         Complete Me
