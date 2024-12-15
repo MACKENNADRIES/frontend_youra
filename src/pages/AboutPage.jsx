@@ -259,7 +259,7 @@ With YOURA, your Aura becomes a visual story of your kindness. </p>
           name: "Innovator",
           points: "401 - 500",
           description: "You bring new ideas to promote kindness.",
-          image: "/assets/Innovator.png",
+          image: "/assets/innovator.png",
         },
         {
           level: 6,
@@ -294,7 +294,7 @@ With YOURA, your Aura becomes a visual story of your kindness. </p>
           name: "Harmoniser",
           points: "901 - 1000",
           description: "You bring balance and harmony to the world.",
-          image: "/assets/Harmoniser.png",
+          image: "/assets/harmoniser.png",
         },
       ].map((level) => (
         <li key={level.level} className="aura-item">
