@@ -3,6 +3,18 @@ import "./UserProfile.css"; // Assuming you have CSS for styling
 import { useAuth } from "../context/AuthContext"; // Import AuthContext
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 
+// Import badge images for aura levels
+import InitiatorBadge from "/assets/initiator.png";
+import SustainerBadge from "/assets/sustainer.png";
+import VisionaryBadge from "/assets/visionary.png";
+import CreatorBadge from "/assets/creator.png";
+import InnovatorBadge from "/assets/innovator.png";
+import AcceleratorBadge from "/assets/accelerator.png";
+import TransformerBadge from "/assets/transformer.png";
+import HealerBadge from "/assets/healer.png";
+import OrchestratorBadge from "/assets/orchestrator.png";
+import HarmoniserBadge from "/assets/harmoniser.png";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 const UserProfilePage = () => {
@@ -54,43 +66,38 @@ const UserProfilePage = () => {
   }, []);
 
   useEffect(() => {
-    const loadBadgeImage = async () => {
+    const loadBadgeImage = () => {
       if (!profileData) return;
-
+  
       const auraLevels = [
-        { range: [0, 100], level: "Initiator" },
-        { range: [101, 200], level: "Sustainer" },
-        { range: [201, 300], level: "Visionary" },
-        { range: [301, 400], level: "Creator" },
-        { range: [401, 500], level: "Innovator" },
-        { range: [501, 600], level: "Accelerator" },
-        { range: [601, 700], level: "Transformer" },
-        { range: [701, 800], level: "Healer" },
-        { range: [801, 900], level: "Orchestrator" },
-        { range: [901, 10000], level: "Harmoniser" },
+        { range: [0, 100], level: "Initiator", badgeImage: InitiatorBadge },
+        { range: [101, 200], level: "Sustainer", badgeImage: SustainerBadge },
+        { range: [201, 300], level: "Visionary", badgeImage: VisionaryBadge },
+        { range: [301, 400], level: "Creator", badgeImage: CreatorBadge },
+        { range: [401, 500], level: "Innovator", badgeImage: InnovatorBadge },
+        { range: [501, 600], level: "Accelerator", badgeImage: AcceleratorBadge },
+        { range: [601, 700], level: "Transformer", badgeImage: TransformerBadge },
+        { range: [701, 800], level: "Healer", badgeImage: HealerBadge },
+        { range: [801, 900], level: "Orchestrator", badgeImage: OrchestratorBadge },
+        { range: [901, 10000], level: "Harmoniser", badgeImage: HarmoniserBadge },
       ];
-
+  
       const auraPoints = profileData.aura_points;
-
-      for (let { range, level } of auraLevels) {
+  
+      for (let { range, badgeImage } of auraLevels) {
         if (auraPoints >= range[0] && auraPoints <= range[1]) {
-          try {
-            const image = await import(
-              `/public/assets/${level.toLowerCase().replace(" ", "-")}.png`
-            );
-            setAuraBadge(image.default);
-          } catch (error) {
-            console.error(`Error loading image for ${level}:`, error);
-            setAuraBadge("/public/assets/default-badge.png");
-          }
-          break;
+          setAuraBadge(badgeImage); // Directly set the pre-imported badge image
+          return; // Exit loop once a match is found
         }
       }
+  
+      // If no match is found, set a default badge
+      setAuraBadge(DefaultBadge);
     };
-
+  
     loadBadgeImage();
   }, [profileData]);
-
+  
   const handleEditToggle = () => {
     setEditMode(!editMode);
   };

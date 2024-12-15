@@ -1,4 +1,5 @@
-
+/* General 8-bit Font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
   
 /* Featured Section */
 .long-rectangle {
@@ -238,9 +239,6 @@
     }
   }
   
-
-/* General 8-bit Font */
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 /* General Container Styling */
 .about-container {

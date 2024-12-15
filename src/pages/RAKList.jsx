@@ -3,6 +3,17 @@ import { getRAKs } from "../api/get-raks"; // Import the API function
 import "./RAKList.css"; // Import the CSS file for 8-bit styling
 import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
 import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
+// Import badge images for aura levels
+import InitiatorBadge from "/assets/initiator.png";
+import SustainerBadge from "/assets/sustainer.png";
+import VisionaryBadge from "/assets/visionary.png";
+import CreatorBadge from "/assets/creator.png";
+import InnovatorBadge from "/assets/innovator.png";
+import AcceleratorBadge from "/assets/accelerator.png";
+import TransformerBadge from "/assets/transformer.png";
+import HealerBadge from "/assets/healer.png";
+import OrchestratorBadge from "/assets/orchestrator.png";
+import HarmoniserBadge from "/assets/harmoniser.png";
 
 const RAKList = () => {
   const [raks, setRaks] = useState([]); // State to store fetched RAKs
@@ -31,47 +42,39 @@ const RAKList = () => {
   }, []); // Empty dependency array ensures this runs once
 
   useEffect(() => {
-    const loadAuraData = async () => {
+    const loadAuraData = () => {
       const auraLevels = [
-        { range: [0, 100], level: "Initiator" },
-        { range: [101, 200], level: "Sustainer" },
-        { range: [201, 300], level: "Visionary" },
-        { range: [301, 400], level: "Creator" },
-        { range: [401, 500], level: "Innovator" },
-        { range: [501, 600], level: "Accelerator" },
-        { range: [601, 700], level: "Transformer" },
-        { range: [701, 800], level: "Healer" },
-        { range: [801, 900], level: "Orchestrator" },
-        { range: [901, 10000], level: "Harmoniser" },
+        { range: [0, 100], level: "Initiator", badgeImage: InitiatorBadge },
+        { range: [101, 200], level: "Sustainer", badgeImage: SustainerBadge },
+        { range: [201, 300], level: "Visionary", badgeImage: VisionaryBadge },
+        { range: [301, 400], level: "Creator", badgeImage: CreatorBadge },
+        { range: [401, 500], level: "Innovator", badgeImage: InnovatorBadge },
+        { range: [501, 600], level: "Accelerator", badgeImage: AcceleratorBadge },
+        { range: [601, 700], level: "Transformer", badgeImage: TransformerBadge },
+        { range: [701, 800], level: "Healer", badgeImage: HealerBadge },
+        { range: [801, 900], level: "Orchestrator", badgeImage: OrchestratorBadge },
+        { range: [901, 10000], level: "Harmoniser", badgeImage: HarmoniserBadge },
       ];
-
+  
       const auraDataObj = {};
       for (let rak of raks) {
         const { aura_points_value } = rak;
-        for (let i = 0; i < auraLevels.length; i++) {
-          const { range, level } = auraLevels[i];
+        for (let { range, level, badgeImage } of auraLevels) {
           if (aura_points_value >= range[0] && aura_points_value <= range[1]) {
-            try {
-              const image = await import(
-                `/public/assets/${level.toLowerCase().replace(" ", "-")}.png`
-              );
-              auraDataObj[rak.id] = { level, badgeImage: image.default };
-            } catch (error) {
-              console.error(`Error loading image for ${level}:`, error);
-              auraDataObj[rak.id] = { level, badgeImage: null }; // Fallback if image fails to load
-            }
-            break; // Once the correct level is found, stop checking further levels
+            auraDataObj[rak.id] = { level, badgeImage }; // Use pre-imported image
+            break; // Exit loop once the correct level is found
           }
         }
       }
-
+  
       setAuraData(auraDataObj); // Update auraData with loaded data
     };
-
+  
     if (raks.length > 0) {
       loadAuraData(); // Load aura data only after RAKs are fetched
     }
   }, [raks]);
+  
 
   useEffect(() => {
     if (filter === "all") {
