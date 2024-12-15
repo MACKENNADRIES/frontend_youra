@@ -16,13 +16,13 @@ const toggleAuraLevels = () => {
 };
 
   const runnerImages = [
-    "src/assets/run1.png",
-    "src/assets/run2.png",
-    "src/assets/run3.png",
-    "src/assets/run2.png",
-    "src/assets/run1.png",
-    "src/assets/run2.png",
-    "src/assets/run3.png",
+    "/assets/run1.png",
+    "/assets/run2.png",
+    "/assets/run3.png",
+    "/assets/run2.png",
+    "/assets/run1.png",
+    "/assets/run2.png",
+    "/assets/run3.png",
   ];
   const [frameIndex, setFrameIndex] = useState(0); // Track current image frame
 
@@ -32,37 +32,37 @@ const toggleAuraLevels = () => {
       position: 90, 
       content: "Create Random Acts of Kindness", 
       effect: "pop", 
-      image: "src/assets/createrak.png" 
+      image: "/assets/createrak.png" 
     },
     { 
       position: 280, 
       content: "Offer kindness to somoene in need", 
       effect: "pop", 
-      image: "src/assets/offer.png"
+      image: "/assets/offer.png"
     },
     { 
       position: 480, 
       content: "Request kindness when you need help", 
       effect: "pop", 
-      image: "src/assets/speechbubble.png" 
+      image: "/assets/speechbubble.png" 
     },
     { 
       position: 690, 
       content: "Track claims and progress", 
       effect: "pop", 
-      image: "src/assets/stat-icon.png" 
+      image: "/assets/stat-icon.png" 
     },
     { 
       position: 840, 
       content: "Earn points!", 
       effect: "glow", 
-      image: "src/assets/leaderboard.png" 
+      image: "/assets/leaderboard.png" 
     },
     { 
       position: 980, 
       content: "Grow your aura", 
       effect: "glow", 
-      image: "src/assets/harmoniser.png" 
+      image: "/assets/harmoniser.png" 
     },
   ];
   
@@ -151,9 +151,9 @@ const toggleAuraLevels = () => {
       {/* Long rectangle section */}
       <section ref={featuredRef} className="long-rectangle">
       <div className="background-images">
-    <img src="src/assets/jumpplatform.png" alt="platform 1" className="bg-image bg1" />
-    <img src="/src/assets/jumpplatform.png" alt="platform 2" className="bg-image bg2" />
-    <img src="src/assets/jumpplatform.png" alt="platform 3" className="bg-image bg3" />
+    <img src="/assets/jumpplatform.png" alt="platform 1" className="bg-image bg1" />
+    <img src="//assets/jumpplatform.png" alt="platform 2" className="bg-image bg2" />
+    <img src="/assets/jumpplatform.png" alt="platform 3" className="bg-image bg3" />
   </div>
         <div className="stars"></div>
 
@@ -215,70 +215,70 @@ With YOURA, your Aura becomes a visual story of your kindness. </p>
           name: "Initiator",
           points: "0 - 100",
           description: "The beginning of your kindness journey.",
-          image: "src/assets/initiator.png",
+          image: "/assets/initiator.png",
         },
         {
           level: 2,
           name: "Sustainer",
           points: "101 - 200",
           description: "You maintain positive energy and kindness.",
-          image: "src/assets/sustainer.png",
+          image: "/assets/sustainer.png",
         },
         {
           level: 3,
           name: "Visionary",
           points: "201 - 300",
           description: "You inspire others with your forward-thinking acts.",
-          image: "src/assets/visionary.png",
+          image: "/assets/visionary.png",
         },
         {
           level: 4,
           name: "Creator",
           points: "301 - 400",
           description: "You actively create opportunities for kindness.",
-          image: "src/assets/creator.png",
+          image: "/assets/creator.png",
         },
         {
           level: 5,
           name: "Innovator",
           points: "401 - 500",
           description: "You bring new ideas to promote kindness.",
-          image: "src/assets/Innovator.png",
+          image: "/assets/Innovator.png",
         },
         {
           level: 6,
           name: "Accelerator",
           points: "501 - 600",
           description: "You accelerate positivity in your community.",
-          image: "src/assets/accelerator.png",
+          image: "/assets/accelerator.png",
         },
         {
           level: 7,
           name: "Transformer",
           points: "601 - 700",
           description: "You transform the lives of those around you.",
-          image: "src/assets/transformer.png",
+          image: "/assets/transformer.png",
         },
         {
           level: 8,
           name: "Healer",
           points: "701 - 800",
           description: "You bring peace and healing to others.",
-          image: "src/assets/healer.png",
+          image: "/assets/healer.png",
         },
         {
           level: 9,
           name: "Orchestrator",
           points: "801 - 900",
           description: "You lead efforts to spread kindness.",
-          image: "src/assets/orchestrator.png",
+          image: "/assets/orchestrator.png",
         },
         {
           level: 10,
           name: "Harmoniser",
           points: "901 - 1000",
           description: "You bring balance and harmony to the world.",
-          image: "src/assets/harmoniser.png",
+          image: "/assets/harmoniser.png",
         },
       ].map((level) => (
         <li key={level.level} className="aura-item">

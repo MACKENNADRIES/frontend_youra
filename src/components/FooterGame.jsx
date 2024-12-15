@@ -25,26 +25,26 @@ const Footer = () => {
         
         {/* First Platform */}
         <div className="platform platform-1">
-          <img src="src/assets/jumpplatform.png" alt="Platform" />
+          <img src="/assets/jumpplatform.png" alt="Platform" />
         </div>
         
         {/* Second Platform */}
         <div className="platform platform-2">
-          <img src="src/assets/jumpplatform.png" alt="Platform" />
+          <img src="/assets/jumpplatform.png" alt="Platform" />
         </div>
 
         {/* Third Platform */}
         <div className="platform platform-3">
-          <img src="src/assets/jumpplatform.png" alt="Platform" />
+          <img src="/assets/jumpplatform.png" alt="Platform" />
         </div>
 
         {/* Doodle */}
         <div className="doodle">
-          <img src="src/assets/doodler-left.png" alt="Doodle" />
+          <img src="/assets/doodler-left.png" alt="Doodle" />
         </div>
 
         {/* Healthbar */}
-        <img src="src/assets/healthbar.png" alt="Healthbar" className="healthbar" />
+        <img src="/assets/healthbar.png" alt="Healthbar" className="healthbar" />
         
         <div className="footer-text">
           <span className="footer-text--youra">YOURA</span> <br></br>
