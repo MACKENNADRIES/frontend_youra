@@ -28,12 +28,12 @@ const HomePage = () => {
 
   return (
     <div>
-<div class="hero-section">
-    <div class="hero-content">
-        <h1 class="hero-title">YOURA<br></br>Your Aura</h1>
-        <p class="hero-description">Spread kindness, expand your aura!</p>
+<div className="hero-section">
+    <div className="hero-content">
+        <h1 className="hero-title">YOURA<br></br>Your Aura</h1>
+        <p className="hero-description">Spread kindness, expand your aura!</p>
     </div>
-    <div class="hero-overlay"></div>
+    <div className="hero-overlay"></div>
 </div>
 
 
