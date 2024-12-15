@@ -6,8 +6,8 @@ import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal comp
 
 const RAKList = () => {
   const [raks, setRaks] = useState([]); // State to store fetched RAKs
-  const [filteredRaks, setFilteredRaks] = useState([]); // State for filtered RAKs
-  const [filter, setFilter] = useState("all"); // Filter state
+  const [sortedRaks, setSortedRaks] = useState([]); // State for sorted RAKs
+  const [sortOrder, setSortOrder] = useState("latest"); // Sorting state for completed RAKs
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const [auraData, setAuraData] = useState({}); // State to store aura data
@@ -19,7 +19,7 @@ const RAKList = () => {
       try {
         const data = await getCompletedRequestRAKs(); // Use the updated API function for completed requests
         setRaks(data);
-        setFilteredRaks(data); // Initialize filtered RAKs with all RAKs
+        setSortedRaks(data); // Initialize sorted RAKs with all RAKs
       } catch (err) {
         setError(err.message);
       } finally {
@@ -31,61 +31,17 @@ const RAKList = () => {
   }, []); // Empty dependency array ensures this runs once
 
   useEffect(() => {
-    const loadAuraData = async () => {
-      const auraLevels = [
-        { range: [0, 100], level: "Initiator" },
-        { range: [101, 200], level: "Sustainer" },
-        { range: [201, 300], level: "Visionary" },
-        { range: [301, 400], level: "Creator" },
-        { range: [401, 500], level: "Innovator" },
-        { range: [501, 600], level: "Accelerator" },
-        { range: [601, 700], level: "Transformer" },
-        { range: [701, 800], level: "Healer" },
-        { range: [801, 900], level: "Orchestrator" },
-        { range: [901, 10000], level: "Harmonizer" },
-      ];
-
-      const auraDataObj = {};
-      for (let rak of raks) {
-        const { aura_points_value } = rak;
-        for (let i = 0; i < auraLevels.length; i++) {
-          const { range, level } = auraLevels[i];
-          if (aura_points_value >= range[0] && aura_points_value <= range[1]) {
-            try {
-              const image = await import(
-                `../assets/${level.toLowerCase().replace(" ", "-")}.png`
-              );
-              auraDataObj[rak.id] = { level, badgeImage: image.default };
-            } catch (error) {
-              console.error(`Error loading image for ${level}:`, error);
-              auraDataObj[rak.id] = { level, badgeImage: null }; // Fallback if image fails to load
-            }
-            break; // Once the correct level is found, stop checking further levels
-          }
-        }
+    const sortRAKs = (raksList) => {
+      if (sortOrder === "latest") {
+        return [...raksList].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      } else if (sortOrder === "oldest") {
+        return [...raksList].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
       }
-
-      setAuraData(auraDataObj); // Update auraData with loaded data
+      return raksList;
     };
 
-    if (raks.length > 0) {
-      loadAuraData(); // Load aura data only after RAKs are fetched
-    }
-  }, [raks]);
-
-  useEffect(() => {
-    if (filter === "all") {
-      setFilteredRaks(raks);
-    } else if (filter === "claimed") {
-      setFilteredRaks(raks.filter((rak) => rak.status === "in progress"));
-    } else if (filter === "unclaimed") {
-      setFilteredRaks(raks.filter((rak) => rak.status === "open"));
-    } else if (filter === "request") {
-      setFilteredRaks(raks.filter((rak) => rak.rak_type === "request"));
-    } else if (filter === "offer") {
-      setFilteredRaks(raks.filter((rak) => rak.rak_type === "offer"));
-    }
-  }, [filter, raks]);
+    setSortedRaks(sortRAKs(raks));
+  }, [sortOrder, raks]);
 
   const handleClaimButtonClick = (rakId) => {
     console.log("Claiming RAK with ID:", rakId); // Add log to check
@@ -114,26 +70,23 @@ const RAKList = () => {
       <section className="container nes-container with-title">
         <h2 className="title">Random Acts of Kindness</h2>
         
-        {/* Filter Dropdown */}
-        <div className="filter-container">
-          <label htmlFor="filter">Filter by:</label>
+        {/* Sort Option */}
+        <div className="filter-container"> {/* Retaining the same CSS class */}
+          <label htmlFor="sortOrder">Sort by:</label>
           <select
-            id="filter"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
+            id="sortOrder"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
           >
-            <option value="all">All</option>
-            <option value="claimed">Claimed</option>
-            <option value="unclaimed">Unclaimed</option>
-            <option value="request">Request</option>
-            <option value="offer">Offer</option>
+            <option value="latest">Latest Completed</option>
+            <option value="oldest">Oldest Completed</option>
           </select>
         </div>
 
         {/* RAK List */}
-        {filteredRaks.length > 0 ? (
+        {sortedRaks.length > 0 ? (
           <ul className="rak-list">
-            {filteredRaks.map((rak) => {
+            {sortedRaks.map((rak) => {
               const aura = auraData[rak.id]; // Get the aura data for each RAK
               return (
                 <li key={rak.id} className="rak-item">
@@ -169,42 +122,10 @@ const RAKList = () => {
                           <span className="rak-completed">Completed</span>
                         )}
                       </p>
-                      
-                      <p className="rak-claim-status">
-                        Claim Status:{" "}
-                        {rak.claimed_by_username ? (
-                          <span className="rak-claimed">
-                            Claimed by {rak.claimed_by_username}
-                          </span>
-                        ) : (
-                          <span className="rak-unclaimed">Unclaimed</span>
-                        )}
-                      </p>
-                      
                       <p className="rak-aura-points">
                         Aura Points: {rak.aura_points_value}
                       </p>
-                      
-                      {rak.collaborators && rak.collaborators.length > 0 && (
-                        <p className="rak-collaborators">
-                          Collaborators:{" "}
-                          {rak.collaborators
-                            .map((collaborator) => collaborator.username)
-                            .join(", ")}
-                        </p>
-                      )}
                     </div>
-
-                    {/* Conditional Claim Button */}
-                    {rak.status === "completed" (
-                      <button
-                        className="claim-button"
-                        onClick={() => handleClaimButtonClick(rak.id)}
-                      >
-                        Pay it forward
-                      </button>
-
-                    )}
                   </div>
                 </li>
               );
@@ -215,7 +136,6 @@ const RAKList = () => {
         )}
       </section>
 
-        {/* TODO: make pay it forward modal, this will then need to tie up to the "make pay it forward endpoint" */}
       {/* Claim Modal */}
       <ClaimModal
         isOpen={showClaimModal}
