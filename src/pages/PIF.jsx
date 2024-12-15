@@ -140,10 +140,13 @@ const RAKList = () => {
                       </p>
                       {rak.status === "completed" && (
                         <button
-                          className="claim-button" // Same styling as other buttons
-                          onClick={() => handlePayItForwardClick(rak.id)}
+                          className="claim-button"
+                          onClick={() =>
+                            !rak.is_paid_forward && handlePayItForwardClick(rak.id)
+                          }
+                          disabled={rak.is_paid_forward} // Disable if already paid forward
                         >
-                          Pay it Forward
+                          {rak.is_paid_forward ? "Paid Forward" : "Pay it Forward"}
                         </button>
                       )}
                     </div>
