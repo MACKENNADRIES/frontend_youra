@@ -7,7 +7,7 @@ const AboutPage = () => {
   const featuredRef = useRef(null); // Reference for the featured section
   const [runnerPosition, setRunnerPosition] = useState(0); // State for runner's position
   const [isFacingRight, setIsFacingRight] = useState(true); // State to track direction
-  const [activeWaypoint, setActiveWaypoint] = useState(null); // Currently active waypoint
+  const [revealedWaypoints, setRevealedWaypoints] = useState([]); // Store revealed waypoints
 
   const [isAuraOpen, setIsAuraOpen] = useState(false);
 
@@ -29,44 +29,38 @@ const toggleAuraLevels = () => {
   // Waypoints configuration
   const waypoints = [
     { 
-      position: 50, 
-      content: "Welcome to YOURA", 
-      effect: "pop", 
-      image: "src/assets/pixelLogo.png" // Replace with the actual path to your image
-    },
-    { 
-      position: 150, 
-      content: "Create a Random Act of Kindness", 
+      position: 90, 
+      content: "Create Random Acts of Kindness", 
       effect: "pop", 
       image: "src/assets/createrak.png" 
     },
     { 
-      position: 250, 
-      content: "Offer kindness to someone in need", 
+      position: 280, 
+      content: "Offer kindness to somoene in need", 
       effect: "pop", 
       image: "src/assets/offer.png"
     },
     { 
-      position: 300, 
+      position: 480, 
       content: "Request kindness when you need help", 
       effect: "pop", 
       image: "src/assets/speechbubble.png" 
     },
     { 
-      position: 400, 
+      position: 690, 
       content: "Track claims and progress", 
       effect: "pop", 
       image: "src/assets/stat-icon.png" 
     },
     { 
-      position: 500, 
+      position: 840, 
       content: "Earn points!", 
       effect: "glow", 
       image: "src/assets/leaderboard.png" 
     },
     { 
-      position: 750, 
-      content: "Spread kindness and grow your aura", 
+      position: 980, 
+      content: "Grow your aura", 
       effect: "glow", 
       image: "src/assets/harmoniser.png" 
     },
@@ -102,40 +96,35 @@ const toggleAuraLevels = () => {
     const featureBounds = featuredRef.current.getBoundingClientRect(); // Get feature box bounds
     const featureLeft = featureBounds.left;
     const featureRight = featureBounds.right;
-
+  
     setRunnerPosition((prevPosition) => {
       const step = direction === "right" ? 20 : -20;
       let newPosition = prevPosition + step;
-
+  
       // Clamp the runner position within the feature box
       const clampedPosition = Math.max(
         featureLeft,
         Math.min(featureRight - 60, newPosition) // 60 = runner width
       );
-
+  
       // Update runner's position and direction
       runner.style.transform = `translateX(${clampedPosition - featureLeft}px) scaleX(${direction === "right" ? 1 : -1})`;
       setIsFacingRight(direction === "right");
-
+  
       // Update frame index for running animation
       setFrameIndex((prevFrameIndex) => (prevFrameIndex + 1) % runnerImages.length);
-
+  
       // Trigger waypoint visibility
       const currentWaypoint = waypoints.find(
         (waypoint) =>
           Math.abs(clampedPosition - (featureLeft + waypoint.position)) < 20 && // Trigger waypoint within range
-          (!activeWaypoint || activeWaypoint.position !== waypoint.position) // Avoid retriggering
+          !revealedWaypoints.some((wp) => wp.position === waypoint.position) // Avoid retriggering
       );
-
+  
       if (currentWaypoint) {
-        setActiveWaypoint(currentWaypoint);
-
-        // Remove the waypoint after 5 seconds
-        setTimeout(() => {
-          setActiveWaypoint(null);
-        }, 5000);
+        setRevealedWaypoints((prevWaypoints) => [...prevWaypoints, currentWaypoint]); // Add waypoint to revealed list
       }
-
+  
       return clampedPosition;
     });
   };
@@ -168,19 +157,21 @@ const toggleAuraLevels = () => {
   </div>
         <div className="stars"></div>
 
-        {/* Render Active Waypoint */}
-        {activeWaypoint && (
-          <div
-            className={`waypoint-popup ${activeWaypoint.effect || ""}`}
-            style={{
-              left: `${activeWaypoint.position}px`, // Fixed at its trigger position
-              transform: "translateX(-50%)",
-            }}
-          >
-            <p>{activeWaypoint.content}</p>
-            <img src={activeWaypoint.image} alt={activeWaypoint.content} />
-          </div>
-        )}
+{/* Render Revealed Waypoints */}
+{revealedWaypoints.map((waypoint) => (
+  <div
+    key={waypoint.position}
+    className={`waypoint-popup ${waypoint.effect || ""}`}
+    style={{
+      left: `${waypoint.position}px`, // Fixed at its trigger position
+      transform: "translateX(-50%)",
+    }}
+  >
+    <p>{waypoint.content}</p>
+    <img src={waypoint.image} alt={waypoint.content} />
+  </div>
+))}
+
 
         {/* Runner animation */}
         <div ref={runnerRef} className="runner"></div>
