@@ -4,16 +4,16 @@ import "./RAKList.css"; // Import the CSS file for 8-bit styling
 import "../components/PixelCanvas"; // Import the PixelCanvas component (kept as per your request)
 import ClaimModal from "../components/ClaimModal"; // Import the ClaimModal component
 // Import badge images for aura levels
-import InitiatorBadge from "/assets/initiator.png";
-import SustainerBadge from "/assets/sustainer.png";
-import VisionaryBadge from "/assets/visionary.png";
-import CreatorBadge from "/assets/creator.png";
-import InnovatorBadge from "/assets/innovator.png";
-import AcceleratorBadge from "/assets/accelerator.png";
-import TransformerBadge from "/assets/transformer.png";
-import HealerBadge from "/assets/healer.png";
-import OrchestratorBadge from "/assets/orchestrator.png";
-import HarmoniserBadge from "/assets/harmoniser.png";
+import InitiatorBadge from "../assets/initiator.png";
+import SustainerBadge from "../assets/sustainer.png";
+import VisionaryBadge from "../assets/visionary.png";
+import CreatorBadge from "../assets/creator.png";
+import InnovatorBadge from "../assets/innovator.png";
+import AcceleratorBadge from "../assets/accelerator.png";
+import TransformerBadge from "../assets/transformer.png";
+import HealerBadge from "../assets/healer.png";
+import OrchestratorBadge from "../assets/orchestrator.png";
+import HarmoniserBadge from "../assets/harmoniser.png";
 
 
 const RAKList = () => {

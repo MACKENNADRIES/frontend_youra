@@ -4,16 +4,16 @@ import { useAuth } from "../context/AuthContext"; // Import AuthContext
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 
 // Import badge images for aura levels
-import InitiatorBadge from "/assets/initiator.png";
-import SustainerBadge from "/assets/sustainer.png";
-import VisionaryBadge from "/assets/visionary.png";
-import CreatorBadge from "/assets/creator.png";
-import InnovatorBadge from "/assets/innovator.png";
-import AcceleratorBadge from "/assets/accelerator.png";
-import TransformerBadge from "/assets/transformer.png";
-import HealerBadge from "/assets/healer.png";
-import OrchestratorBadge from "/assets/orchestrator.png";
-import HarmoniserBadge from "/assets/harmoniser.png";
+import InitiatorBadge from "../assets/initiator.png";
+import SustainerBadge from "../assets/sustainer.png";
+import VisionaryBadge from "../assets/visionary.png";
+import CreatorBadge from "../assets/creator.png";
+import InnovatorBadge from "../assets/innovator.png";
+import AcceleratorBadge from "../assets/accelerator.png";
+import TransformerBadge from "../assets/transformer.png";
+import HealerBadge from "../assets/healer.png";
+import OrchestratorBadge from "../assets/orchestrator.png";
+import HarmoniserBadge from "../assets/harmoniser.png";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
