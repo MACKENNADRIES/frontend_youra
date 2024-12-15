@@ -39,7 +39,7 @@ body {
   position: relative;
   z-index: 2;
   text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Retro neon-style text shadow */
-  animation: fadeIn 2.5s forwards;
+
 }
 
 /* Hero title */
@@ -48,7 +48,6 @@ body {
   margin-bottom: 1rem;
   text-shadow: 0.5px 0.5px 0 #340825, 2px 2px 0 #841368; /* Neon-style shadow */
   letter-spacing: 3px; /* Extra spacing for retro look */
-  transform: perspective(600px) rotateX(10deg) rotateY(10deg); /* 3D effect */
   animation: fadeIn 2.5s forwards;
 }
 

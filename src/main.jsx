@@ -18,6 +18,7 @@ import AboutPage from './pages/AboutPage.jsx';
 
 
 
+
 // Layout for pages WITH Navbar
 const NavbarLayout = () => {
     return (
