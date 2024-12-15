@@ -33,6 +33,12 @@ button:disabled {
   margin: 0 auto;
   padding: 20px;
 }
+.restricted-message {
+  color: #d9534f; /* Bootstrap danger color or any color you prefer */
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 10px;
+}
 
 /* Main Container Styling */
 .container {

@@ -16,6 +16,10 @@ const RAKList = () => {
   const [showClaimModal, setShowClaimModal] = useState(false); // ClaimModal visibility
   const [selectedRakId, setSelectedRakId] = useState(null); // Selected RAK ID
 
+  // Get the current logged-in user from localStorage
+  var user = localStorage.getItem("user");
+  user = JSON.parse(user);
+
   const fetchRAKs = async () => {
     try {
       setLoading(true);
@@ -134,6 +138,10 @@ const RAKList = () => {
           <ul className="rak-list">
             {filteredRaks.map((rak) => {
               const aura = auraData[rak.id];
+              const showRestrictedMessage =
+                rak.rak_type === "request" &&
+                rak.created_by_username !== user.username;
+
               return (
                 <li key={rak.id} className="rak-item">
                   <div className="rak-header">
@@ -168,7 +176,12 @@ const RAKList = () => {
                         Aura Points: {rak.aura_points_value}
                       </p>
                     </div>
-                    {rak.status === "in progress" && (
+                    {showRestrictedMessage && (
+                      <p className="restricted-message">
+                        Only the requester can complete this RAK.
+                      </p>
+                    )}
+                    {!showRestrictedMessage && rak.status === "in progress" && (
                       <button
                         className="claim-button"
                         onClick={() => handleCompleteButtonClick(rak.id)}
